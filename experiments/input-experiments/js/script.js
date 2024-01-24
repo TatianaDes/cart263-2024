@@ -8,26 +8,24 @@ author, and this description to match your project!
 
 "use strict";
 
+const speechRecognizer = new p5.SpeechRec();
+let backgroundColor = `black`;
 
-/**
-Description of preload
-*/
-function preload() {
-
-}
-
-
-/**
-Description of setup
-*/
 function setup() {
+    createCanvas(500, 500);
 
+    speechRecognizer.onResult = handleSpeechInput;
+    speechRecognizer.continuous = true;
+    speechRecognizer.interimResults = true;
+    speechRecognizer.start();
 }
 
 
-/**
-Description of draw()
-*/
 function draw() {
+    background(backgroundColor);
+}
 
+function handleSpeechInput() {
+    let words = speechRecognizer.resultString.split(` `);
+    backgroundColor = words.pop();
 }
