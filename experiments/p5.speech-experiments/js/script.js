@@ -8,20 +8,14 @@ author, and this description to match your project!
 
 "use strict";
 
-
-/**
-Description of preload
-*/
-function preload() {
-
-}
-
+let recognizer = new p5.SpeechRec();
 
 /**
 Description of setup
 */
 function setup() {
-
+    recognizer.onResult = handleResult;
+    recognizer.start();
 }
 
 
@@ -30,4 +24,8 @@ Description of draw()
 */
 function draw() {
 
+}
+
+function handleResult() {
+    console.log(recognizer.resultString);
 }
