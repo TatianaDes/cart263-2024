@@ -1,43 +1,30 @@
-/**
-Title of Project
-Author Name
+"use strict"
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
-*/
+let jokeText = ``; // The current joke.
+let jokeData = undefined; // The loaded joke data
 
-"use strict";
-
-let tarotData = undefined;
-/**
-Description of preload
-*/
 function preload() {
-    tarotData = loadJSON(`assets/data/tarot_interpretations.json`);
+    jokeData = loadJSON(`https://official-joke-api.appspot.com/jokes/programming/random`);
 }
 
-
-/**
-Description of setup
-*/
 function setup() {
     createCanvas(windowWidth, windowHeight);
+
+    // We get the joke object as the first element of the array
+    let joke = jokeData[0];
+    // Set the joke text as the setup and punchline properties together
+    jokeText = `${joke.setup}\n\n${joke.punchline}`;
 }
 
-
-/**
-Description of draw()
-*/
 function draw() {
-    background(255);
+    background(0);
 
-    let description = tarotData.description;
-
+    // Display the current joke
     push();
+    fill(255, 255, 0);
     textSize(32);
-    textAlign(CENTER);
-    fill(0);
-    text(description, width / 2, height / 2);
+    textAlign(CENTER, CENTER);
+    rectMode(CENTER);
+    text(jokeText, width / 2, height / 2, width / 2, height / 2);
     pop();
-
 }
