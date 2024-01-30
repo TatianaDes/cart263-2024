@@ -7,48 +7,64 @@ This is a portotype of a program about the importance of being kind towards all 
 
 "use strict";
 
-// Stating the currentState variable
-let currentState;
+let state = `title`; // Can be: title, simulation
 
-// preload() creates the images I wish to put in my program
+/**
+ * Description of preload
+*/
 function preload() {
 
 }
 
-// setup() creates the canvas and the new classes
 function setup() {
     createCanvas(500, 500);
 
-    // Stating what class should be called when starting the program
-    currentState = new Title();
-
-    // Text settings
-    textSize(32);
-    textAlign(CENTER, CENTER);
-
 }
 
-// draw() displays all the different states and their functions
+
 function draw() {
+    background(253, 222, 247);
 
-    // Drawing the current state
-    currentState.draw();
+    // Setting up all the different states
+    if (state === `title`) {
+        title();
+    }
+    else if (state === `simulation`) {
+        simulation();
+    }
 }
 
-// Calls the mousePressed function to work
-function mousePressed() {
-    // Allows all mousePressed functions to work in the program
-    currentState.mousePressed();
+function title() {
+    // Title state
+    push();
+    textSize(50);
+    fill(247, 130, 189);
+    textAlign(CENTER, CENTER);
+    text(`Say Please`, width / 2, height / 2);
+    pop();
+
+    push();
+    textSize(17);
+    fill(206, 90, 130);
+    textAlign(CENTER, CENTER);
+    text(`(Please press the Space Bar to Start)`, width / 2, 300);
+    pop();
+
+    push();
+    textSize(15);
+    fill(197, 62, 93);
+    text(`Please use your microphone to speak to the computer`, 120, 470);
+    pop();
+}
+
+function simulation() {
+    // Simulation state
+
 }
 
 // Calls the keyPressed function to work
 function keyPressed() {
-    // Allows all keyPressed functions to work in the program
-    currentState.keyPressed(keyCode);
-}
-
-// Calls the keyReleased function to work
-function keyReleased() {
-    // Allows all keyReleased functions to work in the program
-    currentState.keyReleased(keyCode);
+    if (state === `title`) {
+        state = `simulation`;
+    }
 }
