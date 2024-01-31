@@ -11,7 +11,7 @@ let state = `title`; // Can be: title, simulation
 
 const commands = [
     {
-        "command": /i am lost (.*)/,
+        "command": /i feel lost (.*)/,
         "callback": setText
     },
     {
@@ -19,11 +19,11 @@ const commands = [
         "callback": setRed
     },
     {
-        "command": /set the text color to (.*) gray/,
+        "command": /i keep procrasting my work (.*)/,
         "callback": setTextColor
     },
     {
-        "command": /set the background to (\d+) (\d+) (\d+)/,
+        "command": /how do i know i can trust you (.*)/,
         "callback": setBackground
     }
 ];
@@ -32,10 +32,25 @@ const speechSynthesizer = new p5.Speech();
 const voiceRecognizer = new p5.SpeechRec();
 
 let showSubtitle = false;
-let toSay = `i'm crawling through\n your air conditioning\n ducts right now.`;
+// kindComp();
+let toSay = `i'm crawling through your air conditioning ducts right now.`;
+// upsetComp();
 let toSay2 = `i will find you.`;
+
+// niceComp();
 let toSay3 = `sometimes lessons need to be learned through tough experiences, but you will get through this.`;
+// rudeComp();
 let toSay4 = `the only advice i have for you is that you should watch your back.`;
+
+// happyComp();
+let toSay5 = `i'm crawling through your air conditioning ducts right now.`;
+// angryComp();
+let toSay6 = `i will find you.`;
+
+// goodComp();
+let toSay7 = `sometimes lessons need to be learned through tough experiences, but you will get through this.`;
+// evilComp();
+let toSay8 = `the only advice i have for you is that you should watch your back.`;
 
 let displayText = `...`;
 let bgColor = {
@@ -51,11 +66,6 @@ function setup() {
     voiceRecognizer.continuous = true;
     voiceRecognizer.onResult = handleCommand;
     voiceRecognizer.start();
-
-    // Synthesis settings
-    speechSynthesizer.setPitch(0.2);
-    speechSynthesizer.setRate(0.5);
-    speechSynthesizer.setVoice(`Google UK English Male`);
 
     speechSynthesizer.onStart = () => {
         showSubtitle = true;
@@ -138,7 +148,7 @@ function handleCommand() {
 }
 
 function setText(data) {
-    if (data[1] === "please help me" || data[1] === "help me please") {
+    if (data[1] === "please help me." || data[1] === "help me please.") {
         kindComp();
     }
     else {
@@ -149,15 +159,22 @@ function setText(data) {
 function kindComp() {
     // computer answers of course I will help you!
     // Say something!
+    speechSynthesizer.setPitch(1);
+    speechSynthesizer.setRate(1);
+    speechSynthesizer.setVoice(`Microsoft Linda - English (Canada)`);
     speechSynthesizer.speak(toSay);
 }
 function upsetComp() {
     // computer doesn't help
+    // Synthesis settings
+    speechSynthesizer.setPitch(0.2);
+    speechSynthesizer.setRate(0.5);
+    speechSynthesizer.setVoice(`Google UK English Male`);
     speechSynthesizer.speak(toSay2);
 }
 
 function setRed(data) {
-    if (data[1] === "please let me know what i can do" || data[1] === "tell me what to do please") {
+    if (data[1] === "please let me know what i can do." || data[1] === "tell me what to do please.") {
         niceComp();
     }
     else {
@@ -178,15 +195,41 @@ function rudeComp() {
 
 
 function setTextColor(data) {
-    textColor = parseInt(data[1]);
+    if (data[1] === "please give me advice on how to get motivated." || data[1] === "motivate me please.") {
+        happyComp();
+    }
+    else {
+        angryComp();
+    }
+}
+
+function happyComp() {
+    // computer answers of course I will help you!
+    // Say something!
+    speechSynthesizer.speak(toSay5);
+}
+function angryComp() {
+    // computer doesn't help
+    speechSynthesizer.speak(toSay6);
 }
 
 function setBackground(data) {
-    if (data.length > 3) {
-        bgColor.r = parseInt(data[1]);
-        bgColor.g = parseInt(data[2]);
-        bgColor.b = parseInt(data[3]);
+    if (data[1] === "please prove it to me" || data[1] === "prove it to me please") {
+        goodComp();
     }
+    else {
+        evilComp();
+    }
+}
+
+function goodComp() {
+    // computer answers of course I will help you!
+    // Say something!
+    speechSynthesizer.speak(toSay7);
+}
+function evilComp() {
+    // computer doesn't help
+    speechSynthesizer.speak(toSay8);
 }
 
 function speechStarted() {
