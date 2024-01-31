@@ -7,13 +7,15 @@ This is a portotype of a program about the importance of being kind towards all 
 
 "use strict";
 
+let state = `title`; // Can be: title, simulation
+
 const commands = [
     {
-        "command": /set the text to (.*)/,
+        "command": /i am lost (.*)/,
         "callback": setText
     },
     {
-        "command": /set the red value to (.*)/,
+        "command": /i need words of wisdom (.*)/,
         "callback": setRed
     },
     {
@@ -26,7 +28,14 @@ const commands = [
     }
 ];
 
+const speechSynthesizer = new p5.Speech();
 const voiceRecognizer = new p5.SpeechRec();
+
+let showSubtitle = false;
+let toSay = `i'm crawling through\n your air conditioning\n ducts right now.`;
+let toSay2 = `i will find you.`;
+let toSay3 = `sometimes lessons need to be learned through tough experiences, but you will get through this.`;
+let toSay4 = `the only advice i have for you is that you should watch your back.`;
 
 let displayText = `...`;
 let bgColor = {
@@ -37,15 +46,66 @@ let bgColor = {
 let textColor = 255;
 
 function setup() {
-    createCanvas(400, 400);
+    createCanvas(500, 500);
 
     voiceRecognizer.continuous = true;
     voiceRecognizer.onResult = handleCommand;
     voiceRecognizer.start();
+
+    // Synthesis settings
+    speechSynthesizer.setPitch(0.2);
+    speechSynthesizer.setRate(0.5);
+    speechSynthesizer.setVoice(`Google UK English Male`);
+
+    speechSynthesizer.onStart = () => {
+        showSubtitle = true;
+    };
+    speechSynthesizer.onEnd = () => {
+        showSubtitle = false;
+    };
+
+    console.log(speechSynthesizer.listVoices());
 }
 
 function draw() {
-    background(bgColor.r, bgColor.g, bgColor.b);
+    background(253, 222, 247);
+
+    // Setting up all the different states
+    if (state === `title`) {
+        title();
+    }
+    else if (state === `simulation`) {
+        simulation();
+    };
+}
+
+function title() {
+    // Title state
+    push();
+    textSize(50);
+    fill(247, 130, 189);
+    textAlign(CENTER, CENTER);
+    text(`Say Please`, width / 2, height / 2);
+    pop();
+
+    push();
+    textSize(17);
+    fill(206, 90, 130);
+    textAlign(CENTER, CENTER);
+    text(`(Please press the Space Bar to Start)`, width / 2, 300);
+    pop();
+
+    push();
+    textSize(15);
+    fill(197, 62, 93);
+    text(`Please use your microphone to speak to the computer`, width / 4, 470);
+    pop();
+}
+
+
+function simulation() {
+    // Simulation state
+    background(231, 107, 140);
 
     push()
     textAlign(CENTER, CENTER);
@@ -53,6 +113,13 @@ function draw() {
     fill(textColor);
     text(displayText, width / 2, height / 2);
     pop();
+}
+
+// Calls the keyPressed function to work
+function keyPressed() {
+    if (state === `title`) {
+        state = `simulation`;
+    }
 }
 
 function handleCommand() {
@@ -71,12 +138,44 @@ function handleCommand() {
 }
 
 function setText(data) {
-    displayText = data[1];
+    if (data[1] === "please help me" || data[1] === "help me please") {
+        kindComp();
+    }
+    else {
+        upsetComp();
+    }
+}
+
+function kindComp() {
+    // computer answers of course I will help you!
+    // Say something!
+    speechSynthesizer.speak(toSay);
+}
+function upsetComp() {
+    // computer doesn't help
+    speechSynthesizer.speak(toSay2);
 }
 
 function setRed(data) {
-    bgColor.r = parseInt(data[1]);
+    if (data[1] === "please let me know what i can do" || data[1] === "tell me what to do please") {
+        niceComp();
+    }
+    else {
+        rudeComp();
+    }
 }
+
+function niceComp() {
+    // computer answers of course I will help you!
+    // Say something!
+    speechSynthesizer.speak(toSay3);
+}
+function rudeComp() {
+    // computer doesn't help
+    speechSynthesizer.speak(toSay4);
+}
+
+
 
 function setTextColor(data) {
     textColor = parseInt(data[1]);
@@ -88,6 +187,14 @@ function setBackground(data) {
         bgColor.g = parseInt(data[2]);
         bgColor.b = parseInt(data[3]);
     }
+}
+
+function speechStarted() {
+    showSubtitle = true;
+}
+
+function speechEnded() {
+    showSubtitle = false;
 }
 
 // let state = `title`; // Can be: title, simulation
