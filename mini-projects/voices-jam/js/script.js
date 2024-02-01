@@ -31,28 +31,6 @@ const commands = [
 const speechSynthesizer = new p5.Speech();
 const voiceRecognizer = new p5.SpeechRec();
 
-let showSubtitle = false;
-
-// kindComp();
-let toSay1 = `when you feel lost, you can always remember that there are good people in your life willing to help you.`;
-// upsetComp();
-let toSay2 = `i will find you.`;
-
-// niceComp();
-let toSay3 = `sometimes lessons need to be learned through tough experiences, but you will get through this.`;
-// rudeComp();
-let toSay4 = `the only advice i have for you is that you should watch your back.`;
-
-// happyComp();
-let toSay5 = `have you thought about making yourself a schedule? give yourself periods of time when you are working and when you are taking breaks.`;
-// angryComp();
-let toSay6 = `if you keep procrastinating your work, i will shut off this computer and you will not want to know what is behind your door.`;
-
-// goodComp();
-let toSay7 = `because i am just a computer spitting back all the information humans have already put into me. so you have nothing to fear, think of me as a human being but with a lot quicker capabilities.`;
-// evilComp();
-let toSay8 = `you are right, maybe you should not trust me, how do you know i am not in your house right now. you hear that rustling outside your door, how do you know it is not me?`;
-
 let displayText = `...`;
 let bgColor = {
     r: 0,
@@ -67,13 +45,6 @@ function setup() {
     voiceRecognizer.continuous = true;
     voiceRecognizer.onResult = handleCommand;
     voiceRecognizer.start();
-
-    speechSynthesizer.onStart = () => {
-        showSubtitle = true;
-    };
-    speechSynthesizer.onEnd = () => {
-        showSubtitle = false;
-    };
 
     console.log(speechSynthesizer.listVoices());
 }
@@ -165,6 +136,15 @@ function handleCommand() {
     }
 }
 
+function say(text, pitch, rate, voice) {
+    speechSynthesizer.setPitch(pitch);
+    speechSynthesizer.setRate(rate);
+    speechSynthesizer.setVoice(voice);
+    speechSynthesizer.speak(text);
+
+    displayText = text;
+}
+
 function setLost(data) {
     if (data[1] === "please help me" || data[1] === "help me please") {
         kindComp();
@@ -175,20 +155,10 @@ function setLost(data) {
 }
 
 function kindComp() {
-    // computer answers of course I will help you!
-    // Say something!
-    speechSynthesizer.setPitch(1);
-    speechSynthesizer.setRate(1);
-    speechSynthesizer.setVoice(`Microsoft Linda - English (Canada)`);
-    speechSynthesizer.speak(toSay1);
+    say(`when you feel lost,\n you can always remember\n that there are good people\n in your life willing to help you.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
 }
 function upsetComp() {
-    // computer doesn't help
-    // Synthesis settings
-    speechSynthesizer.setPitch(0.2);
-    speechSynthesizer.setRate(0.5);
-    speechSynthesizer.setVoice(`Google UK English Male`);
-    speechSynthesizer.speak(toSay2);
+    say(`i will find you.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
 }
 
 function setWisdom(data) {
@@ -201,20 +171,10 @@ function setWisdom(data) {
 }
 
 function niceComp() {
-    // computer answers of course I will help you!
-    // Say something!
-    speechSynthesizer.setPitch(1);
-    speechSynthesizer.setRate(1);
-    speechSynthesizer.setVoice(`Microsoft Linda - English (Canada)`);
-    speechSynthesizer.speak(toSay3);
+    say(`sometimes lessons need to be learned\n through tough experiences,\n but you will get through this.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
 }
 function rudeComp() {
-    // computer doesn't help
-    // Synthesis settings
-    speechSynthesizer.setPitch(1);
-    speechSynthesizer.setRate(1);
-    speechSynthesizer.setVoice(`Microsoft Linda - English (Canada)`);
-    speechSynthesizer.speak(toSay4);
+    say(`the only advice i have for\n you is that you should\n watch your back.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
 }
 
 
@@ -229,19 +189,10 @@ function setFocus(data) {
 }
 
 function happyComp() {
-    // computer answers of course I will help you!
-    // Say something!
-    speechSynthesizer.setPitch(1);
-    speechSynthesizer.setRate(1);
-    speechSynthesizer.setVoice(`Microsoft Linda - English (Canada)`);
-    speechSynthesizer.speak(toSay5);
+    say(`have you thought about making yourself a schedule?\n give yourself periods of time when you are working\n and when you are taking breaks.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
 }
 function angryComp() {
-    // computer doesn't help
-    speechSynthesizer.setPitch(1);
-    speechSynthesizer.setRate(1);
-    speechSynthesizer.setVoice(`Microsoft Linda - English (Canada)`);
-    speechSynthesizer.speak(toSay6);
+    say(`if you keep procrastinating your work,\n i will shut off this computer and you will\n not want to know what is behind your door.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
 }
 
 function setTrust(data) {
@@ -254,27 +205,10 @@ function setTrust(data) {
 }
 
 function goodComp() {
-    // computer answers of course I will help you!
-    // Say something!
-    speechSynthesizer.setPitch(1);
-    speechSynthesizer.setRate(1);
-    speechSynthesizer.setVoice(`Microsoft Linda - English (Canada)`);
-    speechSynthesizer.speak(toSay7);
+    say(`because i am just a computer spitting back all the information\n humans have already put into me.\n so you have nothing to fear,\n think of me as a human being but with a lot quicker capabilities.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
 }
 function evilComp() {
-    // computer doesn't help
-    speechSynthesizer.setPitch(1);
-    speechSynthesizer.setRate(1);
-    speechSynthesizer.setVoice(`Microsoft Linda - English (Canada)`);
-    speechSynthesizer.speak(toSay8);
-}
-
-function speechStarted() {
-    showSubtitle = true;
-}
-
-function speechEnded() {
-    showSubtitle = false;
+    say(`you are right,\n maybe you should not trust me,\n how do you know i am not in your house right now.\n you hear that rustling outside your door,\n how do you know it is not me?`, 1, 0.4, `Microsoft Linda - English (Canada)`);
 }
 
 // Calls the keyPressed function to work
