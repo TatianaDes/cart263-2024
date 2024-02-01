@@ -19,8 +19,8 @@ const commands = [
         "callback": setWisdom
     },
     {
-        "command": /i keep procrastinating my work (.*)/,
-        "callback": setProcrastinating
+        "command": /i cannot focus on work (.*)/,
+        "callback": setFocus
     },
     {
         "command": /how do i know i can trust you (.*)/,
@@ -34,7 +34,7 @@ const voiceRecognizer = new p5.SpeechRec();
 let showSubtitle = false;
 
 // kindComp();
-let toSay = `when you feel lost, you can always remember that there are good people in your life willing to help you.`;
+let toSay1 = `when you feel lost, you can always remember that there are good people in your life willing to help you.`;
 // upsetComp();
 let toSay2 = `i will find you.`;
 
@@ -85,6 +85,9 @@ function draw() {
     if (state === `title`) {
         title();
     }
+    else if (state === `instructions`) {
+        instructions();
+    }
     else if (state === `simulation`) {
         simulation();
     };
@@ -126,11 +129,25 @@ function simulation() {
     pop();
 }
 
-// Calls the keyPressed function to work
-function keyPressed() {
-    if (state === `title`) {
-        state = `simulation`;
-    }
+function instructions() {
+
+    push();
+    background(220, 134, 157);
+    textSize(30);
+    fill(139, 24, 55);
+    textAlign(CENTER, CENTER);
+    text(`Instructions`, width / 2, height / 10);
+    textSize(20);
+    fill(184, 40, 78);
+    textAlign(CENTER, CENTER);
+    text(`1. Please tell the computer: "I feel lost",\n or "I need words of wisdom",\n or "I cannot focus on work",\n or "How do i know i can trust you"`, width / 2, height / 3);
+    text(`2. Please then ask the computer\n for help after each command,\n but always remember to say please...`, width / 2, height / 1.8);
+    textSize(15);
+    fill(253, 208, 220);
+    textAlign(CENTER, CENTER);
+    text(`(Please press the Space Bar to Continue)`, width / 2, height / 1.05);
+    pop();
+
 }
 
 function handleCommand() {
@@ -149,7 +166,7 @@ function handleCommand() {
 }
 
 function setLost(data) {
-    if (data[1] === "please help me." || data[1] === "help me please.") {
+    if (data[1] === "please help me" || data[1] === "help me please") {
         kindComp();
     }
     else {
@@ -163,7 +180,7 @@ function kindComp() {
     speechSynthesizer.setPitch(1);
     speechSynthesizer.setRate(1);
     speechSynthesizer.setVoice(`Microsoft Linda - English (Canada)`);
-    speechSynthesizer.speak(toSay);
+    speechSynthesizer.speak(toSay1);
 }
 function upsetComp() {
     // computer doesn't help
@@ -175,7 +192,7 @@ function upsetComp() {
 }
 
 function setWisdom(data) {
-    if (data[1] === "please let me know what i can do." || data[1] === "tell me what to do please.") {
+    if (data[1] === "please let me know what i can do" || data[1] === "tell me what to do please") {
         niceComp();
     }
     else {
@@ -202,8 +219,8 @@ function rudeComp() {
 
 
 
-function setProcrastinating(data) {
-    if (data[1] === "please give me advice on how to get motivated." || data[1] === "motivate me please.") {
+function setFocus(data) {
+    if (data[1] === "please help motivate me" || data[1] === "motivate me please") {
         happyComp();
     }
     else {
@@ -258,4 +275,14 @@ function speechStarted() {
 
 function speechEnded() {
     showSubtitle = false;
+}
+
+// Calls the keyPressed function to work
+function keyPressed() {
+    if (state === `title`) {
+        state = `instructions`;
+    }
+    else if (state === `instructions`) {
+        state = `simulation`;
+    }
 }
