@@ -7,6 +7,7 @@ This is a portotype of a program about the importance of being kind towards all 
 
 "use strict";
 
+// Set the starting state
 let state = `title`; // Can be: title, simulation
 
 const commands = [
@@ -32,11 +33,6 @@ const speechSynthesizer = new p5.Speech();
 const voiceRecognizer = new p5.SpeechRec();
 
 let displayText = `...`;
-let bgColor = {
-    r: 0,
-    g: 0,
-    b: 0
-};
 let textColor = 255;
 
 function setup() {
@@ -155,10 +151,10 @@ function setLost(data) {
 }
 
 function kindComp() {
-    say(`when you feel lost,\n you can always remember\n that there are good people\n in your life willing to help you.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
+    say(`when you feel lost,\n you can always remember\n that there are good people\n in your life willing to help you.`, 1, 1, `Microsoft Linda - English (Canada)`);
 }
 function upsetComp() {
-    say(`i will find you.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
+    say(`i will find you.`, 0.2, 0.4, `Google UK English Male`);
 }
 
 function setWisdom(data) {
@@ -171,10 +167,10 @@ function setWisdom(data) {
 }
 
 function niceComp() {
-    say(`sometimes lessons need to be learned\n through tough experiences,\n but you will get through this.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
+    say(`sometimes lessons need to be learned\n through tough experiences,\n but you will get through this.`, 4, 1.5, `Microsoft David - English (United States)`);
 }
 function rudeComp() {
-    say(`the only advice i have for\n you is that you should\n watch your back.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
+    say(`the only advice i have for\n you is that you should\n watch your back.`, 0.1, 0.4, `Google UK English Female`);
 }
 
 
@@ -189,10 +185,10 @@ function setFocus(data) {
 }
 
 function happyComp() {
-    say(`have you thought about making yourself a schedule?\n give yourself periods of time when you are working\n and when you are taking breaks.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
+    say(`have you thought about making yourself a schedule?\n give yourself periods of time when you are working\n and when you are taking breaks.`, 5, 1, `Microsoft Zira - English (United States)`);
 }
 function angryComp() {
-    say(`if you keep procrastinating your work,\n i will shut off this computer and you will\n not want to know what is behind your door.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
+    say(`if you keep procrastinating your work,\n i will shut off this computer and you will\n not want to know what is behind your door.`, 0.1, 0.4, `Microsoft Richard - English (Canada)`);
 }
 
 function setTrust(data) {
@@ -205,11 +201,12 @@ function setTrust(data) {
 }
 
 function goodComp() {
-    say(`because i am just a computer spitting back all the information\n humans have already put into me.\n so you have nothing to fear,\n think of me as a human being but with a lot quicker capabilities.`, 1, 0.4, `Microsoft Linda - English (Canada)`);
+    say(`because i am just a computer spitting back all the information\n humans have already put into me.\n so you have nothing to fear,\n think of me as a human being but with a lot quicker capabilities.`, 5, 0.8, `Microsoft Mark - English (United States)`);
 }
 function evilComp() {
-    say(`you are right,\n maybe you should not trust me,\n how do you know i am not in your house right now.\n you hear that rustling outside your door,\n how do you know it is not me?`, 1, 0.4, `Microsoft Linda - English (Canada)`);
+    say(`you are right,\n maybe you should not trust me,\n how do you know i am not in your house right now.`, 0.1, 0.3, `Google UK English Male`);
 }
+//\n you hear that rustling outside your door,\n how do you know it is not me?
 
 // Calls the keyPressed function to work
 function keyPressed() {
