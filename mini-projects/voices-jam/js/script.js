@@ -38,6 +38,10 @@ const voiceRecognizer = new p5.SpeechRec();
 let displayText = `...`;
 let textColor = 255;
 
+
+let bgColor = (190, 83, 107);
+let sizingText = 48;
+
 // setup() creates the canvas and the microphone being able to be turned on as well as picked up on by the console
 function setup() {
     createCanvas(500, 500);
@@ -92,11 +96,10 @@ function title() {
 // Creates the simulation state that calls the display text variable at the top with its text colour
 function simulation() {
     // Simulation state
-    background(231, 107, 140);
-
-    push()
+    push();
+    background(bgColor);
     textAlign(CENTER, CENTER);
-    textSize(48);
+    textSize(sizingText);
     fill(textColor);
     text(displayText, width / 2, height / 2);
     pop();
@@ -162,10 +165,16 @@ function setLost(data) {
 
 // Creates a response from the compter that is kind if the callback matched with the right lost data
 function kindComp() {
+    bgColor = color(105, 143, 46);
+    textColor = color(32, 83, 52);
+    sizingText = (30);
     say(`when you feel lost,\n you can always remember\n that there are good people\n in your life willing to help you.`, 1, 1, `Microsoft Linda - English (Canada)`);
 }
 // Creates a response from the computer that is upset if the callback does not match with the right lost data
 function upsetComp() {
+    bgColor = color(174, 57, 57);
+    textColor = color(112, 45, 45);
+    sizingText = (48);
     say(`i will find you.`, 0.2, 0.4, `Google UK English Male`);
 }
 
@@ -182,10 +191,16 @@ function setWisdom(data) {
 
 // Creates a response from the compter that is nice if the callback matched with the right wisdom data
 function niceComp() {
-    say(`sometimes lessons need to be learned\n through tough experiences,\n but you will get through this.`, 4, 1.5, `Microsoft David - English (United States)`);
+    bgColor = color(92, 148, 76);
+    textColor = color(139, 217, 159);
+    sizingText = (30);
+    say(`sometimes lessons need\n to be learned through\n tough experiences,\n but you will get through this.`, 4, 1.5, `Microsoft David - English (United States)`);
 }
 // Creates a response from the computer that is rude if the callback does not match with the right wisdom data
 function rudeComp() {
+    bgColor = color(209, 29, 29);
+    textColor = color(239, 192, 192);
+    sizingText = (30);
     say(`the only advice i have for\n you is that you should\n watch your back.`, 0.1, 0.4, `Google UK English Female`);
 }
 
@@ -202,11 +217,17 @@ function setFocus(data) {
 
 // Creates a response from the compter that is happy if the callback matched with the right focus data
 function happyComp() {
-    say(`have you thought about making yourself a schedule?\n give yourself periods of time when you are working\n and when you are taking breaks.`, 5, 1, `Microsoft Zira - English (United States)`);
+    bgColor = color(42, 99, 55);
+    textColor = color(115, 185, 132);
+    sizingText = (30);
+    say(`have you thought about\n making yourself a schedule?\n give yourself periods of time when\n you are working and when you\n are taking breaks.`, 5, 1, `Microsoft Zira - English (United States)`);
 }
 // Creates a response from the computer that is angry if the callback does not match with the right focus data
 function angryComp() {
-    say(`if you keep procrastinating your work,\n i will shut off this computer and you will\n not want to know what is behind your door.`, 0.1, 0.4, `Microsoft Richard - English (Canada)`);
+    bgColor = color(176, 90, 90);
+    textColor = color(141, 27, 27);
+    sizingText = (30);
+    say(`if you keep procrastinating\n your work, i will shut off this\n computer and you will not\n want to know what is\n behind your door.`, 0.1, 0.4, `Microsoft Richard - English (Canada)`);
 }
 
 
@@ -222,11 +243,17 @@ function setTrust(data) {
 
 // Creates a response from the compter that is good if the callback matched with the right trust data
 function goodComp() {
-    say(`because i am just a computer spitting back all the information\n humans have already put into me.\n so you have nothing to fear,\n think of me as a human being but with a lot quicker capabilities.`, 5, 0.8, `Microsoft Mark - English (United States)`);
+    bgColor = color(192, 224, 179);
+    textColor = color(79, 146, 53);
+    sizingText = (30);
+    say(`because i am just a computer\n spitting back all the information\n humans have already put into me.\n so you have nothing to fear,\n think of me as a human being but\n with a lot quicker capabilities.`, 5, 0.8, `Microsoft Mark - English (United States)`);
 }
 // Creates a response from the computer that is evil if the callback does not match with the right trust data
 function evilComp() {
-    say(`you are right,\n maybe you should not trust me,\n how do you know i am not in your house right now.`, 0.1, 0.3, `Google UK English Male`);
+    bgColor = color(94, 21, 21);
+    textColor = color(200, 63, 63);
+    sizingText = (30);
+    say(`you are right,\n maybe you should not trust me,\n how do you know i am not in your\n house right now.`, 0.1, 0.3, `Google UK English Male`);
 }
 
 // Computer stops taking outloud when the rest of this sentence is added to the evilComp() and I do not know why.
