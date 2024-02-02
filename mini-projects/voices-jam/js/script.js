@@ -39,7 +39,7 @@ let displayText = `...`;
 let textColor = 255;
 
 
-let bgColor = (190, 83, 107);
+let bgColor = `#c8668a`;
 let sizingText = 48;
 
 // setup() creates the canvas and the microphone being able to be turned on as well as picked up on by the console
