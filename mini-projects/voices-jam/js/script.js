@@ -10,6 +10,7 @@ This is a portotype of a program about the importance of being kind towards all 
 // Set the starting state
 let state = `title`; // Can be: title, simulation
 
+// Create the commands needed for the computer to understand your request
 const commands = [
     {
         "command": /i feel lost (.*)/,
@@ -29,12 +30,15 @@ const commands = [
     }
 ];
 
+// Allowing a your voice to be recognized by the computer and having the computer respond to you by constants
 const speechSynthesizer = new p5.Speech();
 const voiceRecognizer = new p5.SpeechRec();
 
+// Displaying the initial text and colour of the text before the subtitles come on from the computer
 let displayText = `...`;
 let textColor = 255;
 
+// setup() creates the canvas and the microphone being able to be turned on as well as picked up on by the console
 function setup() {
     createCanvas(500, 500);
 
@@ -45,6 +49,7 @@ function setup() {
     console.log(speechSynthesizer.listVoices());
 }
 
+// draw() displays all the different states and their functions
 function draw() {
     background(253, 222, 247);
 
@@ -60,6 +65,7 @@ function draw() {
     };
 }
 
+// Allows a title state to be displayed with all its properties
 function title() {
     // Title state
     push();
@@ -83,7 +89,7 @@ function title() {
     pop();
 }
 
-
+// Creates the simulation state that calls the display text variable at the top with its text colour
 function simulation() {
     // Simulation state
     background(231, 107, 140);
@@ -96,8 +102,8 @@ function simulation() {
     pop();
 }
 
+// Creates a state where the instructions to the program are displayed 
 function instructions() {
-
     push();
     background(220, 134, 157);
     textSize(30);
@@ -117,6 +123,7 @@ function instructions() {
 
 }
 
+// Allows for the computer to recognize the voice speaking and listen for the commands, then once it matches it finds the callback
 function handleCommand() {
     if (!voiceRecognizer.resultValue) {
         return;
@@ -132,6 +139,7 @@ function handleCommand() {
     }
 }
 
+// Creates a function that allows the text, pitch, rate, and voice to be chosen differently on each section that calls this function
 function say(text, pitch, rate, voice) {
     speechSynthesizer.setPitch(pitch);
     speechSynthesizer.setRate(rate);
@@ -141,6 +149,8 @@ function say(text, pitch, rate, voice) {
     displayText = text;
 }
 
+
+// Creates the first callback for the lost command and sends the computer through two routes based on responses
 function setLost(data) {
     if (data[1] === "please help me" || data[1] === "help me please") {
         kindComp();
@@ -150,13 +160,17 @@ function setLost(data) {
     }
 }
 
+// Creates a response from the compter that is kind if the callback matched with the right lost data
 function kindComp() {
     say(`when you feel lost,\n you can always remember\n that there are good people\n in your life willing to help you.`, 1, 1, `Microsoft Linda - English (Canada)`);
 }
+// Creates a response from the computer that is upset if the callback does not match with the right lost data
 function upsetComp() {
     say(`i will find you.`, 0.2, 0.4, `Google UK English Male`);
 }
 
+
+// Creates the second callback for the wisdom command and sends the computer through two routes based on responses
 function setWisdom(data) {
     if (data[1] === "please let me know what i can do" || data[1] === "tell me what to do please") {
         niceComp();
@@ -166,15 +180,17 @@ function setWisdom(data) {
     }
 }
 
+// Creates a response from the compter that is nice if the callback matched with the right wisdom data
 function niceComp() {
     say(`sometimes lessons need to be learned\n through tough experiences,\n but you will get through this.`, 4, 1.5, `Microsoft David - English (United States)`);
 }
+// Creates a response from the computer that is rude if the callback does not match with the right wisdom data
 function rudeComp() {
     say(`the only advice i have for\n you is that you should\n watch your back.`, 0.1, 0.4, `Google UK English Female`);
 }
 
 
-
+// Creates the third callback for the focus command and sends the computer through two routes based on responses
 function setFocus(data) {
     if (data[1] === "please help motivate me" || data[1] === "motivate me please") {
         happyComp();
@@ -184,13 +200,17 @@ function setFocus(data) {
     }
 }
 
+// Creates a response from the compter that is happy if the callback matched with the right focus data
 function happyComp() {
     say(`have you thought about making yourself a schedule?\n give yourself periods of time when you are working\n and when you are taking breaks.`, 5, 1, `Microsoft Zira - English (United States)`);
 }
+// Creates a response from the computer that is angry if the callback does not match with the right focus data
 function angryComp() {
     say(`if you keep procrastinating your work,\n i will shut off this computer and you will\n not want to know what is behind your door.`, 0.1, 0.4, `Microsoft Richard - English (Canada)`);
 }
 
+
+// Creates the fourth callback for the trust command and sends the computer through two routes based on responses
 function setTrust(data) {
     if (data[1] === "please prove it to me" || data[1] === "prove it to me please") {
         goodComp();
@@ -200,15 +220,20 @@ function setTrust(data) {
     }
 }
 
+// Creates a response from the compter that is good if the callback matched with the right trust data
 function goodComp() {
     say(`because i am just a computer spitting back all the information\n humans have already put into me.\n so you have nothing to fear,\n think of me as a human being but with a lot quicker capabilities.`, 5, 0.8, `Microsoft Mark - English (United States)`);
 }
+// Creates a response from the computer that is evil if the callback does not match with the right trust data
 function evilComp() {
     say(`you are right,\n maybe you should not trust me,\n how do you know i am not in your house right now.`, 0.1, 0.3, `Google UK English Male`);
 }
+
+// Computer stops taking outloud when the rest of this sentence is added to the evilComp() and I do not know why.
 //\n you hear that rustling outside your door,\n how do you know it is not me?
 
-// Calls the keyPressed function to work
+
+// Calls the keyPressed function to work with all the switching states from title to instructions to simulation
 function keyPressed() {
     if (state === `title`) {
         state = `instructions`;
