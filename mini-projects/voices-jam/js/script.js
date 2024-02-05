@@ -253,7 +253,7 @@ function evilComp() {
     bgColor = color(94, 21, 21);
     textColor = color(200, 63, 63);
     sizingText = (30);
-    say(`you are right,\n maybe you should not trust me,\n how do you know i am not in your\n house right now.`, 0.1, 0.3, `Google UK English Male`);
+    say(`you are right,\n maybe you should not trust me,\n how do you know i am not in your \n house right now.`, 0.1, 0.3, `Google UK English Male`);
 }
 
 // Computer stops taking outloud when the rest of this sentence is added to the evilComp() and I do not know why.
