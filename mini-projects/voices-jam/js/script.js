@@ -42,6 +42,9 @@ let textColor = 255;
 let bgColor = `#c8668a`;
 let sizingText = 48;
 
+// let wrappingText = textWrap(WORD);
+
+
 // setup() creates the canvas and the microphone being able to be turned on as well as picked up on by the console
 function setup() {
     createCanvas(500, 500);
@@ -165,17 +168,28 @@ function setLost(data) {
 
 // Creates a response from the compter that is kind if the callback matched with the right lost data
 function kindComp() {
+    push();
     bgColor = color(105, 143, 46);
     textColor = color(32, 83, 52);
     sizingText = (30);
-    say(`when you feel lost,\n you can always remember\n that there are good people\n in your life willing to help you.`, 1, 1, `Microsoft Linda - English (Canada)`);
+    // wrappingText = textWrap(WORD);
+    say(`when you feel lost,\n you can always remember\n that there are good people in your\n life willing to help you.`, 1, 1, `Microsoft Linda - English (Canada)`);
+    pop();
 }
 // Creates a response from the computer that is upset if the callback does not match with the right lost data
 function upsetComp() {
+    // push();
+    // bgColor = color(174, 57, 57);
+    // textColor = color(112, 45, 45);
+    // sizingText = (10);
+    // text(`say "please help me" or "help me please"..... or else`, 200, 200);
+    // pop();
+    push();
     bgColor = color(174, 57, 57);
     textColor = color(112, 45, 45);
     sizingText = (48);
     say(`i will find you.`, 0.2, 0.4, `Google UK English Male`);
+    pop();
 }
 
 
@@ -191,17 +205,27 @@ function setWisdom(data) {
 
 // Creates a response from the compter that is nice if the callback matched with the right wisdom data
 function niceComp() {
+    push();
     bgColor = color(92, 148, 76);
     textColor = color(139, 217, 159);
     sizingText = (30);
     say(`sometimes lessons need\n to be learned through\n tough experiences,\n but you will get through this.`, 4, 1.5, `Microsoft David - English (United States)`);
+    pop();
 }
 // Creates a response from the computer that is rude if the callback does not match with the right wisdom data
 function rudeComp() {
+    // push();
+    // textSize(20);
+    // fill(184, 40, 78);
+    // textAlign(CENTER, CENTER);
+    // text(`you are going to say "please let me know what i can do" or "tell me what to do please" or we will find a way into your home`, 200, 200);
+    // pop();
+    push();
     bgColor = color(209, 29, 29);
     textColor = color(239, 192, 192);
     sizingText = (30);
     say(`the only advice i have for\n you is that you should\n watch your back.`, 0.1, 0.4, `Google UK English Female`);
+    pop();
 }
 
 
@@ -217,17 +241,27 @@ function setFocus(data) {
 
 // Creates a response from the compter that is happy if the callback matched with the right focus data
 function happyComp() {
+    push();
     bgColor = color(42, 99, 55);
     textColor = color(115, 185, 132);
     sizingText = (30);
     say(`have you thought about\n making yourself a schedule?\n give yourself periods of time when\n you are working and when you\n are taking breaks.`, 5, 1, `Microsoft Zira - English (United States)`);
+    pop();
 }
 // Creates a response from the computer that is angry if the callback does not match with the right focus data
 function angryComp() {
+    // push();
+    // textSize(20);
+    // fill(184, 40, 78);
+    // textAlign(CENTER, CENTER);
+    // text(`don't you dare not say "please help motivate me" or "motivate me please" or we will not let you leave this computer safe`, 200, 200);
+    // pop();
+    push();
     bgColor = color(176, 90, 90);
     textColor = color(141, 27, 27);
     sizingText = (30);
     say(`if you keep procrastinating\n your work, i will shut off this\n computer and you will not\n want to know what is\n behind your door.`, 0.1, 0.4, `Microsoft Richard - English (Canada)`);
+    pop();
 }
 
 
@@ -243,17 +277,27 @@ function setTrust(data) {
 
 // Creates a response from the compter that is good if the callback matched with the right trust data
 function goodComp() {
+    push();
     bgColor = color(192, 224, 179);
     textColor = color(79, 146, 53);
     sizingText = (30);
     say(`because i am just a computer\n spitting back all the information\n humans have already put into me.\n so you have nothing to fear,\n think of me as a human being but\n with a lot quicker capabilities.`, 5, 0.8, `Microsoft Mark - English (United States)`);
+    pop();
 }
 // Creates a response from the computer that is evil if the callback does not match with the right trust data
 function evilComp() {
+    // push();
+    // textSize(20);
+    // fill(184, 40, 78);
+    // textAlign(CENTER, CENTER);
+    // text(`don't you dare not say "please help motivate me" or "motivate me please" or we will not let you leave this computer safe`, 200, 200);
+    // pop();
+    push();
     bgColor = color(94, 21, 21);
     textColor = color(200, 63, 63);
     sizingText = (30);
     say(`you are right,\n maybe you should not trust me,\n how do you know i am not in your \n house right now.`, 0.1, 0.3, `Google UK English Male`);
+    pop();
 }
 
 // Computer stops taking outloud when the rest of this sentence is added to the evilComp() and I do not know why.
