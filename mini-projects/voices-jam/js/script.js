@@ -185,8 +185,8 @@ function upsetComp() {
     // text(`say "please help me" or "help me please"..... or else`, 200, 200);
     // pop();
     push();
-    bgColor = color(174, 57, 57);
-    textColor = color(112, 45, 45);
+    bgColor = color(144, 144, 144);
+    textColor = color(83, 83, 83);
     sizingText = (48);
     say(`i will find you.`, 0.2, 0.4, `Google UK English Male`);
     pop();
@@ -221,8 +221,8 @@ function rudeComp() {
     // text(`you are going to say "please let me know what i can do" or "tell me what to do please" or we will find a way into your home`, 200, 200);
     // pop();
     push();
-    bgColor = color(209, 29, 29);
-    textColor = color(239, 192, 192);
+    bgColor = color(95, 95, 95);
+    textColor = color(48, 113, 110);
     sizingText = (30);
     say(`the only advice i have for\n you is that you should\n watch your back.`, 0.1, 0.4, `Google UK English Female`);
     pop();
@@ -257,8 +257,8 @@ function angryComp() {
     // text(`don't you dare not say "please help motivate me" or "motivate me please" or we will not let you leave this computer safe`, 200, 200);
     // pop();
     push();
-    bgColor = color(176, 90, 90);
-    textColor = color(141, 27, 27);
+    bgColor = color(54, 75, 77);
+    textColor = color(70, 109, 113);
     sizingText = (30);
     say(`if you keep procrastinating\n your work, i will shut off this\n computer and you will not\n want to know what is\n behind your door.`, 0.1, 0.4, `Microsoft Richard - English (Canada)`);
     pop();
@@ -293,8 +293,8 @@ function evilComp() {
     // text(`don't you dare not say "please help motivate me" or "motivate me please" or we will not let you leave this computer safe`, 200, 200);
     // pop();
     push();
-    bgColor = color(94, 21, 21);
-    textColor = color(200, 63, 63);
+    bgColor = color(0, 0, 0);
+    textColor = color(157, 0, 0);
     sizingText = (30);
     say(`you are right,\n maybe you should not trust me,\n how do you know i am not in your \n house right now.`, 0.1, 0.3, `Google UK English Male`);
     pop();
