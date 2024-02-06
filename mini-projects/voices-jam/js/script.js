@@ -215,9 +215,9 @@ function niceComp() {
 // Creates a response from the computer that is rude if the callback does not match with the right wisdom data
 function rudeComp() {
     // push();
-    // textSize(20);
-    // fill(184, 40, 78);
-    // textAlign(CENTER, CENTER);
+    // bgColor = color(174, 57, 57);
+    // textColor = color(112, 45, 45);
+    // sizingText = (10);
     // text(`you are going to say "please let me know what i can do" or "tell me what to do please" or we will find a way into your home`, 200, 200);
     // pop();
     push();
@@ -251,9 +251,9 @@ function happyComp() {
 // Creates a response from the computer that is angry if the callback does not match with the right focus data
 function angryComp() {
     // push();
-    // textSize(20);
-    // fill(184, 40, 78);
-    // textAlign(CENTER, CENTER);
+    // bgColor = color(174, 57, 57);
+    // textColor = color(112, 45, 45);
+    // sizingText = (10);
     // text(`don't you dare not say "please help motivate me" or "motivate me please" or we will not let you leave this computer safe`, 200, 200);
     // pop();
     push();
@@ -287,9 +287,9 @@ function goodComp() {
 // Creates a response from the computer that is evil if the callback does not match with the right trust data
 function evilComp() {
     // push();
-    // textSize(20);
-    // fill(184, 40, 78);
-    // textAlign(CENTER, CENTER);
+    // bgColor = color(174, 57, 57);
+    // textColor = color(112, 45, 45);
+    // sizingText = (10);
     // text(`don't you dare not say "please help motivate me" or "motivate me please" or we will not let you leave this computer safe`, 200, 200);
     // pop();
     push();
@@ -306,10 +306,12 @@ function evilComp() {
 
 // Calls the keyPressed function to work with all the switching states from title to instructions to simulation
 function keyPressed() {
-    if (state === `title`) {
-        state = `instructions`;
-    }
-    else if (state === `instructions`) {
-        state = `simulation`;
+    if (keyCode === 32) {
+        if (state === `title`) {
+            state = `instructions`;
+        }
+        else if (state === `instructions`) {
+            state = `simulation`;
+        }
     }
 }
