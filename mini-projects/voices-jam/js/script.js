@@ -86,7 +86,7 @@ function title() {
     textSize(17);
     fill(206, 90, 130);
     textAlign(CENTER, CENTER);
-    text(`(Please press the Space Bar to Start)`, width / 2, 300);
+    text(`(Please press the Right Arrow Kry to Start)`, width / 2, 300);
     pop();
 
     push();
@@ -104,7 +104,8 @@ function simulation() {
     textAlign(CENTER, CENTER);
     textSize(sizingText);
     fill(textColor);
-    text(displayText, width / 2, height / 2);
+    rectMode(CENTER);
+    text(displayText, width / 2, height / 2, width / 1.5);
     pop();
 }
 
@@ -124,14 +125,14 @@ function instructions() {
     textSize(15);
     fill(253, 208, 220);
     textAlign(CENTER, CENTER);
-    text(`(Please press the Space Bar to Continue)`, width / 2, height / 1.05);
+    text(`(Please press the Right Arrow Key to Continue)`, width / 2, height / 1.05);
     pop();
 
 }
 
 // Allows for the computer to recognize the voice speaking and listen for the commands, then once it matches it finds the callback
 function handleCommand() {
-    if (!voiceRecognizer.resultValue) {
+    if (!voiceRecognizer.resultValue || state !== `simulation`) {
         return;
     }
 
@@ -173,7 +174,7 @@ function kindComp() {
     textColor = color(32, 83, 52);
     sizingText = (30);
     // wrappingText = textWrap(WORD);
-    say(`when you feel lost,\n you can always remember\n that there are good people in your\n life willing to help you.`, 1, 1, `Microsoft Linda - English (Canada)`);
+    say(`when you feel lost, you can always remember that there are good people in your life willing to help you.`, 1, 1, `Microsoft Linda - English (Canada)`);
     pop();
 }
 // Creates a response from the computer that is upset if the callback does not match with the right lost data
@@ -300,18 +301,24 @@ function evilComp() {
     pop();
 }
 
-// Computer stops taking outloud when the rest of this sentence is added to the evilComp() and I do not know why.
+// Computer stops talking outloud when the rest of this sentence is added to the evilComp() and I do not know why.
 //\n you hear that rustling outside your door,\n how do you know it is not me?
 
 
 // Calls the keyPressed function to work with all the switching states from title to instructions to simulation
 function keyPressed() {
-    if (keyCode === 32) {
+    if (keyCode === 39) {
         if (state === `title`) {
             state = `instructions`;
         }
         else if (state === `instructions`) {
             state = `simulation`;
+        }
+    }
+
+    if (keyCode === 37) {
+        if (state === `simulation`) {
+            state = `instructions`;
         }
     }
 }
