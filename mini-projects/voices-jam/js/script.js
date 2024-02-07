@@ -218,7 +218,7 @@ function setWisdom(text) {
     if (pleases === 0) {
         rudeComp();
     }
-    else if (pleases === 1) {
+    else if (pleases === 3) {
         niceComp();
     }
 }
@@ -250,7 +250,7 @@ function setFocus(text) {
     if (pleases === 0) {
         angryComp();
     }
-    else if (pleases === 1) {
+    else if (pleases === 5) {
         happyComp();
     }
 }
@@ -282,7 +282,7 @@ function setTrust(text) {
     if (pleases === 0) {
         evilComp();
     }
-    else if (pleases === 1) {
+    else if (pleases === 10) {
         goodComp();
     }
 }
