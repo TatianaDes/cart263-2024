@@ -13,19 +13,19 @@ let state = `title`; // Can be: title, simulation
 // Create the commands needed for the computer to understand your request
 const commands = [
     {
-        "command": /i feel lost (.*)/,
+        "command": /i feel lost.*/,
         "callback": setLost
     },
     {
-        "command": /i need words of wisdom (.*)/,
+        "command": /i need words of wisdom.*/,
         "callback": setWisdom
     },
     {
-        "command": /i cannot focus on work (.*)/,
+        "command": /i cannot focus on work.*/,
         "callback": setFocus
     },
     {
-        "command": /how do i know i can trust you (.*)/,
+        "command": /how do i know i can trust you.*/,
         "callback": setTrust
     }
 ];
@@ -37,13 +37,14 @@ const voiceRecognizer = new p5.SpeechRec();
 // Displaying the initial text and colour of the text before the subtitles come on from the computer
 let displayText = `...`;
 let textColor = `#75344f`;
+let counterColor = 255;
 
 
 let bgColor = `#c8668a`;
 let sizingText = 48;
+let counterSize = 30;
 
-// let wrappingText = textWrap(WORD);
-
+let totalPleases = 0;
 
 // setup() creates the canvas and the microphone being able to be turned on as well as picked up on by the console
 function setup() {
@@ -109,6 +110,14 @@ function simulation() {
     rectMode(CENTER);
     text(displayText, width / 2, height / 2, width / 1.5);
     pop();
+
+    push();
+    textAlign(CENTER, CENTER);
+    textSize(counterSize);
+    fill(counterColor);
+    rectMode(CENTER);
+    text(totalPleases, width / 10, height / 10);
+    pop();
 }
 
 // Creates a state where the instructions to the program are displayed 
@@ -141,19 +150,26 @@ function resetDisplayText() {
 
 // Allows for the computer to recognize the voice speaking and listen for the commands, then once it matches it finds the callback
 function handleCommand() {
-    if (!voiceRecognizer.resultValue || state !== `simulation`) {
+    if (!voiceRecognizer.resultValue) {
         return;
     }
 
+    let lowercase = voiceRecognizer.resultString.toLowerCase();
+
     for (let command of commands) {
-        let lowercase = voiceRecognizer.resultString.toLowerCase();
         let match = lowercase.match(command.command);
-        console.log(match);
-        if (match && match.length > 1) {
-            command.callback(match);
+        if (match) {
+            // We have a match, execute the corresponding callback
+            command.callback(lowercase);
+            break;
         }
     }
 }
+// let match = lowercase.match(command.command);
+// console.log(match);
+// if (match && match.length > 1) {
+//     command.callback(match);
+// }
 
 // Creates a function that allows the text, pitch, rate, and voice to be chosen differently on each section that calls this function
 function say(text, pitch, rate, voice) {
@@ -167,14 +183,26 @@ function say(text, pitch, rate, voice) {
 
 
 // Creates the first callback for the lost command and sends the computer through two routes based on responses
-function setLost(data) {
-    if (data[1] === "please help me" || data[1] === "help me please") {
-        kindComp();
-    }
-    else {
+function setLost(text) {
+    const pleases = pleaseCounter(text);
+    totalPleases += pleases;
+    if (pleases === 0) {
         upsetComp();
     }
+    else if (pleases === 1) {
+        kindComp();
+    }
+    else if (pleases > 5) {
+        // Special!
+    }
 }
+//     if (data[1] === "please help me" || data[1] === "help me please") {
+//         kindComp();
+//     }
+//     else {
+//         upsetComp();
+//     }
+
 
 // Creates a response from the compter that is kind if the callback matched with the right lost data
 function kindComp() {
@@ -182,7 +210,6 @@ function kindComp() {
     bgColor = color(105, 143, 46);
     textColor = color(32, 83, 52);
     sizingText = (30);
-    // wrappingText = textWrap(WORD);
     say(`when you feel lost, you can always remember that there are good people in your life willing to help you.`, 1, 1, `Microsoft Linda - English (Canada)`);
     pop();
 }
@@ -197,7 +224,7 @@ function upsetComp() {
     push();
     bgColor = color(144, 144, 144);
     textColor = color(83, 83, 83);
-    sizingText = (48);
+    sizingText = (30);
     say(`i will find you.`, 0.2, 0.4, `Google UK English Male`);
     pop();
 }
@@ -310,9 +337,17 @@ function evilComp() {
     pop();
 }
 
-// Computer stops talking outloud when the rest of this sentence is added to the evilComp() and I do not know why.
-//\n you hear that rustling outside your door,\n how do you know it is not me?
-
+function pleaseCounter(text) {
+    let words = text.split(` `);
+    // [i, feel, lost, please, please, help, me]
+    let pleases = 0;
+    for (let i = 0; i < words.length; i++) {
+        if (words[i] === `please`) {
+            pleases++;
+        }
+    }
+    return pleases;
+}
 
 // Calls the keyPressed function to work with all the switching states from title to instructions to simulation
 function keyPressed() {
