@@ -265,10 +265,10 @@ function setFocus(text) {
     if (pleases === 0) {
         angryComp();
     }
-    else if (pleases === 5) {
+    else if (pleases >= 5) {
         hmmmComp();
     }
-    else if (pleases === 15) {
+    else if (pleases >= 15) {
         happyComp();
     }
 }
@@ -311,10 +311,10 @@ function setTrust(text) {
     if (pleases === 0) {
         evilComp();
     }
-    else if (pleases === 10) {
+    else if (pleases <= 10) {
         okayComp();
     }
-    else if (pleases === 20) {
+    else if (pleases >= 20) {
         goodComp();
     }
 }
