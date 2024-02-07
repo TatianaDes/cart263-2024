@@ -146,6 +146,7 @@ function instructions() {
 // Creating a function that allows the simulation state to restart its background and text when the computer finishes talking
 function resetDisplayText() {
     displayText = `...`;
+
     textColor = `#75344f`;
     bgColor = `#c8668a`;
     sizingText = 48;
@@ -222,7 +223,7 @@ function setWisdom(text) {
     else if (pleases === 3) {
         decentComp();
     }
-    else if (pleases === 5) {
+    else if (pleases >= 5) {
         niceComp();
     }
 }
