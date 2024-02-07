@@ -34,17 +34,18 @@ const commands = [
 const speechSynthesizer = new p5.Speech();
 const voiceRecognizer = new p5.SpeechRec();
 
-// Displaying the initial text and colour of the text before the subtitles come on from the computer
+// Creating the initial text and colour of the text before the subtitles come on from the computer
 let displayText = `...`;
 let textColor = `#75344f`;
-let counterColor = 255;
 
-
+// Creating the initial settings for the simulation of the background colour and text sizing
 let bgColor = `#c8668a`;
 let sizingText = 48;
-let counterSize = 30;
 
+// Creating the counter for the total pleases and the display of it
 let totalPleases = 0;
+let counterColor = 255;
+let counterSize = 30;
 
 // setup() creates the canvas and the microphone being able to be turned on as well as picked up on by the console
 function setup() {
@@ -141,6 +142,7 @@ function instructions() {
 
 }
 
+// Creating a function that allows the simulation state to restart its background and text when the computer finishes talking
 function resetDisplayText() {
     displayText = `...`;
     textColor = `#75344f`;
@@ -165,11 +167,6 @@ function handleCommand() {
         }
     }
 }
-// let match = lowercase.match(command.command);
-// console.log(match);
-// if (match && match.length > 1) {
-//     command.callback(match);
-// }
 
 // Creates a function that allows the text, pitch, rate, and voice to be chosen differently on each section that calls this function
 function say(text, pitch, rate, voice) {
@@ -192,17 +189,7 @@ function setLost(text) {
     else if (pleases === 1) {
         kindComp();
     }
-    else if (pleases > 5) {
-        // Special!
-    }
 }
-//     if (data[1] === "please help me" || data[1] === "help me please") {
-//         kindComp();
-//     }
-//     else {
-//         upsetComp();
-//     }
-
 
 // Creates a response from the compter that is kind if the callback matched with the right lost data
 function kindComp() {
@@ -215,12 +202,6 @@ function kindComp() {
 }
 // Creates a response from the computer that is upset if the callback does not match with the right lost data
 function upsetComp() {
-    // push();
-    // bgColor = color(174, 57, 57);
-    // textColor = color(112, 45, 45);
-    // sizingText = (10);
-    // text(`say "please help me" or "help me please"..... or else`, 200, 200);
-    // pop();
     push();
     bgColor = color(144, 144, 144);
     textColor = color(83, 83, 83);
@@ -231,12 +212,14 @@ function upsetComp() {
 
 
 // Creates the second callback for the wisdom command and sends the computer through two routes based on responses
-function setWisdom(data) {
-    if (data[1] === "please let me know what i can do" || data[1] === "tell me what to do please") {
-        niceComp();
-    }
-    else {
+function setWisdom(text) {
+    const pleases = pleaseCounter(text);
+    totalPleases += pleases;
+    if (pleases === 0) {
         rudeComp();
+    }
+    else if (pleases === 1) {
+        niceComp();
     }
 }
 
@@ -251,12 +234,6 @@ function niceComp() {
 }
 // Creates a response from the computer that is rude if the callback does not match with the right wisdom data
 function rudeComp() {
-    // push();
-    // bgColor = color(174, 57, 57);
-    // textColor = color(112, 45, 45);
-    // sizingText = (10);
-    // text(`you are going to say "please let me know what i can do" or "tell me what to do please" or we will find a way into your home`, 200, 200);
-    // pop();
     push();
     bgColor = color(95, 95, 95);
     textColor = color(48, 113, 110);
@@ -267,12 +244,14 @@ function rudeComp() {
 
 
 // Creates the third callback for the focus command and sends the computer through two routes based on responses
-function setFocus(data) {
-    if (data[1] === "please help motivate me" || data[1] === "motivate me please") {
-        happyComp();
-    }
-    else {
+function setFocus(text) {
+    const pleases = pleaseCounter(text);
+    totalPleases += pleases;
+    if (pleases === 0) {
         angryComp();
+    }
+    else if (pleases === 1) {
+        happyComp();
     }
 }
 
@@ -287,12 +266,6 @@ function happyComp() {
 }
 // Creates a response from the computer that is angry if the callback does not match with the right focus data
 function angryComp() {
-    // push();
-    // bgColor = color(174, 57, 57);
-    // textColor = color(112, 45, 45);
-    // sizingText = (10);
-    // text(`don't you dare not say "please help motivate me" or "motivate me please" or we will not let you leave this computer safe`, 200, 200);
-    // pop();
     push();
     bgColor = color(54, 75, 77);
     textColor = color(70, 109, 113);
@@ -303,12 +276,14 @@ function angryComp() {
 
 
 // Creates the fourth callback for the trust command and sends the computer through two routes based on responses
-function setTrust(data) {
-    if (data[1] === "please prove it to me" || data[1] === "prove it to me please") {
-        goodComp();
-    }
-    else {
+function setTrust(text) {
+    const pleases = pleaseCounter(text);
+    totalPleases += pleases;
+    if (pleases === 0) {
         evilComp();
+    }
+    else if (pleases === 1) {
+        goodComp();
     }
 }
 
@@ -323,12 +298,6 @@ function goodComp() {
 }
 // Creates a response from the computer that is evil if the callback does not match with the right trust data
 function evilComp() {
-    // push();
-    // bgColor = color(174, 57, 57);
-    // textColor = color(112, 45, 45);
-    // sizingText = (10);
-    // text(`don't you dare not say "please help motivate me" or "motivate me please" or we will not let you leave this computer safe`, 200, 200);
-    // pop();
     push();
     bgColor = color(0, 0, 0);
     textColor = color(157, 0, 0);
@@ -337,9 +306,10 @@ function evilComp() {
     pop();
 }
 
+// Counts how many pleases has been said and adds it to the counter
 function pleaseCounter(text) {
     let words = text.split(` `);
-    // [i, feel, lost, please, please, help, me]
+    // Reads where in the sentence a please has been says so it can be counted
     let pleases = 0;
     for (let i = 0; i < words.length; i++) {
         if (words[i] === `please`) {
@@ -351,6 +321,7 @@ function pleaseCounter(text) {
 
 // Calls the keyPressed function to work with all the switching states from title to instructions to simulation
 function keyPressed() {
+    // Pressing the right arrow to activate
     if (keyCode === 39) {
         if (state === `title`) {
             state = `instructions`;
@@ -359,7 +330,7 @@ function keyPressed() {
             state = `simulation`;
         }
     }
-
+    // Pressing the left arrow to activate
     if (keyCode === 37) {
         if (state === `simulation`) {
             state = `instructions`;
