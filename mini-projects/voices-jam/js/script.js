@@ -36,7 +36,7 @@ const voiceRecognizer = new p5.SpeechRec();
 
 // Displaying the initial text and colour of the text before the subtitles come on from the computer
 let displayText = `...`;
-let textColor = 255;
+let textColor = `#75344f`;
 
 
 let bgColor = `#c8668a`;
@@ -52,6 +52,8 @@ function setup() {
     voiceRecognizer.continuous = true;
     voiceRecognizer.onResult = handleCommand;
     voiceRecognizer.start();
+
+    speechSynthesizer.onEnd = resetDisplayText;
 
     console.log(speechSynthesizer.listVoices());
 }
@@ -128,6 +130,13 @@ function instructions() {
     text(`(Please press the Right Arrow Key to Continue)`, width / 2, height / 1.05);
     pop();
 
+}
+
+function resetDisplayText() {
+    displayText = `...`;
+    textColor = `#75344f`;
+    bgColor = `#c8668a`;
+    sizingText = 48;
 }
 
 // Allows for the computer to recognize the voice speaking and listen for the commands, then once it matches it finds the callback
