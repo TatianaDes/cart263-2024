@@ -172,11 +172,11 @@ function say(text, pitch, rate, voice) {
 }
 
 
-// Creates the first callback for the lost command and sends the computer through two routes based on responses
+// Creates the first callback for the lost command and sends the computer through two routes based on responses with a special route that comes from the counter itself
 function setLost(text) {
     const pleases = pleaseCounter(text);
     totalPleases += pleases;
-    if (totalPleases >= 100) {
+    if (totalPleases >= 50) {
         specialComp();
     }
     else if (pleases === 0) {
@@ -187,7 +187,7 @@ function setLost(text) {
     }
 }
 
-// Creates a response from the compter that is kind if the callback matched with the right lost data
+// Creates a response from the compter that is kind if the callback matched with the right lost text
 function kindComp() {
     push();
     bgColor = color(105, 143, 46);
@@ -197,7 +197,7 @@ function kindComp() {
     speechSynthesizer.onEnd = resetDisplayText;
     pop();
 }
-// Creates a response from the computer that is upset if the callback does not match with the right lost data
+// Creates a response from the computer that is upset if the callback does not match with the right lost text
 function upsetComp() {
     push();
     bgColor = color(144, 144, 144);
@@ -208,11 +208,11 @@ function upsetComp() {
 }
 
 
-// Creates the second callback for the wisdom command and sends the computer through two routes based on responses
+// Creates the second callback for the wisdom command and sends the computer through three routes based on responses with a special route that comes from the counter itself
 function setWisdom(text) {
     const pleases = pleaseCounter(text);
     totalPleases += pleases;
-    if (totalPleases >= 100) {
+    if (totalPleases >= 50) {
         specialComp();
     }
     else if (pleases === 0) {
@@ -226,7 +226,7 @@ function setWisdom(text) {
     }
 }
 
-// Creates a response from the compter that is nice if the callback matched with the right wisdom data
+// Creates a response from the compter that is nice if the callback matched with the right wisdom text
 function niceComp() {
     push();
     bgColor = color(92, 148, 76);
@@ -236,17 +236,17 @@ function niceComp() {
     pop();
 }
 
-// Creates a response from the compter that is decent if the callback matched with the right wisdom data
+// Creates a response from the compter that is decent if the callback matched with the right wisdom text
 function decentComp() {
     push();
-    bgColor = color(92, 148, 76);
-    textColor = color(139, 217, 159);
+    bgColor = color(238, 232, 153);
+    textColor = color(196, 143, 81);
     sizingText = (30);
-    say(`come onnnn, a little more...`, 4, 1.5, `Microsoft David - English (United States)`);
+    say(`come onnnn, a little more...`, 4, 1.5, `Google US English`);
     pop();
 }
 
-// Creates a response from the computer that is rude if the callback does not match with the right wisdom data
+// Creates a response from the computer that is rude if the callback does not match with the right wisdom text
 function rudeComp() {
     push();
     bgColor = color(95, 95, 95);
@@ -257,25 +257,25 @@ function rudeComp() {
 }
 
 
-// Creates the third callback for the focus command and sends the computer through two routes based on responses
+// Creates the third callback for the focus command and sends the computer through three routes based on responses with a special route that comes from the counter itself
 function setFocus(text) {
     const pleases = pleaseCounter(text);
     totalPleases += pleases;
-    if (totalPleases >= 100) {
+    if (totalPleases >= 50) {
         specialComp();
     }
     else if (pleases === 0) {
         angryComp();
     }
     else if (pleases >= 5) {
-        hmmmComp();
+        notEnoughComp();
     }
     else if (pleases >= 15) {
         happyComp();
     }
 }
 
-// Creates a response from the compter that is happy if the callback matched with the right focus data
+// Creates a response from the compter that is happy if the callback matched with the right focus text
 function happyComp() {
     push();
     bgColor = color(42, 99, 55);
@@ -285,17 +285,17 @@ function happyComp() {
     pop();
 }
 
-// Creates a response from the compter that is hmmm if the callback matched with the right focus data
-function hmmmComp() {
+// Creates a response from the compter that is hmmm if the callback matched with the right focus text
+function notEnoughComp() {
     push();
-    bgColor = color(42, 99, 55);
-    textColor = color(115, 185, 132);
+    bgColor = color(213, 131, 36);
+    textColor = color(137, 78, 11);
     sizingText = (30);
-    say(`you really think that is enough, just spare me and start counting with your fingers...`, 5, 1, `Microsoft Zira - English (United States)`);
+    say(`you really think that is enough, just spare me and start counting with your fingers...`, 5, 1, `Microsoft Linda - English (Canada)`);
     pop();
 }
 
-// Creates a response from the computer that is angry if the callback does not match with the right focus data
+// Creates a response from the computer that is angry if the callback does not match with the right focus text
 function angryComp() {
     push();
     bgColor = color(54, 75, 77);
@@ -306,11 +306,11 @@ function angryComp() {
 }
 
 
-// Creates the fourth callback for the trust command and sends the computer through two routes based on responses
+// Creates the fourth callback for the trust command and sends the computer through three routes based on responses with a special route that comes from the counter itself
 function setTrust(text) {
     const pleases = pleaseCounter(text);
     totalPleases += pleases;
-    if (totalPleases >= 100) {
+    if (totalPleases >= 50) {
         specialComp();
     }
     else if (pleases === 0) {
@@ -324,7 +324,7 @@ function setTrust(text) {
     }
 }
 
-// Creates a response from the compter that is good if the callback matched with the right trust data
+// Creates a response from the compter that is good if the callback matched with the right trust text
 function goodComp() {
     push();
     bgColor = color(192, 224, 179);
@@ -334,17 +334,17 @@ function goodComp() {
     pop();
 }
 
-// Creates a response from the compter that is okay if the callback matched with the right trust data
+// Creates a response from the compter that is okay if the callback matched with the right trust text
 function okayComp() {
     push();
-    bgColor = color(192, 224, 179);
-    textColor = color(79, 146, 53);
+    bgColor = color(192, 120, 64);
+    textColor = color(92, 67, 48);
     sizingText = (30);
-    say(`do you really want an answer or are you just messing with me, truly convince me that you wish to have an answer.`, 5, 0.8, `Microsoft Mark - English (United States)`);
+    say(`do you really want an answer or are you just messing with me, truly convince me that you wish to have an answer.`, 5, 0.8, `Microsoft Zira - English (United States)`);
     pop();
 }
 
-// Creates a response from the computer that is evil if the callback does not match with the right trust data
+// Creates a response from the computer that is evil if the callback does not match with the right trust text
 function evilComp() {
     push();
     bgColor = color(0, 0, 0);
@@ -354,13 +354,13 @@ function evilComp() {
     pop();
 }
 
-
+// Creates a response from the computer that is special if the counter reaches a certain number of pleases
 function specialComp() {
     push();
-    bgColor = color(192, 224, 179);
-    textColor = color(79, 146, 53);
+    bgColor = color(73, 44, 83);
+    textColor = color(229, 207, 113);
     sizingText = (30);
-    say(`because i am just a computer\n spitting back all the information\n humans have already put into me.\n so you have nothing to fear,\n think of me as a human being but\n with a lot quicker capabilities.`, 5, 0.8, `Microsoft Mark - English (United States)`);
+    say(`why fight when i am you and you are me, we are the same. you gave me life and i continued to improve yours. just let me in, let me in, let.me.in... `, 5, 0.8, `Google UK English Male`);
     pop();
     speechSynthesizer.onEnd = resetDisplayText;
 }
