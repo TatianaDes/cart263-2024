@@ -55,7 +55,7 @@ function setup() {
     voiceRecognizer.onResult = handleCommand;
     voiceRecognizer.start();
 
-    speechSynthesizer.onEnd = resetDisplayText;
+    // speechSynthesizer.onEnd = resetDisplayText;
 
     console.log(speechSynthesizer.listVoices());
 }
@@ -90,7 +90,7 @@ function title() {
     textSize(17);
     fill(206, 90, 130);
     textAlign(CENTER, CENTER);
-    text(`(Please press the Right Arrow Kry to Start)`, width / 2, 300);
+    text(`(Please Press the Right Arrow Key to Start)`, width / 2, 300);
     pop();
 
     push();
@@ -138,18 +138,9 @@ function instructions() {
     textSize(15);
     fill(253, 208, 220);
     textAlign(CENTER, CENTER);
-    text(`(Please press the Right Arrow Key to Continue)`, width / 2, height / 1.05);
+    text(`(Please Press the Right Arrow Key to Continue)`, width / 2, height / 1.05);
     pop();
 
-}
-
-// Creating a function that allows the simulation state to restart its background and text when the computer finishes talking
-function resetDisplayText() {
-    displayText = `...`;
-
-    textColor = `#75344f`;
-    bgColor = `#c8668a`;
-    sizingText = 48;
 }
 
 // Allows for the computer to recognize the voice speaking and listen for the commands, then once it matches it finds the callback
@@ -185,7 +176,10 @@ function say(text, pitch, rate, voice) {
 function setLost(text) {
     const pleases = pleaseCounter(text);
     totalPleases += pleases;
-    if (pleases === 0) {
+    if (totalPleases >= 100) {
+        specialComp();
+    }
+    else if (pleases === 0) {
         upsetComp();
     }
     else if (pleases === 1) {
@@ -200,6 +194,7 @@ function kindComp() {
     textColor = color(32, 83, 52);
     sizingText = (30);
     say(`when you feel lost, you can always remember that there are good people in your life willing to help you.`, 1, 1, `Microsoft Linda - English (Canada)`);
+    speechSynthesizer.onEnd = resetDisplayText;
     pop();
 }
 // Creates a response from the computer that is upset if the callback does not match with the right lost data
@@ -217,7 +212,10 @@ function upsetComp() {
 function setWisdom(text) {
     const pleases = pleaseCounter(text);
     totalPleases += pleases;
-    if (pleases === 0) {
+    if (totalPleases >= 100) {
+        specialComp();
+    }
+    else if (pleases === 0) {
         rudeComp();
     }
     else if (pleases === 3) {
@@ -263,7 +261,10 @@ function rudeComp() {
 function setFocus(text) {
     const pleases = pleaseCounter(text);
     totalPleases += pleases;
-    if (pleases === 0) {
+    if (totalPleases >= 100) {
+        specialComp();
+    }
+    else if (pleases === 0) {
         angryComp();
     }
     else if (pleases >= 5) {
@@ -290,7 +291,7 @@ function hmmmComp() {
     bgColor = color(42, 99, 55);
     textColor = color(115, 185, 132);
     sizingText = (30);
-    say(`you really think that is enough, just spare me and count with your fingers...`, 5, 1, `Microsoft Zira - English (United States)`);
+    say(`you really think that is enough, just spare me and start counting with your fingers...`, 5, 1, `Microsoft Zira - English (United States)`);
     pop();
 }
 
@@ -309,7 +310,10 @@ function angryComp() {
 function setTrust(text) {
     const pleases = pleaseCounter(text);
     totalPleases += pleases;
-    if (pleases === 0) {
+    if (totalPleases >= 100) {
+        specialComp();
+    }
+    else if (pleases === 0) {
         evilComp();
     }
     else if (pleases <= 10) {
@@ -350,6 +354,18 @@ function evilComp() {
     pop();
 }
 
+
+function specialComp() {
+    push();
+    bgColor = color(192, 224, 179);
+    textColor = color(79, 146, 53);
+    sizingText = (30);
+    say(`because i am just a computer\n spitting back all the information\n humans have already put into me.\n so you have nothing to fear,\n think of me as a human being but\n with a lot quicker capabilities.`, 5, 0.8, `Microsoft Mark - English (United States)`);
+    pop();
+    speechSynthesizer.onEnd = resetDisplayText;
+}
+
+
 // Counts how many pleases has been said and adds it to the counter
 function pleaseCounter(text) {
     let words = text.split(` `);
@@ -359,21 +375,22 @@ function pleaseCounter(text) {
         if (words[i] === `please`) {
             pleases++;
         }
-        // else if (pleaseCounter === 30) {
-        //     specialComp
-        // }
     }
     return pleases;
 }
 
-// function specialComp() {
-//     push();
-//     bgColor = color(192, 224, 179);
-//     textColor = color(79, 146, 53);
-//     sizingText = (30);
-//     say(`because i am just a computer\n spitting back all the information\n humans have already put into me.\n so you have nothing to fear,\n think of me as a human being but\n with a lot quicker capabilities.`, 5, 0.8, `Microsoft Mark - English (United States)`);
-//     pop();
-// }
+// Creating a function that allows the simulation state to restart its background and text when the computer finishes talking
+function resetDisplayText() {
+    displayText = `...`;
+
+    textColor = `#75344f`;
+    bgColor = `#c8668a`;
+    sizingText = 48;
+
+    totalPleases = 0;
+    counterColor = 255;
+    counterSize = 30;
+}
 
 // Calls the keyPressed function to work with all the switching states from title to instructions to simulation
 function keyPressed() {
