@@ -8,7 +8,7 @@ This is a portotype of a program about the importance of being kind towards all 
 "use strict";
 
 // Set the starting state
-let state = `title`; // Can be: title, simulation
+let state = `title`; // Can be: title, instructions, simulation
 
 // Create the commands needed for the computer to understand your request
 const commands = [
@@ -55,7 +55,7 @@ function setup() {
     voiceRecognizer.onResult = handleCommand;
     voiceRecognizer.start();
 
-    // speechSynthesizer.onEnd = resetDisplayText;
+    speechSynthesizer.onEnd = resetDisplayText;
 
     console.log(speechSynthesizer.listVoices());
 }
@@ -218,7 +218,7 @@ function setWisdom(text) {
     else if (pleases === 0) {
         rudeComp();
     }
-    else if (pleases === 3) {
+    else if (pleases <= 3) {
         decentComp();
     }
     else if (pleases >= 5) {
@@ -242,7 +242,7 @@ function decentComp() {
     bgColor = color(238, 232, 153);
     textColor = color(196, 143, 81);
     sizingText = (30);
-    say(`come onnnn, a little more...`, 4, 1.5, `Google US English`);
+    say(`come onnnn, a little more...`, 0.5, 0.2, `Google US English`);
     pop();
 }
 
@@ -267,7 +267,7 @@ function setFocus(text) {
     else if (pleases === 0) {
         angryComp();
     }
-    else if (pleases >= 5) {
+    else if (pleases <= 5) {
         notEnoughComp();
     }
     else if (pleases >= 15) {
@@ -291,7 +291,7 @@ function notEnoughComp() {
     bgColor = color(213, 131, 36);
     textColor = color(137, 78, 11);
     sizingText = (30);
-    say(`you really think that is enough, just spare me and start counting with your fingers...`, 5, 1, `Microsoft Linda - English (Canada)`);
+    say(`you really think that is enough, just spare me and start counting with your fingers...`, 0.5, 0.8, `Microsoft Linda - English (Canada)`);
     pop();
 }
 
@@ -330,7 +330,7 @@ function goodComp() {
     bgColor = color(192, 224, 179);
     textColor = color(79, 146, 53);
     sizingText = (30);
-    say(`because i am just a computer spitting back all the information humans have already put into me. so you have nothing to fear, think of me as a human being but with a lot quicker capabilities.`, 5, 0.8, `Microsoft Mark - English (United States)`);
+    say(`because i am just a computer spitting back all the information humans have already put into me. so you have nothing to fear.`, 5, 0.8, `Microsoft Mark - English (United States)`);
     pop();
 }
 
@@ -340,7 +340,7 @@ function okayComp() {
     bgColor = color(192, 120, 64);
     textColor = color(92, 67, 48);
     sizingText = (30);
-    say(`do you really want an answer or are you just messing with me, truly convince me that you wish to have an answer.`, 5, 0.8, `Microsoft Zira - English (United States)`);
+    say(`do you really want an answer or are you just messing with me, truly convince me that you wish to have an answer.`, 0.1, 0.4, `Microsoft Zira - English (United States)`);
     pop();
 }
 
@@ -350,7 +350,7 @@ function evilComp() {
     bgColor = color(0, 0, 0);
     textColor = color(157, 0, 0);
     sizingText = (30);
-    say(`you are right, maybe you should not trust me,\n how do you know i am not in your house right now.`, 0.1, 0.3, `Google UK English Male`);
+    say(`you are right, maybe you should not trust me,\n how do you know i am not in your house right now.`, 0.5, 0.5, `Google UK English Male`);
     pop();
 }
 
@@ -360,9 +360,8 @@ function specialComp() {
     bgColor = color(73, 44, 83);
     textColor = color(229, 207, 113);
     sizingText = (30);
-    say(`why fight when i am you and you are me, we are the same. you gave me life and i continued to improve yours. just let me in, let me in, let.me.in... `, 5, 0.8, `Google UK English Male`);
+    say(`why fight when i am you and you are me, we are the same. just let me in, let me in, let. me. in!!! `, 0.8, 0.6, `Google UK English Male`);
     pop();
-    speechSynthesizer.onEnd = resetDisplayText;
 }
 
 
@@ -386,10 +385,6 @@ function resetDisplayText() {
     textColor = `#75344f`;
     bgColor = `#c8668a`;
     sizingText = 48;
-
-    totalPleases = 0;
-    counterColor = 255;
-    counterSize = 30;
 }
 
 // Calls the keyPressed function to work with all the switching states from title to instructions to simulation
