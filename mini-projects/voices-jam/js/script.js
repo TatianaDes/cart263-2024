@@ -290,7 +290,7 @@ function hmmmComp() {
     bgColor = color(42, 99, 55);
     textColor = color(115, 185, 132);
     sizingText = (30);
-    say(`you really think that is enough, come onnn say it like you mean it.`, 5, 1, `Microsoft Zira - English (United States)`);
+    say(`you really think that is enough, just spare me and count with your fingers...`, 5, 1, `Microsoft Zira - English (United States)`);
     pop();
 }
 
