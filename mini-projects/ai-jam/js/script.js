@@ -7,43 +7,70 @@ A program where winking and blowing a kiss can do something (I do not know yet, 
 
 "use strict";
 
-// The user's webcam
-let video = undefined;
+// Current state of program
+let state = `loading`; // loading, running
+// User's webcam
+let video;
+// The name of our model
+let modelName = `Handpose`;
+// Handpose object (using the name of the model for clarity)
+let handpose;
 
-// The Handpose model
-let handpose = undefined;
 
-// The current set of predictions
-let predictions = [];
-
-// preload() is used to add images and files that need to be loaded within the program
+// preload() is used to load images and files outside from the program into the program
 function preload() {
 
 }
-
 
 // setup() is used to set up all the main functions that happen continuously throughout the program
 function setup() {
     createCanvas(600, 600);
 
-    // Access user's webcam
+    // Start webcam and hide the resulting HTML element
     video = createCapture(VIDEO);
     video.hide();
 
-    // Load the handpose model
-    handpose = ml5.handpose(video, { flipHorizontal: true }, function () {
-        console.log(`Model loaded.`);
-    });
-
-    // Listen for predictions
-    handpose.on(`predict`, function (results) {
-        console.log(results);
-        predictions = results;
+    // Start the Handpose model and switch to our running state when it loads
+    handpose = ml5.handpose(video, {
+        flipHorizontal: true
+    }, function () {
+        // Switch to the running state
+        state = `running`;
     });
 }
 
 
 // draw() is used to create the visuals and call the variables
 function draw() {
-    background(0);
+    // background(0);
+    if (state === `loading`) {
+        loading();
+    }
+    else if (state === `running`) {
+        running();
+    }
+}
+
+/**
+Displays a simple loading screen with the loading model's name
+*/
+function loading() {
+    background(255);
+
+    push();
+    textSize(32);
+    textStyle(BOLD);
+    textAlign(CENTER, CENTER);
+    text(`Loading ${modelName}...`, width / 2, height / 2);
+    pop();
+}
+
+/**
+Displays the webcam.
+If there is a hand it outlines it and highlights the tip of the index finger
+*/
+function running() {
+    // Display the webcam with reveresd image so it's a mirror
+    let flippedVideo = ml5.flipImage(video);
+    image(flippedVideo, 0, 0, width, height);
 }
