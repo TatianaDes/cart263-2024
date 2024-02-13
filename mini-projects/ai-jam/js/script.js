@@ -1,8 +1,8 @@
 /**
-Show Me Some Love
+Leaving
 Tatiana Désormeaux
 
-A program where winking and blowing a kiss can do something (I do not know yet, idea in the making)
+A program about the fear of losing someone and the emotions that come with this form of loss.
 */
 
 "use strict";
