@@ -1,5 +1,5 @@
 /**
-Leaving
+Always Out of Reach
 Tatiana Désormeaux
 
 A program about the fear of losing someone and the emotions that come with this form of loss.
@@ -62,14 +62,14 @@ function loading() {
     textStyle(BOLD);
     textAlign(CENTER, CENTER);
     fill(255, 185, 209);
-    text(`Loading Show Me Some Love...`, width / 2, height / 2);
+    text(`Loading Always Out of Reach...`, width / 2, height / 2);
     pop();
 
     push();
     textSize(15);
     textAlign(CENTER, CENTER);
     fill(249, 149, 162);
-    text(`Wink or blow a kiss at the webcam and see what happens...`, width / 1.55, height / 1.07);
+    text(`Try to reach and touch the objects that are on screen`, width / 1.55, height / 1.07);
     pop();
 }
 
