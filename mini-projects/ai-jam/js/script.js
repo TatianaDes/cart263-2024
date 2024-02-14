@@ -24,7 +24,7 @@ function preload() {
 
 // setup() is used to set up all the main functions that happen continuously throughout the program
 function setup() {
-    createCanvas(600, 600);
+    createCanvas(640, 480);
 
     // Start webcam and hide the resulting HTML element
     video = createCapture(VIDEO);
@@ -55,13 +55,21 @@ function draw() {
 Displays a simple loading screen with the loading model's name
 */
 function loading() {
-    background(255);
+    background(152, 9, 9);
 
     push();
     textSize(32);
     textStyle(BOLD);
     textAlign(CENTER, CENTER);
-    text(`Loading ${modelName}...`, width / 2, height / 2);
+    fill(255, 185, 209);
+    text(`Loading Show Me Some Love...`, width / 2, height / 2);
+    pop();
+
+    push();
+    textSize(15);
+    textAlign(CENTER, CENTER);
+    fill(249, 149, 162);
+    text(`Wink or blow a kiss at the webcam and see what happens...`, width / 1.55, height / 1.07);
     pop();
 }
 
