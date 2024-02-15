@@ -105,9 +105,9 @@ function simulation() {
 function prepareHand() {
     if (predictions.length > 0) {
         let hand = predictions[0];
-        let index = hand.annotations.indexFinger;
-        let tip = index[3];
-        let base = index[0];
+        let middle = hand.annotations.middleFinger;
+        let tip = middle[3];
+        let base = middle[0];
         let tipX = tip[0];
         let tipY = tip[1];
         let baseX = base[0];
