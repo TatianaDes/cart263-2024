@@ -7,78 +7,157 @@ A program about the fear of losing someone and the emotions that come with this 
 
 "use strict";
 
-// Current state of program
-let state = `loading`; // loading, running
-// User's webcam
-let video;
-// The name of our model
-let modelName = `Handpose`;
-// Handpose object (using the name of the model for clarity)
-let handpose;
+// Set the starting state
+let state = `title`; // Can be: title, simulation
 
+// The user's webcam
+let video = undefined;
 
-// preload() is used to load images and files outside from the program into the program
-function preload() {
+// The Handpose model
+let handpose = undefined;
 
-}
+// The current set of predictions
+let predictions = [];
 
-// setup() is used to set up all the main functions that happen continuously throughout the program
+// The bubble
+let bubble = undefined;
+
+/**
+Description of setup
+*/
 function setup() {
     createCanvas(640, 480);
 
-    // Start webcam and hide the resulting HTML element
+    // Access user's webcam
     video = createCapture(VIDEO);
     video.hide();
 
-    // Start the Handpose model and switch to our running state when it loads
-    handpose = ml5.handpose(video, {
-        flipHorizontal: true
-    }, function () {
-        // Switch to the running state
-        state = `running`;
+    // Load the handpose model
+    handpose = ml5.handpose(video, { flipHorizontal: true }, function () {
+        console.log(`Model loaded.`);
     });
+
+    // Listen for predictions
+    handpose.on(`predict`, function (results) {
+        console.log(results);
+        predictions = results;
+    });
+
+    // Our bubble
+    bubble = {
+        x: random(width),
+        y: height,
+        size: 100,
+        vx: 0,
+        vy: -2
+    }
 }
 
-
-// draw() is used to create the visuals and call the variables
-function draw() {
-    // background(0);
-    if (state === `loading`) {
-        loading();
-    }
-    else if (state === `running`) {
-        running();
-    }
-}
 
 /**
-Displays a simple loading screen with the loading model's name
+Description of draw()
 */
-function loading() {
-    background(152, 9, 9);
+function draw() {
+    // Setting up all the different states
+    if (state === `title`) {
+        title();
+    }
+    else if (state === `instructions`) {
+        instructions();
+    }
+    else if (state === `simulation`) {
+        simulation();
+    };
+}
+
+// Allows a title state to be displayed with all its properties
+function title() {
+    // Title state
+    background(71, 98, 134);
+    push();
+    textSize(50);
+    fill(0, 0, 0);
+    textAlign(CENTER, CENTER);
+    text(`Always Out of Reach`, width / 2, height / 2);
+    pop();
 
     push();
-    textSize(32);
-    textStyle(BOLD);
+    textSize(17);
+    fill(45, 56, 61);
     textAlign(CENTER, CENTER);
-    fill(255, 185, 209);
-    text(`Loading Always Out of Reach...`, width / 2, height / 2);
+    text(`(Press the Right Arrow Key to Start)`, width / 2, 300);
     pop();
 
     push();
     textSize(15);
-    textAlign(CENTER, CENTER);
-    fill(249, 149, 162);
-    text(`Try to reach and touch the objects that are on screen`, width / 1.55, height / 1.07);
+    fill(130, 154, 164);
+    text(`Use your webcam to reach for the objects on the screen`, width / 2.5, 470);
     pop();
 }
 
-/**
-Displays the webcam.
-If there is a hand it outlines it and highlights the tip of the index finger
-*/
-function running() {
-    // Display the webcam with reveresd image so it's a mirror
-    let flippedVideo = ml5.flipImage(video);
-    image(flippedVideo, 0, 0, width, height);
+// Creates the simulation state that calls the display text variable at the top with its text colour
+function simulation() {
+    // Simulation state
+    background(40, 53, 70);
+    prepareHand();
+}
+
+function prepareHand() {
+    if (predictions.length > 0) {
+        let hand = predictions[0];
+        let index = hand.annotations.indexFinger;
+        let tip = index[3];
+        let base = index[0];
+        let tipX = tip[0];
+        let tipY = tip[1];
+        let baseX = base[0];
+        let baseY = base[1];
+
+        // Pin body
+        push();
+        noFill();
+        stroke(255, 255, 255);
+        strokeWeight(2);
+        line(baseX, baseY, tipX, tipY);
+        pop();
+
+        // Pin head
+        push();
+        noStroke();
+        fill(255, 0, 0);
+        ellipse(baseX, baseY, 20);
+        pop();
+
+        // Check bubble popping
+        let d = dist(tipX, tipY, bubble.x, bubble.y);
+        if (d < bubble.size / 2) {
+            bubble.x = random(width);
+            bubble.y = height;
+        }
+    }
+
+    // Move the bubble
+    bubble.x += bubble.vx;
+    bubble.y += bubble.vy;
+
+    if (bubble.y < 0) {
+        bubble.x = random(width);
+        bubble.y = height;
+    }
+
+    push();
+    fill(0, 100, 200);
+    noStroke();
+    ellipse(bubble.x, bubble.y, bubble.size);
+    pop();
+}
+
+// Calls the keyPressed function to work with all the switching states from title to instructions to simulation
+function keyPressed() {
+    // Pressing the right arrow to activate
+    if (keyCode === 39) {
+        if (state === `title`) {
+            state = `simulation`;
+        }
+    }
 }
