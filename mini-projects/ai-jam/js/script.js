@@ -19,8 +19,11 @@ let handpose = undefined;
 // The current set of predictions
 let predictions = [];
 
-// The bubble
-let bubble = undefined;
+let love = [];
+let loveSize = 3;
+
+let priority = [];
+let prioritySize = 2;
 
 /**
 Description of setup
@@ -43,16 +46,38 @@ function setup() {
         predictions = results;
     });
 
-    // Our bubble
-    bubble = {
-        x: random(width),
-        y: height,
-        size: 100,
-        vx: 0,
-        vy: -2
+    // Make love have random positions
+    for (let i = 0; i < loveSize; i++) {
+        love[i] = createHeart(random(0, width), random(0, height));
+    }
+
+    // Make love have random positions
+    for (let i = 0; i < prioritySize; i++) {
+        priority[i] = createPlans(random(0, width), random(0, height));
     }
 }
 
+// Creating the love object for all the hearts
+function createHeart(x, y) {
+    let heart = {
+        x: x,
+        y: y,
+        size: random(10, 30)
+    };
+    return heart;
+}
+
+// Creating the love object for all the hearts
+function createPlans() {
+    let plans = {
+        x: 30,
+        y: 20,
+        w: 55,
+        h: 55,
+        size: random(10, 30)
+    };
+    return plans;
+}
 
 /**
 Description of draw()
@@ -61,9 +86,6 @@ function draw() {
     // Setting up all the different states
     if (state === `title`) {
         title();
-    }
-    else if (state === `instructions`) {
-        instructions();
     }
     else if (state === `simulation`) {
         simulation();
@@ -100,6 +122,16 @@ function simulation() {
     // Simulation state
     background(40, 53, 70);
     prepareHand();
+
+    // Calling the functions for all the hearts
+    for (let j = 0; j < love.length; j++) {
+        displayHeart(love[j]);
+    }
+
+    // Calling the functions for all the hearts
+    for (let j = 0; j < priority.length; j++) {
+        displayPlans(priority[j]);
+    }
 }
 
 function prepareHand() {
@@ -189,28 +221,25 @@ function prepareHand() {
         strokeWeight(5);
         line(basePFX, basePFY, tipPFX, tipPFY);
         pop();
-
-        // Check bubble popping
-        let d = dist(tipMFX, tipMFY, bubble.x, bubble.y);
-        if (d < bubble.size / 2) {
-            bubble.x = random(width);
-            bubble.y = height;
-        }
     }
+}
 
-    // Move the bubble
-    bubble.x += bubble.vx;
-    bubble.y += bubble.vy;
-
-    if (bubble.y < 0) {
-        bubble.x = random(width);
-        bubble.y = height;
-    }
-
+// Display the hearts
+function displayHeart(love) {
     push();
-    fill(0, 100, 200);
     noStroke();
-    ellipse(bubble.x, bubble.y, bubble.size);
+    fill(168, 49, 49);
+    ellipse(love.x, love.y, love.size);
+    pop();
+}
+
+// Display the hearts
+function displayPlans(priority) {
+    push();
+    noStroke();
+    fill(255);
+    rectMode(CENTER);
+    rect(priority.x, priority.y, priority.w, priority.h);
     pop();
 }
 
