@@ -105,6 +105,15 @@ function simulation() {
 function prepareHand() {
     if (predictions.length > 0) {
         let hand = predictions[0];
+        // Creating the thumb recognition
+        let thumb = hand.annotations.thumb;
+        let tipT = thumb[3];
+        let baseT = thumb[2];
+        let tipTX = tipT[0];
+        let tipTY = tipT[1];
+        let baseTX = baseT[0];
+        let baseTY = baseT[1];
+
         // Creating the index finger recognition
         let index = hand.annotations.indexFinger;
         let tipIF = index[3];
@@ -141,40 +150,48 @@ function prepareHand() {
         let basePFX = basePF[0];
         let basePFY = basePF[1];
 
+        // Displaying the Thumb
+        push();
+        noFill();
+        stroke(77, 66, 95);
+        strokeWeight(12);
+        line(baseTX, baseTY, tipTX, tipTY);
+        pop();
+
         // Displaying the Index Finger
         push();
         noFill();
-        stroke(255, 255, 255);
-        strokeWeight(5);
+        stroke(125, 121, 158);
+        strokeWeight(7);
         line(baseIFX, baseIFY, tipIFX, tipIFY);
         pop();
 
         // Displaying the Middle Finger
         push();
         noFill();
-        stroke(255, 255, 255);
-        strokeWeight(5);
+        stroke(102, 69, 108);
+        strokeWeight(10);
         line(baseMFX, baseMFY, tipMFX, tipMFY);
         pop();
 
         // Displaying the Ring Finger
         push();
         noFill();
-        stroke(255, 255, 255);
-        strokeWeight(5);
+        stroke(101, 98, 131);
+        strokeWeight(8);
         line(baseRFX, baseRFY, tipRFX, tipRFY);
         pop();
 
         // Displaying the Pinky Finger
         push();
         noFill();
-        stroke(255, 255, 255);
+        stroke(125, 98, 131);
         strokeWeight(5);
         line(basePFX, basePFY, tipPFX, tipPFY);
         pop();
 
         // Check bubble popping
-        let d = dist(tipX2, tipY2, bubble.x, bubble.y);
+        let d = dist(tipMFX, tipMFY, bubble.x, bubble.y);
         if (d < bubble.size / 2) {
             bubble.x = random(width);
             bubble.y = height;
