@@ -237,7 +237,7 @@ function displayHeart(love) {
 function displayPlans(priority) {
     push();
     noStroke();
-    fill(255);
+    fill(226, 177, 100);
     rectMode(CENTER);
     rect(priority.x, priority.y, priority.w, priority.h);
     pop();
