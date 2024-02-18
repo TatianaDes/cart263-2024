@@ -7,6 +7,9 @@ A program about the fear of losing someone and the emotions that come with this 
 
 "use strict";
 
+// Set the starting state
+let state = `title`; // Can be: title, simulation
+
 // The user's webcam
 let video = undefined;
 
@@ -55,35 +58,123 @@ function setup() {
 Description of draw()
 */
 function draw() {
-    background(0);
+    // Setting up all the different states
+    if (state === `title`) {
+        title();
+    }
+    else if (state === `instructions`) {
+        instructions();
+    }
+    else if (state === `simulation`) {
+        simulation();
+    };
+}
 
+// Allows a title state to be displayed with all its properties
+function title() {
+    // Title state
+    background(71, 98, 134);
+    push();
+    textSize(50);
+    fill(0, 0, 0);
+    textAlign(CENTER, CENTER);
+    text(`Always Out of Reach`, width / 2, height / 2);
+    pop();
+
+    push();
+    textSize(17);
+    fill(45, 56, 61);
+    textAlign(CENTER, CENTER);
+    text(`(Press the Right Arrow Key to Start)`, width / 2, 300);
+    pop();
+
+    push();
+    textSize(15);
+    fill(130, 154, 164);
+    text(`Use your webcam to reach for the objects on the screen`, width / 2.5, 470);
+    pop();
+}
+
+// Creates the simulation state that calls the display text variable at the top with its text colour
+function simulation() {
+    // Simulation state
+    background(40, 53, 70);
+    prepareHand();
+}
+
+function prepareHand() {
     if (predictions.length > 0) {
         let hand = predictions[0];
+        // Creating the index finger recognition
         let index = hand.annotations.indexFinger;
-        let tip = index[3];
-        let base = index[0];
-        let tipX = tip[0];
-        let tipY = tip[1];
-        let baseX = base[0];
-        let baseY = base[1];
+        let tipIF = index[3];
+        let baseIF = index[2];
+        let tipIFX = tipIF[0];
+        let tipIFY = tipIF[1];
+        let baseIFX = baseIF[0];
+        let baseIFY = baseIF[1];
 
-        // Pin body
+        // Creating the middle finger recognition
+        let middle = hand.annotations.middleFinger;
+        let tipMF = middle[3];
+        let baseMF = middle[2];
+        let tipMFX = tipMF[0];
+        let tipMFY = tipMF[1];
+        let baseMFX = baseMF[0];
+        let baseMFY = baseMF[1];
+
+        // Creating the ring finger recognition
+        let ring = hand.annotations.ringFinger;
+        let tipRF = ring[3];
+        let baseRF = ring[2];
+        let tipRFX = tipRF[0];
+        let tipRFY = tipRF[1];
+        let baseRFX = baseRF[0];
+        let baseRFY = baseRF[1];
+
+        // Creating the pinky finger recognition
+        let pinky = hand.annotations.pinky;
+        let tipPF = pinky[3];
+        let basePF = pinky[2];
+        let tipPFX = tipPF[0];
+        let tipPFY = tipPF[1];
+        let basePFX = basePF[0];
+        let basePFY = basePF[1];
+
+        // Displaying the Index Finger
         push();
         noFill();
         stroke(255, 255, 255);
-        strokeWeight(2);
-        line(baseX, baseY, tipX, tipY);
+        strokeWeight(5);
+        line(baseIFX, baseIFY, tipIFX, tipIFY);
         pop();
 
-        // Pin head
+        // Displaying the Middle Finger
         push();
-        noStroke();
-        fill(255, 0, 0);
-        ellipse(baseX, baseY, 20);
+        noFill();
+        stroke(255, 255, 255);
+        strokeWeight(5);
+        line(baseMFX, baseMFY, tipMFX, tipMFY);
+        pop();
+
+        // Displaying the Ring Finger
+        push();
+        noFill();
+        stroke(255, 255, 255);
+        strokeWeight(5);
+        line(baseRFX, baseRFY, tipRFX, tipRFY);
+        pop();
+
+        // Displaying the Pinky Finger
+        push();
+        noFill();
+        stroke(255, 255, 255);
+        strokeWeight(5);
+        line(basePFX, basePFY, tipPFX, tipPFY);
         pop();
 
         // Check bubble popping
-        let d = dist(tipX, tipY, bubble.x, bubble.y);
+        let d = dist(tipX2, tipY2, bubble.x, bubble.y);
         if (d < bubble.size / 2) {
             bubble.x = random(width);
             bubble.y = height;
@@ -104,4 +195,14 @@ function draw() {
     noStroke();
     ellipse(bubble.x, bubble.y, bubble.size);
     pop();
+}
+
+// Calls the keyPressed function to work with all the switching states from title to instructions to simulation
+function keyPressed() {
+    // Pressing the right arrow to activate
+    if (keyCode === 39) {
+        if (state === `title`) {
+            state = `simulation`;
+        }
+    }
 }
