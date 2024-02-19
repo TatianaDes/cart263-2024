@@ -126,7 +126,7 @@ function simulation() {
 
     // Calling the functions for all the hearts
     for (let j = 0; j < love.length; j++) {
-        checkOverlap(love[j]);
+        // checkOverlap(love[j]);
         displayHeart(love[j]);
     }
 
@@ -229,11 +229,11 @@ function prepareHand() {
 
 // Checks the overlaps of the middle fingers tip and whatever it is touching
 function checkOverlap(heart) {
-    // Check if middle finger and the heart overlap
-    let d = dist(tipMFX, tipMFY, heart.x, heart.y);
-    if (d < heart.size / 2) {
-        heart.vx = heart.scaredSpeed;
-    }
+    // // Check if middle finger and the heart overlap
+    // let d = dist(tipMFX, tipMFY, heart.x, heart.y);
+    // if (d < heart.size / 2) {
+    //     heart.vx = heart.scaredSpeed;
+    // }
 }
 
 // Move the hearts
