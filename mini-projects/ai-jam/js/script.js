@@ -19,15 +19,15 @@ let handpose = undefined;
 // The current set of predictions
 let predictions = [];
 
+// Creating a love array and how many I want
 let love = [];
 let loveSize = 3;
 
+// Creating a priority array and how many I want
 let priority = [];
 let prioritySize = 2;
 
-/**
-Description of setup
-*/
+// setup() creates the canvas and the calling of the handpose program as well as the webcam. It also gives the arrays random positions on the canvas
 function setup() {
     createCanvas(640, 480);
 
@@ -51,7 +51,7 @@ function setup() {
         love[i] = createHeart(random(0, width), random(0, height));
     }
 
-    // Make love have random positions
+    // Make priority have random positions
     for (let i = 0; i < prioritySize; i++) {
         priority[i] = createPlans(random(0, width), random(0, height));
     }
@@ -70,7 +70,7 @@ function createHeart(x, y) {
     return heart;
 }
 
-// Creating the love object for all the hearts
+// Creating the priority object for all the plans
 function createPlans() {
     let plans = {
         x: 30,
@@ -82,9 +82,7 @@ function createPlans() {
     return plans;
 }
 
-/**
-Description of draw()
-*/
+// draw() creates the states and calls their functions
 function draw() {
     // Setting up all the different states
     if (state === `title`) {
@@ -120,7 +118,7 @@ function title() {
     pop();
 }
 
-// Creates the simulation state that calls the display text variable at the top with its text colour
+// Creates the simulation state that calls the functions for both the love and priority arrays
 function simulation() {
     // Simulation state
     background(40, 53, 70);
@@ -132,12 +130,13 @@ function simulation() {
         displayHeart(love[j]);
     }
 
-    // Calling the functions for all the hearts
+    // Calling the functions for all the plans
     for (let j = 0; j < priority.length; j++) {
         displayPlans(priority[j]);
     }
 }
 
+// Creates the finger position for all the fingers and takes the information from the handpose program
 function prepareHand() {
     if (predictions.length > 0) {
         let hand = predictions[0];
@@ -228,6 +227,7 @@ function prepareHand() {
     }
 }
 
+// Checks the overlaps of the middle fingers tip and whatever it is touching
 function checkOverlap(heart) {
     // Check if middle finger and the heart overlap
     let d = dist(tipMFX, tipMFY, heart.x, heart.y);
@@ -241,25 +241,25 @@ heart.x += heart.vx;
 heart.y += heart.vy;
 
 // Display the hearts
-function displayHeart(love) {
+function displayHeart(heart) {
     push();
     noStroke();
     fill(168, 49, 49);
-    ellipse(love.x, love.y, love.size);
+    ellipse(heart.x, heart.y, heart.size);
     pop();
 }
 
-// Display the hearts
-function displayPlans(priority) {
+// Display the plans
+function displayPlans(plans) {
     push();
     noStroke();
     fill(226, 177, 100);
     rectMode(CENTER);
-    rect(priority.x, priority.y, priority.w, priority.h);
+    rect(plans.x, plans.y, plans.w, plans.h);
     pop();
 }
 
-// Calls the keyPressed function to work with all the switching states from title to instructions to simulation
+// Calls the keyPressed function to work with all the switching states from title to simulation
 function keyPressed() {
     // Pressing the right arrow to activate
     if (keyCode === 39) {
