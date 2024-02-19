@@ -71,13 +71,11 @@ function createHeart(x, y) {
 }
 
 // Creating the priority object for all the plans
-function createPlans() {
+function createPlans(x, y) {
     let plans = {
-        x: 30,
-        y: 20,
-        w: 55,
-        h: 55,
-        size: random(10, 30)
+        x: x,
+        y: y,
+        size: random(10, 20)
     };
     return plans;
 }
@@ -255,7 +253,7 @@ function displayPlans(plans) {
     noStroke();
     fill(226, 177, 100);
     rectMode(CENTER);
-    rect(plans.x, plans.y, plans.w, plans.h);
+    rect(plans.x, plans.y, plans.size);
     pop();
 }
 
