@@ -62,7 +62,10 @@ function createHeart(x, y) {
     let heart = {
         x: x,
         y: y,
-        size: random(10, 30)
+        size: random(10, 30),
+        vx: 0,
+        vy: 0,
+        scaredSpeed: 25,
     };
     return heart;
 }
@@ -125,6 +128,7 @@ function simulation() {
 
     // Calling the functions for all the hearts
     for (let j = 0; j < love.length; j++) {
+        checkOverlap(love[j]);
         displayHeart(love[j]);
     }
 
@@ -221,15 +225,20 @@ function prepareHand() {
         strokeWeight(5);
         line(basePFX, basePFY, tipPFX, tipPFY);
         pop();
-
-        // Check bubble popping
-        let d = dist(tipMFX, tipMFY, love.x, love.y);
-        if (d < love.size / 2) {
-            love.x = random(width);
-            love.y = height;
-        }
     }
 }
+
+function checkOverlap(heart) {
+    // Check if middle finger and the heart overlap
+    let d = dist(tipMFX, tipMFY, heart.x, heart.y);
+    if (d < heart.size / 2) {
+        heart.vx = heart.scaredSpeed;
+    }
+}
+
+// Move the hearts
+heart.x += heart.vx;
+heart.y += heart.vy;
 
 // Display the hearts
 function displayHeart(love) {
