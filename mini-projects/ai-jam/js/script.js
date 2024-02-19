@@ -221,6 +221,13 @@ function prepareHand() {
         strokeWeight(5);
         line(basePFX, basePFY, tipPFX, tipPFY);
         pop();
+
+        // Check bubble popping
+        let d = dist(tipMFX, tipMFY, love.x, love.y);
+        if (d < love.size / 2) {
+            love.x = random(width);
+            love.y = height;
+        }
     }
 }
 
