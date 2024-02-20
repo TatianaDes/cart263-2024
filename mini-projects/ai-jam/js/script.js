@@ -27,6 +27,7 @@ let loveSize = 3;
 let priority = [];
 let prioritySize = 2;
 
+// Creating an array for all the finger tips' x and y-axis
 let tipX = [];
 let tipY = [];
 
@@ -133,7 +134,7 @@ function simulation() {
 
     // Calling the functions for all the hearts
     for (let j = 0; j < love.length; j++) {
-        checkOverlap(love[j]);
+        checkCloseness(love[j]);
         moveHeart(love[j]);
         displayHeart(love[j]);
     }
@@ -149,25 +150,31 @@ function simulation() {
 function prepareHand() {
     if (predictions.length > 0) {
         let hand = predictions[0];
+        // Calls drawHand for the thumb 
         drawHand(hand.annotations.thumb, 77, 66, 95, 12);
+        // Calls drawHand for the index finger
         drawHand(hand.annotations.indexFinger, 125, 121, 158, 7);
+        // Calls drawHand for the middle finger
         drawHand(hand.annotations.middleFinger, 102, 69, 108, 10);
+        // Calls drawHand for the ring finger
         drawHand(hand.annotations.ringFinger, 101, 98, 131, 8);
+        // Calls drawHand for the pinky finger
         drawHand(hand.annotations.pinky, 125, 98, 131, 5);
     }
 }
 
+// Creates a function that calls for all the necessary elements of all the fingers in one parameter
 function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
-  // Creating the middle finger recognition
-  let myFinger = finger;
-  let tipF = myFinger[3];
-  let baseF = myFinger[2];
-  let tipFX = tipF[0];
-  let tipFY = tipF[1];
-  let baseFX = baseF[0];
-  let baseFY = baseF[1];
+    // Creating the recognition for all the finger positions
+    let myFinger = finger;
+    let tipF = myFinger[3];
+    let baseF = myFinger[2];
+    let tipFX = tipF[0];
+    let tipFY = tipF[1];
+    let baseFX = baseF[0];
+    let baseFY = baseF[1];
 
-    // Displaying the Middle Finger
+    // Displaying all the fingers
     push();
     noFill();
     stroke(strokeR, strokeG, strokeB);
@@ -175,57 +182,59 @@ function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
     line(baseFX, baseFY, tipFX, tipFY);
     pop();
 
+    // Calling the x and y variable for the tip of each finger
     tipX.push(tipFX);
     tipY.push(tipFY);
 }
 
 // Checks the overlaps of the middle fingers tip and whatever it is touching
-function checkOverlap(heart) {
-    // Check if middle finger and the heart overlap
-for (let j = 0; j < tipX.length; j++) {
-    let d = dist(tipX[j], tipY[j], heart.x, heart.y);
-    if (d < heart.size * 3) {
-        heart.vx = heart.scaredSpeed;
+function checkCloseness(heart) {
+    // Check if fingers and the heart get close to each other
+    for (let j = 0; j < tipX.length; j++) {
+        let d = dist(tipX[j], tipY[j], heart.x, heart.y);
+        if (d < heart.size * 3) {
+            heart.vx = heart.scaredSpeed;
+        }
     }
 }
-}
 
+// Allows for the hearts to move by adding position to the velocity of the hearts
 function moveHeart(heart) {
-// Move the hearts
-heart.x += heart.vx;
-heart.y += heart.vy;
+    // Move the hearts
+    heart.x += heart.vx;
+    heart.y += heart.vy;
 }
 
 // Make the plans run away from the middle finger tip
 function movePlans(plans) {
     // Make the puppies scared of the dog
     for (let j = 0; j < tipX.length; j++) {
-    let a = dist(tipX[j], tipY[j], plans.x, plans.y);
-    if (a < tipX[j] / 2 + plans.size / 2 + 300) {
-        if (tipX[j] < plans.x) {
-            plans.ax = plans.acceleration;
-        }
-        else {
-            plans.ax = -plans.acceleration;
-        }
+        let a = dist(tipX[j], tipY[j], plans.x, plans.y);
+        if (a < tipX[j] / 2 + plans.size / 2 + 300) {
+            if (tipX[j] < plans.x) {
+                plans.ax = plans.acceleration;
+            }
+            else {
+                plans.ax = -plans.acceleration;
+            }
 
-        if (tipY[j] < plans.y) {
-            plans.ay = plans.acceleration;
-        }
-        else {
-            plans.ay = -plans.acceleration;
+            if (tipY[j] < plans.y) {
+                plans.ay = plans.acceleration;
+            }
+            else {
+                plans.ay = -plans.acceleration;
+            }
         }
     }
-}
     // Constraining the speed and movement of the plans from their x-axis and y-axis
- plans.vx = plans.vx + plans.ax;
- plans.vx = constrain(plans.vx, -plans.maxSpeed, plans.maxSpeed);
- plans.vy = plans.vy + plans.ay;
- plans.vy = constrain(plans.vy, -plans.maxSpeed, plans.maxSpeed);
+    plans.vx = plans.vx + plans.ax;
+    plans.vx = constrain(plans.vx, -plans.maxSpeed, plans.maxSpeed);
+    plans.vy = plans.vy + plans.ay;
+    plans.vy = constrain(plans.vy, -plans.maxSpeed, plans.maxSpeed);
 
- // Position is being added onto the velocity of plans
- plans.x = plans.x + plans.vx;
- plans.y = plans.y + plans.vy;
+    // Position is being added onto the velocity of plans
+    plans.x += plans.vx;
+    plans.y += plans.vy;
 }
 
 // Display the hearts
