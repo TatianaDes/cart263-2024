@@ -245,7 +245,7 @@ function prepareHand() {
 // heart.y += heart.vy;
 // }
 
-// // Make the puppies run away from the dog
+// // Make the plans run away from the middle finger tip
 // function movePlans(plans) {
 //     // Make the puppies scared of the dog
 //     let a = dist(tipMFX, tipMFY, plans.x, plans.y);
@@ -265,17 +265,17 @@ function prepareHand() {
 //         }
 //     }
 
-//     // Constraining the speed and movement of the puppies from their x-axis and y-axis
+//     // Constraining the speed and movement of the plans from their x-axis and y-axis
 //     plans.vx = plans.vx + plans.ax;
 //     plans.vx = constrain(plans.vx, -plans.maxSpeed, plans.maxSpeed);
 //     plans.vy = plans.vy + plans.ay;
 //     plans.vy = constrain(plans.vy, -plans.maxSpeed, plans.maxSpeed);
 
-//     // Position is being added onto the velocity of puppies
+//     // Position is being added onto the velocity of plans
 //     plans.x = plans.x + plans.vx;
 //     plans.y = plans.y + plans.vy;
 
-//     // Constrain the puppies to the width and height of the canvas
+//     // Constrain the plans to the width and height of the canvas
 //     plans.x = constrain(plans.x, 0, width);
 //     plans.y = constrain(plans.y, 0, height);
 // }
