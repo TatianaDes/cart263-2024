@@ -251,8 +251,7 @@ function movePlans(plans) {
 }
 
 function checkEndings() {
-    // Checks if all the bees have fallen, then `bees` state occurs
-
+    // Checks if all the hearts have left, then `love` state occurs
     let allLoveLeave = true;
     for (let j = 0; j < love.length; j++) {
         if (love[j].stay) {
@@ -261,7 +260,7 @@ function checkEndings() {
         }
     }
 
-    // Checks if all the bees are actually dead and starts the ending
+    // Checks if all the hearts are actually gone and starts the ending
     if (allLoveLeave) {
         state = `love`;
     }
