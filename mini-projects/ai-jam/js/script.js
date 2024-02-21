@@ -8,7 +8,7 @@ A program about the fear of losing someone and the emotions that come with this 
 "use strict";
 
 // Set the starting state
-let state = `title`; // Can be: title, simulation
+let state = `title`; // Can be: title, simulation, love, priority
 
 // The user's webcam
 let video = undefined;
@@ -69,7 +69,8 @@ function createHeart(x, y) {
         size: random(10, 30),
         vx: 0,
         vy: 0,
-        scaredSpeed: 25,
+        scaredSpeed: 5,
+        stay: true,
     };
     return heart;
 }
@@ -84,8 +85,9 @@ function createPlans(x, y) {
         vy: 0,
         ax: 0,
         ay: 0,
-        acceleration: 1,
+        acceleration: 0.5,
         maxSpeed: 1,
+        stay: true,
     };
     return plans;
 }
@@ -98,6 +100,12 @@ function draw() {
     }
     else if (state === `simulation`) {
         simulation();
+    }
+    else if (state === `love`) {
+        loveless();
+    }
+    else if (state === `priority`) {
+        unimportant();
     };
 }
 
@@ -131,18 +139,23 @@ function simulation() {
     // Simulation state
     background(40, 53, 70);
     prepareHand();
+    checkEndings();
 
     // Calling the functions for all the hearts
     for (let j = 0; j < love.length; j++) {
-        checkCloseness(love[j]);
-        moveHeart(love[j]);
-        displayHeart(love[j]);
+        if (love[j].stay) {
+            checkCloseness(love[j]);
+            moveHeart(love[j]);
+            displayHeart(love[j]);
+        }
     }
 
     // Calling the functions for all the plans
     for (let j = 0; j < priority.length; j++) {
-        movePlans(priority[j]);
-        displayPlans(priority[j]);
+        if (priority[j].stay) {
+            movePlans(priority[j]);
+            displayPlans(priority[j]);
+        }
     }
 }
 
@@ -235,6 +248,45 @@ function movePlans(plans) {
     // Position is being added onto the velocity of plans
     plans.x += plans.vx;
     plans.y += plans.vy;
+}
+
+function checkEndings() {
+    // Checks if all the bees have fallen, then `bees` state occurs
+
+    let allLoveLeave = true;
+    for (let j = 0; j < love.length; j++) {
+        if (love[j].stay) {
+            allLoveLeave = false;
+            break;
+        }
+    }
+
+    // Checks if all the bees are actually dead and starts the ending
+    if (allLoveLeave) {
+        state = `love`;
+    }
+}
+
+function loveless() {
+    // love state
+    background(71, 98, 134);
+    push();
+    textSize(50);
+    fill(0, 0, 0);
+    textAlign(CENTER, CENTER);
+    text(`Always Out of Reach`, width / 2, height / 2);
+    pop();
+}
+
+function unimportant() {
+    // priority state
+    background(71, 98, 134);
+    push();
+    textSize(50);
+    fill(0, 0, 0);
+    textAlign(CENTER, CENTER);
+    text(`Always Out of Reach`, width / 2, height / 2);
+    pop();
 }
 
 // Display the hearts
