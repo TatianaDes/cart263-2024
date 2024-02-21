@@ -8,7 +8,7 @@ A program about the fear of losing someone and the emotions that come with this 
 "use strict";
 
 // Set the starting state
-let state = `title`; // Can be: title, simulation, love, priority
+let state = `title`; // Can be: title, simulation, hearts, plans
 
 // The user's webcam
 let video = undefined;
@@ -19,13 +19,13 @@ let handpose = undefined;
 // The current set of predictions
 let predictions = [];
 
-// Creating a love array and how many I want
-let love = [];
-let loveSize = 3;
+// Creating a hearts array and how many I want
+let hearts = [];
+let heartsSize = 3;
 
-// Creating a priority array and how many I want
-let priority = [];
-let prioritySize = 2;
+// Creating a plans array and how many I want
+let plans = [];
+let plansSize = 2;
 
 // Creating an array for all the finger tips' x and y-axis
 let tipX = [];
@@ -50,18 +50,18 @@ function setup() {
         predictions = results;
     });
 
-    // Make love have random positions
-    for (let i = 0; i < loveSize; i++) {
-        love[i] = createHeart(random(0, width), random(0, height));
+    // Make hearts have random positions
+    for (let i = 0; i < heartsSize; i++) {
+        hearts[i] = createHeart(random(0, width), random(0, height));
     }
 
-    // Make priority have random positions
-    for (let i = 0; i < prioritySize; i++) {
-        priority[i] = createPlans(random(0, width), random(0, height));
+    // Make plans have random positions
+    for (let i = 0; i < plansSize; i++) {
+        plans[i] = createPlan(random(0, width), random(0, height));
     }
 }
 
-// Creating the love object for all the hearts
+// Creating the hearts object for all the hearts
 function createHeart(x, y) {
     let heart = {
         x: x,
@@ -75,9 +75,9 @@ function createHeart(x, y) {
     return heart;
 }
 
-// Creating the priority object for all the plans
-function createPlans(x, y) {
-    let plans = {
+// Creating the plans object for all the plan
+function createPlan(x, y) {
+    let plan = {
         x: x,
         y: y,
         size: random(10, 20),
@@ -89,7 +89,7 @@ function createPlans(x, y) {
         maxSpeed: 1,
         stay: true,
     };
-    return plans;
+    return plan;
 }
 
 // draw() creates the states and calls their functions
@@ -134,7 +134,7 @@ function title() {
     pop();
 }
 
-// Creates the simulation state that calls the functions for both the love and priority arrays
+// Creates the simulation state that calls the functions for both the hearts and plans arrays
 function simulation() {
     // Simulation state
     background(40, 53, 70);
@@ -142,21 +142,21 @@ function simulation() {
     checkEndings();
 
     // Calling the functions for all the hearts
-    for (let j = 0; j < love.length; j++) {
-        if (love[j].stay) {
-            checkCloseness(love[j]);
-            moveHeart(love[j]);
-            heartGone(love[j]);
-            displayHeart(love[j]);
+    for (let j = 0; j < hearts.length; j++) {
+        if (hearts[j].stay) {
+            checkCloseness(hearts[j]);
+            moveHeart(hearts[j]);
+            heartGone(hearts[j]);
+            displayHeart(hearts[j]);
         }
     }
 
-    // Calling the functions for all the plans
-    for (let j = 0; j < priority.length; j++) {
-        if (priority[j].stay) {
-            movePlans(priority[j]);
-            plansGone(priority[j]);
-            displayPlans(priority[j]);
+    // Calling the functions for all the plan
+    for (let j = 0; j < plans.length; j++) {
+        if (plans[j].stay) {
+            movePlan(plans[j]);
+            planGone(plans[j]);
+            displayPlan(plans[j]);
         }
     }
 }
@@ -220,36 +220,36 @@ function moveHeart(heart) {
     heart.y += heart.vy;
 }
 
-// Make the plans run away from the middle finger tip
-function movePlans(plans) {
+// Make the plan run away from the middle finger tip
+function movePlan(plan) {
     // Make the puppies scared of the dog
     for (let j = 0; j < tipX.length; j++) {
-        let a = dist(tipX[j], tipY[j], plans.x, plans.y);
-        if (a < tipX[j] / 2 + plans.size / 2 + 300) {
-            if (tipX[j] < plans.x) {
-                plans.ax = plans.acceleration;
+        let a = dist(tipX[j], tipY[j], plan.x, plan.y);
+        if (a < tipX[j] / 2 + plan.size / 2 + 300) {
+            if (tipX[j] < plan.x) {
+                plan.ax = plan.acceleration;
             }
             else {
-                plans.ax = -plans.acceleration;
+                plan.ax = -plan.acceleration;
             }
 
-            if (tipY[j] < plans.y) {
-                plans.ay = plans.acceleration;
+            if (tipY[j] < plan.y) {
+                plan.ay = plan.acceleration;
             }
             else {
-                plans.ay = -plans.acceleration;
+                plan.ay = -plan.acceleration;
             }
         }
     }
-    // Constraining the speed and movement of the plans from their x-axis and y-axis
-    plans.vx = plans.vx + plans.ax;
-    plans.vx = constrain(plans.vx, -plans.maxSpeed, plans.maxSpeed);
-    plans.vy = plans.vy + plans.ay;
-    plans.vy = constrain(plans.vy, -plans.maxSpeed, plans.maxSpeed);
+    // Constraining the speed and movement of the plan from their x-axis and y-axis
+    plan.vx = plan.vx + plan.ax;
+    plan.vx = constrain(plan.vx, -plan.maxSpeed, plan.maxSpeed);
+    plan.vy = plan.vy + plan.ay;
+    plan.vy = constrain(plan.vy, -plan.maxSpeed, plan.maxSpeed);
 
-    // Position is being added onto the velocity of plans
-    plans.x += plans.vx;
-    plans.y += plans.vy;
+    // Position is being added onto the velocity of plan
+    plan.x += plan.vx;
+    plan.y += plan.vy;
 }
 
 function heartGone(heart) {
@@ -258,16 +258,16 @@ function heartGone(heart) {
     }
 }
 
-function plansGone(plans) {
-    if (plans.y - plans.size / 2 > height && plans.x - plans.size / 2 > width) {
-        plans.stay = false;
+function planGone(plan) {
+    if (plan.y - plan.size / 2 > height && plan.x - plan.size / 2 > width) {
+        plan.stay = false;
     }
 }
 
 function checkEndings() {
     // Checks if all the hearts have left, then `love` state occurs
     let allHeartsGone = true;
-    for (let heart of love) {
+    for (let heart of hearts) {
         if (heart.stay) {
             allHeartsGone = false;
             break;
@@ -277,15 +277,15 @@ function checkEndings() {
         state = `love`;
     }
 
-    // Checks if all the plans have left, then `priority` state occurs
-    let allPlansGone = true;
-    for (let plans of priority) {
-        if (plans.stay) {
-            allPlansGone = false;
+    // Checks if all the plan have left, then `priority` state occurs
+    let allPlanGone = true;
+    for (let plan of plans) {
+        if (plan.stay) {
+            allPlanGone = false;
             break;
         }
     }
-    if (allPlansGone) {
+    if (allPlanGone) {
         state = `priority`;
     }
 }
@@ -321,13 +321,13 @@ function displayHeart(heart) {
     pop();
 }
 
-// Display the plans
-function displayPlans(plans) {
+// Display the plan
+function displayPlan(plan) {
     push();
     noStroke();
     fill(226, 177, 100);
     rectMode(CENTER);
-    rect(plans.x, plans.y, plans.size);
+    rect(plan.x, plan.y, plan.size);
     pop();
 }
 
