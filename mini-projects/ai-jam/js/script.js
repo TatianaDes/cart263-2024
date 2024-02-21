@@ -292,23 +292,37 @@ function checkEndings() {
 
 function loveless() {
     // love state
-    background(71, 98, 134);
+    background(51, 30, 74);
     push();
     textSize(50);
-    fill(0, 0, 0);
+    fill(95, 111, 166);
     textAlign(CENTER, CENTER);
-    text(`Always Out of Reach`, width / 2, height / 2);
+    text(`Give Me Another Chance...`, width / 2, height / 2);
+    pop();
+
+    push();
+    textSize(17);
+    fill(120, 93, 161);
+    textAlign(CENTER, CENTER);
+    text(`(Press the Spacebar to Continue)`, width / 2, 300);
     pop();
 }
 
 function unimportant() {
     // priority state
-    background(71, 98, 134);
+    background(48, 81, 104);
     push();
     textSize(50);
-    fill(0, 0, 0);
+    fill(113, 106, 129);
     textAlign(CENTER, CENTER);
-    text(`Always Out of Reach`, width / 2, height / 2);
+    text(`Please don't go...`, width / 2, height / 2);
+    pop();
+
+    push();
+    textSize(17);
+    fill(134, 141, 169);
+    textAlign(CENTER, CENTER);
+    text(`(Press the Spacebar to Continue)`, width / 2, 300);
     pop();
 }
 
@@ -336,6 +350,15 @@ function keyPressed() {
     // Pressing the right arrow to activate
     if (keyCode === 39) {
         if (state === `title`) {
+            state = `simulation`;
+        }
+    }
+
+    if (keyCode === 32) {
+        if (state === `love`) {
+            state = `simulation`;
+        }
+        else if (state === `priority`) {
             state = `simulation`;
         }
     }
