@@ -264,6 +264,20 @@ function checkEndings() {
     if (allLoveLeave) {
         state = `love`;
     }
+
+    // Checks if all the plans have left, then `priority` state occurs
+    let allPlansLeave = true;
+    for (let j = 0; j < priority.length; j++) {
+        if (priority[j].stay) {
+            allPlansLeave = false;
+            break;
+        }
+    }
+
+    // Checks if all the plans are actually gone and starts the ending
+    if (allPlansLeave) {
+        state = `priority`;
+    }
 }
 
 function loveless() {
