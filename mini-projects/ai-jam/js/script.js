@@ -253,47 +253,39 @@ function movePlans(plans) {
 }
 
 function heartGone(heart) {
-    for (let j = 0; j < love.length; j++) {
-        if (heart.y - heart.size / 2 > height && heart.x - heart.size / 2 > width) {
-            love[j].stay = false;
-        }
+    if (heart.y - heart.size / 2 > height && heart.x - heart.size / 2 > width) {
+        heart.stay = false;
     }
 }
 
 function plansGone(plans) {
-    for (let j = 0; j < priority.length; j++) {
-        if (plans.y - plans.size / 2 > height && plans.x - plans.size / 2 > width) {
-            priority[j].stay = false;
-        }
+    if (plans.y - plans.size / 2 > height && plans.x - plans.size / 2 > width) {
+        plans.stay = false;
     }
 }
 
 function checkEndings() {
     // Checks if all the hearts have left, then `love` state occurs
-    let allLoveLeave = true;
-    for (let j = 0; j < love.length; j++) {
-        if (love[j].stay) {
-            allLoveLeave = false;
+    let allHeartsGone = true;
+    for (let heart of love) {
+        if (heart.stay) {
+            allHeartsGone = false;
             break;
         }
     }
-
-    // Checks if all the hearts are actually gone and starts the ending
-    if (allLoveLeave) {
+    if (allHeartsGone) {
         state = `love`;
     }
 
     // Checks if all the plans have left, then `priority` state occurs
-    let allPlansLeave = true;
-    for (let j = 0; j < priority.length; j++) {
-        if (priority[j].stay) {
-            allPlansLeave = false;
+    let allPlansGone = true;
+    for (let plans of priority) {
+        if (plans.stay) {
+            allPlansGone = false;
             break;
         }
     }
-
-    // Checks if all the plans are actually gone and starts the ending
-    if (allPlansLeave) {
+    if (allPlansGone) {
         state = `priority`;
     }
 }
