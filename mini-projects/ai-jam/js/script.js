@@ -146,6 +146,7 @@ function simulation() {
         if (love[j].stay) {
             checkCloseness(love[j]);
             moveHeart(love[j]);
+            heartGone(love[j]);
             displayHeart(love[j]);
         }
     }
@@ -154,6 +155,7 @@ function simulation() {
     for (let j = 0; j < priority.length; j++) {
         if (priority[j].stay) {
             movePlans(priority[j]);
+            plansGone(priority[j]);
             displayPlans(priority[j]);
         }
     }
@@ -248,6 +250,22 @@ function movePlans(plans) {
     // Position is being added onto the velocity of plans
     plans.x += plans.vx;
     plans.y += plans.vy;
+}
+
+function heartGone(heart) {
+    for (let j = 0; j < love.length; j++) {
+        if (heart.y - heart.size / 2 > height && heart.x - heart.size / 2 > width) {
+            love[j].stay = false;
+        }
+    }
+}
+
+function plansGone(plans) {
+    for (let j = 0; j < priority.length; j++) {
+        if (plans.y - plans.size / 2 > height && plans.x - plans.size / 2 > width) {
+            priority[j].stay = false;
+        }
+    }
 }
 
 function checkEndings() {
