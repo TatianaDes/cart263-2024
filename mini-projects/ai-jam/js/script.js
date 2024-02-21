@@ -278,14 +278,14 @@ function checkEndings() {
     }
 
     // Checks if all the plan have left, then `priority` state occurs
-    let allPlanGone = true;
+    let allPlansGone = true;
     for (let plan of plans) {
         if (plan.stay) {
-            allPlanGone = false;
+            allPlansGone = false;
             break;
         }
     }
-    if (allPlanGone) {
+    if (allPlansGone) {
         state = `priority`;
     }
 }
