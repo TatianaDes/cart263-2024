@@ -259,7 +259,7 @@ function heartGone(heart) {
 }
 
 function planGone(plan) {
-    if (plan.y - plan.size / 2 > height && plan.x - plan.size / 2 > width) {
+    if (plan.y + plan.size /2 < 0 || plan.y - plan.size / 2 > height || plan.x + plan.size / 2 < 0 || plan.x - plan.size / 2 > width) {
         plan.stay = false;
     }
 }
