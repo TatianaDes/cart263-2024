@@ -296,7 +296,7 @@ function loveless() {
     textSize(17);
     fill(120, 93, 161);
     textAlign(CENTER, CENTER);
-    text(`(Press the Spacebar to Continue)`, width / 2, 300);
+    text(`(Press the Left Arrow Key to Continue)`, width / 2, 300);
     pop();
 }
 
@@ -314,7 +314,7 @@ function unimportant() {
     textSize(17);
     fill(134, 141, 169);
     textAlign(CENTER, CENTER);
-    text(`(Press the Spacebar to Continue)`, width / 2, 300);
+    text(`(Press the Left Arrow Key to Continue)`, width / 2, 300);
     pop();
 }
 
@@ -363,8 +363,8 @@ function keyPressed() {
         }
     }
 
-    // Pressing the spacebar tp activate and reset the simulation
-    if (keyCode === 32) {
+    // Pressing the left arrow to activate and reset the simulation
+    if (keyCode === 37) {
         if (state === `love`) {
             reset();
             state = `simulation`;
