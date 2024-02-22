@@ -49,16 +49,8 @@ function setup() {
         // console.log(results);
         predictions = results;
     });
-
-    // Make hearts have random positions
-    for (let i = 0; i < heartsSize; i++) {
-        hearts[i] = createHeart(random(0, width), random(0, height));
-    }
-
-    // Make plans have random positions
-    for (let i = 0; i < plansSize; i++) {
-        plans[i] = createPlan(random(0, width), random(0, height));
-    }
+    // Calls the reset function in the setup to always know that anytime the reset function is called it has to go through the function itself
+    reset();
 }
 
 // Creating the hearts object for all the hearts
@@ -259,7 +251,7 @@ function heartGone(heart) {
 }
 
 function planGone(plan) {
-    if (plan.y + plan.size /2 < 0 || plan.y - plan.size / 2 > height || plan.x + plan.size / 2 < 0 || plan.x - plan.size / 2 > width) {
+    if (plan.y + plan.size / 2 < 0 || plan.y - plan.size / 2 > height || plan.x + plan.size / 2 < 0 || plan.x - plan.size / 2 > width) {
         plan.stay = false;
     }
 }
@@ -345,6 +337,23 @@ function displayPlan(plan) {
     pop();
 }
 
+// Resets the simulation function from scratch after it is called again and creates all the same positions for every array
+function reset() {
+    // Calling the hearts array again
+    hearts = [];
+    // Make hearts have random positions
+    for (let i = 0; i < heartsSize; i++) {
+        hearts[i] = createHeart(random(0, width), random(0, height));
+    }
+
+    // Calling the plans array again
+    plans = [];
+    // Make plans have random positions
+    for (let i = 0; i < plansSize; i++) {
+        plans[i] = createPlan(random(0, width), random(0, height));
+    }
+}
+
 // Calls the keyPressed function to work with all the switching states from title to simulation
 function keyPressed() {
     // Pressing the right arrow to activate
@@ -354,11 +363,14 @@ function keyPressed() {
         }
     }
 
+    // Pressing the spacebar tp activate and reset the simulation
     if (keyCode === 32) {
         if (state === `love`) {
+            reset();
             state = `simulation`;
         }
         else if (state === `priority`) {
+            reset();
             state = `simulation`;
         }
     }
