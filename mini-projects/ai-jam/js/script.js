@@ -253,7 +253,7 @@ function movePlan(plan) {
 }
 
 function heartGone(heart) {
-    if (heart.y - heart.size / 2 > height && heart.x - heart.size / 2 > width) {
+    if (heart.x - heart.size / 2 > width) {
         heart.stay = false;
     }
 }
@@ -294,7 +294,7 @@ function loveless() {
     // love state
     background(51, 30, 74);
     push();
-    textSize(50);
+    textSize(40);
     fill(95, 111, 166);
     textAlign(CENTER, CENTER);
     text(`Give Me Another Chance...`, width / 2, height / 2);
