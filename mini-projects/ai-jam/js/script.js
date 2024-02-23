@@ -198,11 +198,9 @@ function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
 function checkCloseness(heart) {
     // Check if fingers and the heart get close to each other
     for (let j = 0; j < tipX.length; j++) {
-        if (j !== 0 && j !== 1 && j !== 3 && j !== 4) {
-            let d = dist(tipX[j], tipY[j], heart.x, heart.y);
-            if (d < heart.size * 3) {
-                heart.vx = heart.scaredSpeed;
-            }
+        let d = dist(tipX[j], tipY[j], heart.x, heart.y);
+        if (d < heart.size * 3) {
+            heart.vx = heart.scaredSpeed;
         }
     }
 }
