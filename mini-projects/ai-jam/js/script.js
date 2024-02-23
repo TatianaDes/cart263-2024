@@ -172,6 +172,7 @@ function prepareHand() {
 
 // Creates a function that calls for all the necessary elements of all the fingers in one parameter
 function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
+
     // Creating the recognition for all the finger positions
     let myFinger = finger;
     let tipF = myFinger[3];
@@ -193,6 +194,7 @@ function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
     tipX.push(tipFX);
     tipY.push(tipFY);
 }
+
 
 // Checks the overlaps of the middle fingers tip and whatever it is touching
 function checkCloseness(heart) {
