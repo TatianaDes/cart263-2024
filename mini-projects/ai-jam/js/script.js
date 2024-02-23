@@ -172,7 +172,6 @@ function prepareHand() {
 
 // Creates a function that calls for all the necessary elements of all the fingers in one parameter
 function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
-
     // Creating the recognition for all the finger positions
     let myFinger = finger;
     let tipF = myFinger[3];
