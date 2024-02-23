@@ -78,7 +78,7 @@ function createPlan(x, y) {
         ax: 0,
         ay: 0,
         acceleration: 0.5,
-        maxSpeed: 1,
+        maxSpeed: 0.5,
         stay: true,
     };
     return plan;
