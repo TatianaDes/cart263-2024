@@ -7,60 +7,59 @@ A program about the fear of losing someone and the emotions that come with this 
 
 "use strict";
 
-// Set the starting state
-let state = `title`; // Can be: title, simulation, hearts, plans, stick
+// Set the starting state.
+let state = `title`; // Can be: title, simulation, hearts, plans, stick.
 
-// The user's webcam
+// The user's webcam.
 let video = undefined;
 
-// The Handpose model
+// The Handpose model.
 let handpose = undefined;
 
-// The current set of predictions
+// The current set of predictions.
 let predictions = [];
 
-// Creating a hearts array and how many I want
+// Creating a hearts array and how many I want.
 let hearts = [];
 let heartsSize = 3;
 
-// Creating a plans array and how many I want
+// Creating a plans array and how many I want.
 let plans = [];
 let plansSize = 2;
 
-// Creating an array for all the finger tips' x and y corrdinates on the axis
+// Creating an array for all the finger tips' x and y corrdinates on the axis.
 let tipX = [];
 let tipY = [];
 
-// Creating all the attributes to the pinch function, like the initial amount of distance the pinch has to be
+// Creating all the attributes to the pinch function, like the initial amount of distance the pinch has to be.
 let pinchAmount = undefined;
-// The location of where the pinch is
+// The location of where the pinch is.
 let pinchLocation = [];
-// The time of how long the pinch goes on for
+// The time of how long the pinch goes on for.
 let pinchTime = undefined;
 
-// setup() creates the canvas and the calling of the handpose program as well as the webcam. It also gives the arrays random positions on the canvas
+// setup() creates the canvas and the calling of the handpose program as well as the webcam. It also calls the reset function to reset the title and simulation.
 function setup() {
     createCanvas(640, 480);
 
-    // Access user's webcam
+    // Access user's webcam.
     video = createCapture(VIDEO);
     video.hide();
 
-    // Load the handpose model
+    // Load the handpose model.
     handpose = ml5.handpose(video, { flipHorizontal: true }, function () {
         console.log(`Model loaded.`);
     });
 
-    // Listen for predictions
+    // Listen for predictions.
     handpose.on(`predict`, function (results) {
-        // console.log(results);
         predictions = results;
     });
-    // Calls the reset function in the setup to always know that anytime the reset function is called it has to go through the function itself
+    // Calls the reset function in the setup to always know that anytime the reset function is called it has to go through the function itself.
     reset();
 }
 
-// Creating the hearts object for all the hearts
+// Creating the heart object for all the hearts.
 function createHeart(x, y) {
     let heart = {
         x: x,
@@ -74,7 +73,7 @@ function createHeart(x, y) {
     return heart;
 }
 
-// Creating the plans object for all the plan
+// Creating the plan object for all the plans.
 function createPlan(x, y) {
     let plan = {
         x: x,
@@ -91,9 +90,9 @@ function createPlan(x, y) {
     return plan;
 }
 
-// draw() creates the states and calls their functions
+// draw() creates the states and calls their functions.
 function draw() {
-    // Setting up all the different states
+    // Setting up all the different states.
     if (state === `title`) {
         drawTitle();
     }
@@ -111,9 +110,9 @@ function draw() {
     };
 }
 
-// Allows a title state to be displayed with all its properties
+// Allows a title state to be displayed with all its properties.
 function drawTitle() {
-    // Title state
+    // Title state.
     background(71, 98, 134);
     push();
     textSize(50);
@@ -136,14 +135,14 @@ function drawTitle() {
     pop();
 }
 
-// Creates the simulation state that calls the functions for both the hearts and plans arrays
+// Creates the simulation state that calls the functions for both the hearts and plans arrays.
 function drawSimulation() {
-    // Simulation state
+    // Simulation state.
     background(40, 53, 70);
     prepareHand();
     checkEndings();
 
-    // Calling the functions for all the hearts
+    // Calling the functions for all the heart objects.
     for (let j = 0; j < hearts.length; j++) {
         if (hearts[j].stay) {
             checkCloseness(hearts[j]);
@@ -153,7 +152,7 @@ function drawSimulation() {
         }
     }
 
-    // Calling the functions for all the plan
+    // Calling the functions for all the plan objects.
     for (let j = 0; j < plans.length; j++) {
         if (plans[j].stay) {
             movePlan(plans[j]);
@@ -161,39 +160,39 @@ function drawSimulation() {
             displayPlan(plans[j]);
         }
     }
-    // clears the length of the tips of the fingers each time the states change
+    // clears the length of the tips of the fingers each time the states change.
     clearTips();
 }
 
-// Creates the finger position for all the fingers and takes the information from the handpose program
+// Creates the finger position for all the fingers and takes the information from the handpose program.
 function prepareHand() {
     if (predictions.length > 0) {
         let hand = predictions[0];
-        // Calls drawHand for the thumb 
+        // Calls drawHand for the thumb.
         drawHand(hand.annotations.thumb, 77, 66, 95, 12);
-        // Calls drawHand for the index finger
+        // Calls drawHand for the index finger.
         drawHand(hand.annotations.indexFinger, 125, 121, 158, 7);
-        // Calls drawHand for the middle finger
+        // Calls drawHand for the middle finger.
         drawHand(hand.annotations.middleFinger, 102, 69, 108, 10);
-        // Calls drawHand for the ring finger
+        // Calls drawHand for the ring finger.
         drawHand(hand.annotations.ringFinger, 101, 98, 131, 8);
-        // Calls drawHand for the pinky finger
+        // Calls drawHand for the pinky finger.
         drawHand(hand.annotations.pinky, 125, 98, 131, 5);
 
-        // Creating the distance between the index and thumb to be able to pinch
+        // Creating the distance between the index and thumb to be able to pinch.
         let thumbTip = hand.annotations.thumb[3];
         let indexFingerTip = hand.annotations.indexFinger[3];
         pinchAmount = dist(thumbTip[0], thumbTip[1], indexFingerTip[0], indexFingerTip[1]);
         pinchLocation = [(thumbTip[0] + indexFingerTip[0]) / 2, (thumbTip[1] + indexFingerTip[1]) / 2];
     } else {
-        // Creating the pinch amount as undefined for when the pinch is initially set up
+        // Creating the pinch amount as undefined for when the pinch is initially set up.
         pinchAmount = undefined;
     }
 }
 
-// Creates a function that calls for all the necessary elements of all the fingers in one parameter
+// Creates a function that calls for all the necessary elements of all the fingers in one parameter.
 function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
-    // Creating the recognition for all the finger positions
+    // Creating the recognition for all the finger positions.
     let myFinger = finger;
     let tipF = myFinger[3];
     let baseF = myFinger[2];
@@ -202,7 +201,7 @@ function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
     let baseFX = baseF[0];
     let baseFY = baseF[1];
 
-    // Displaying all the fingers
+    // Displaying all the fingers.
     push();
     noFill();
     stroke(strokeR, strokeG, strokeB);
@@ -210,14 +209,14 @@ function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
     line(baseFX, baseFY, tipFX, tipFY);
     pop();
 
-    // Calling the x and y variable for the tip of each finger
+    // Calling the x and y variable for the tip of each finger.
     tipX.push(tipFX);
     tipY.push(tipFY);
 }
 
-// Checks the overlaps of the middle fingers tip and whatever it is touching
+// Checks the overlaps of the middle fingers tip and the heart that it is touching.
 function checkCloseness(heart) {
-    // Check if fingers and the heart get close to each other
+    // Check if fingers and the heart get close to each other.
     for (let j = 0; j < tipX.length; j++) {
         let d = dist(tipX[j], tipY[j], heart.x, heart.y);
         if (d < heart.size + 10) {
@@ -231,16 +230,16 @@ function checkCloseness(heart) {
     }
 }
 
-// Allows for the hearts to move by adding position to the velocity of the hearts
+// Allows for the hearts to move by adding position to the velocity of the hearts.
 function moveHeart(heart) {
-    // Move the hearts
+    // Move the hearts.
     heart.x += heart.vx;
     heart.y += heart.vy;
 }
 
-// Make the plan run away from the middle finger tip
+// Make the plan run away from the middle finger tip.
 function movePlan(plan) {
-    // Make the plan scared of the fingers
+    // Make the plan scared of the fingers.
     for (let j = 0; j < tipX.length; j++) {
         let a = dist(tipX[j], tipY[j], plan.x, plan.y);
         if (a < 50) {
@@ -259,25 +258,25 @@ function movePlan(plan) {
             }
         }
     }
-    // Constraining the speed and movement of the plan from their x-axis and y-axis
+    // Constraining the speed and movement of the plan from their x-axis and y-axis.
     plan.vx = plan.vx + plan.ax;
     plan.vx = constrain(plan.vx, -plan.maxSpeed, plan.maxSpeed);
     plan.vy = plan.vy + plan.ay;
     plan.vy = constrain(plan.vy, -plan.maxSpeed, plan.maxSpeed);
 
-    // Position is being added onto the velocity of plan
+    // Position is being added onto the velocity of plan.
     plan.x += plan.vx;
     plan.y += plan.vy;
 }
 
-// Makes the computer know when the hearts have gone off the sides of the screen on the left and right
+// Makes the computer know when the hearts have gone off the sides of the screen on the left and right.
 function heartGone(heart) {
     if (heart.x - heart.size / 2 > width || heart.x + heart.size / 2 < 0) {
         heart.stay = false;
     }
 }
 
-// Makes the computer know when the plans have gone off all the canvas sides
+// Makes the computer know when the plans have gone off all the canvas sides.
 function planGone(plan) {
     if (plan.y + plan.size / 2 < 0 || plan.y - plan.size / 2 > height || plan.x + plan.size / 2 < 0 || plan.x - plan.size / 2 > width) {
         plan.stay = false;
@@ -285,7 +284,7 @@ function planGone(plan) {
 }
 
 function checkEndings() {
-    // Checks if all the hearts have left, then `love` state occurs
+    // Checks if all the hearts have left, then `love` state occurs.
     let allHeartsGone = true;
     for (let heart of hearts) {
         if (heart.stay) {
@@ -297,7 +296,7 @@ function checkEndings() {
         state = `love`;
     }
 
-    // Checks if all the plan have left, then `priority` state occurs
+    // Checks if all the plan have left, then `priority` state occurs.
     let allPlansGone = true;
     for (let plan of plans) {
         if (plan.stay) {
@@ -332,8 +331,9 @@ function checkEndings() {
     }
 }
 
+// Allows a love state to be displayed with all its properties.
 function drawLove() {
-    // love state
+    // love state.
     background(51, 30, 74);
     push();
     textSize(40);
@@ -350,8 +350,9 @@ function drawLove() {
     pop();
 }
 
+// Allows a priority state to be displayed with all its properties.
 function drawPriority() {
-    // priority state
+    // priority state.
     background(48, 81, 104);
     push();
     textSize(50);
@@ -368,14 +369,15 @@ function drawPriority() {
     pop();
 }
 
+// Allows a stick state to be displayed with all its properties.
 function drawStick() {
-    // stick state
+    // stick state.
     background(138, 188, 215);
     push();
     textSize(35);
     fill(230, 226, 186);
     textAlign(CENTER, CENTER);
-    text(`If they want to go, let them go,\n you deserve more than to\n wait for someone that\n is trying to run.\n`, width / 2, height / 2);
+    text(`If they want to go, let them go.\n You deserve more than to\n wait for someone that\n is trying to run.\n`, width / 2, height / 2);
     pop();
 
     push();
@@ -386,7 +388,7 @@ function drawStick() {
     pop();
 }
 
-// Display the hearts
+// Display the heart.
 function displayHeart(heart) {
     push();
     noStroke();
@@ -395,11 +397,11 @@ function displayHeart(heart) {
     pop();
 }
 
-// Display the plan
+// Display the plan.
 function displayPlan(plan) {
     push();
     noStroke();
-    // When the plan is being pinched the plan will stop and change colour
+    // When the plan is being pinched the plan will stop and change colour.
     let d = dist(pinchLocation[0], pinchLocation[1], plan.x, plan.y);
     if (pinchAmount < 100 && d < 20) {
         fill(131, 0, 0);
@@ -413,30 +415,31 @@ function displayPlan(plan) {
     pop();
 }
 
-// Resets the simulation function from scratch after it is called again and creates all the same positions for every array
+// Resets the simulation function from scratch after it is called again and creates all the same positions for every array.
 function reset() {
-    // Calling the hearts array again
+    // Calling the hearts array again.
     hearts = [];
-    // Make hearts have random positions
+    // Make hearts have random positions.
     for (let i = 0; i < heartsSize; i++) {
         hearts[i] = createHeart(random(10, width - 10), random(10, height - 10));
     }
 
-    // Calling the plans array again
+    // Calling the plans array again.
     plans = [];
-    // Make plans have random positions
+    // Make plans have random positions.
     for (let i = 0; i < plansSize; i++) {
         plans[i] = createPlan(random(10, width - 10), random(10, height - 10));
     }
 }
 
+// Clears the tips of the fingers each time a state changes to not have the position of the finger tips linger in the background.
 function clearTips() {
-    // Restarting the tips of the fingers each time the simulation restarts
+    // Restarting the tips of the fingers each time the simulation restarts.
     tipX = [];
     tipY = [];
 }
 
-// Calls the keyPressed function to work with all the switching states from title to simulation
+// Calls the keyPressed function to work with all the switching states from title to simulation to all the ending states
 function keyPressed() {
     // Pressing the right arrow to activate and reset the title
     if (keyCode === 39) {
