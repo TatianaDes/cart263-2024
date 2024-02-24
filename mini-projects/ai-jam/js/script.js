@@ -31,12 +31,11 @@ let plansSize = 2;
 let tipX = [];
 let tipY = [];
 
-// // Creating an array for the pinky tip's x and y corrdinates on the axis
-// let tipPFX = [];
-// let tipPFY = [];
-
+// Creating all the attributes to the pinch function, like the initial amount of distance the pinch has to be
 let pinchAmount = undefined;
+// The location of where the pinch is
 let pinchLocation = [];
+// The time of how long the pinch goes on for
 let pinchTime = undefined;
 
 // setup() creates the canvas and the calling of the handpose program as well as the webcam. It also gives the arrays random positions on the canvas
@@ -162,6 +161,7 @@ function drawSimulation() {
             displayPlan(plans[j]);
         }
     }
+    // clears the length of the tips of the fingers each time the states change
     clearTips();
 }
 
@@ -186,6 +186,7 @@ function prepareHand() {
         pinchAmount = dist(thumbTip[0], thumbTip[1], indexFingerTip[0], indexFingerTip[1]);
         pinchLocation = [(thumbTip[0] + indexFingerTip[0]) / 2, (thumbTip[1] + indexFingerTip[1]) / 2];
     } else {
+        // Creating the pinch amount as undefined for when the pinch is initially set up
         pinchAmount = undefined;
     }
 }
@@ -213,31 +214,6 @@ function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
     tipX.push(tipFX);
     tipY.push(tipFY);
 }
-
-// // Creating a function like the drawHand() function but now only isolating the pinky
-// function isolatePinky(pinky, strokeR, strokeG, strokeB, strokeW) {
-//     // Creating the recognition for the pinky positions
-//     let Mypinky = pinky;
-//     let tipP = Mypinky[3];
-//     let baseP = Mypinky[2];
-//     let tipPX = tipP[0];
-//     let tipPY = tipP[1];
-//     let basePX = baseP[0];
-//     let basePY = baseP[1];
-
-//     // Displaying the pinky
-//     push();
-//     noFill();
-//     stroke(strokeR, strokeG, strokeB);
-//     strokeWeight(strokeW);
-//     line(basePX, basePY, tipPX, tipPY);
-//     pop();
-
-//     // Calling the x and y variable for the tip of the pinky
-//     tipPFX.push(tipPX);
-//     tipPFY.push(tipPY);
-// }
-
 
 // Checks the overlaps of the middle fingers tip and whatever it is touching
 function checkCloseness(heart) {
@@ -333,6 +309,7 @@ function checkEndings() {
         state = `priority`;
     }
 
+    // Checks if the pinch has been done and then counts 3 seconds before the stick state occurs.
     let allPlansUnpinched = true;
     for (let plan of plans) {
         let distancetoPlan = dist(pinchLocation[0], pinchLocation[1], plan.x, plan.y);
@@ -347,7 +324,7 @@ function checkEndings() {
         pinchTime = undefined;
     }
     if (pinchTime) {
-        let targetMillis = pinchTime.getTime() + 5000;
+        let targetMillis = pinchTime.getTime() + 3000;
         let currentMillis = new Date().getTime();
         if (currentMillis > targetMillis) {
             state = `stick`;
@@ -393,17 +370,17 @@ function drawPriority() {
 
 function drawStick() {
     // stick state
-    background(48, 81, 104);
+    background(138, 188, 215);
     push();
-    textSize(50);
-    fill(113, 106, 129);
+    textSize(35);
+    fill(230, 226, 186);
     textAlign(CENTER, CENTER);
-    text(`Good Job`, width / 2, height / 2);
+    text(`If it wants to go,\n let it go,\n you deserve more than to wait for someone\n that is trying to run.`, width / 2, height / 2);
     pop();
 
     push();
     textSize(17);
-    fill(134, 141, 169);
+    fill(87, 161, 181);
     textAlign(CENTER, CENTER);
     text(`(Press the Right Arrow Key to Go Back to the Title)`, width / 2, 300);
     pop();
@@ -422,6 +399,7 @@ function displayHeart(heart) {
 function displayPlan(plan) {
     push();
     noStroke();
+    // When the plan is being pinched the plan will stop and change colour
     let d = dist(pinchLocation[0], pinchLocation[1], plan.x, plan.y);
     if (pinchAmount < 100 && d < 20) {
         fill(255, 0, 0);
@@ -456,13 +434,11 @@ function clearTips() {
     // Restarting the tips of the fingers each time the simulation restarts
     tipX = [];
     tipY = [];
-    // tipPFX = [];
-    // tipPFY = [];
 }
 
 // Calls the keyPressed function to work with all the switching states from title to simulation
 function keyPressed() {
-    // Pressing the right arrow to activate
+    // Pressing the right arrow to activate and reset the title
     if (keyCode === 39) {
         if (state === `title`) {
             state = `simulation`;
