@@ -8,7 +8,7 @@ A program about the fear of losing someone and the emotions that come with this 
 "use strict";
 
 // Set the starting state
-let state = `title`; // Can be: title, simulation, hearts, plans
+let state = `title`; // Can be: title, simulation, hearts, plans, stick
 
 // The user's webcam
 let video = undefined;
@@ -31,9 +31,13 @@ let plansSize = 2;
 let tipX = [];
 let tipY = [];
 
-// Creating an array for the pinky tip's x and y corrdinates on the axis
-let tipPFX = [];
-let tipPFY = [];
+// // Creating an array for the pinky tip's x and y corrdinates on the axis
+// let tipPFX = [];
+// let tipPFY = [];
+
+let pinchAmount = undefined;
+let pinchLocation = [];
+let pinchTime = undefined;
 
 // setup() creates the canvas and the calling of the handpose program as well as the webcam. It also gives the arrays random positions on the canvas
 function setup() {
@@ -82,7 +86,7 @@ function createPlan(x, y) {
         ax: 0,
         ay: 0,
         acceleration: 0.5,
-        maxSpeed: 0.5,
+        maxSpeed: 1,
         stay: true,
     };
     return plan;
@@ -98,10 +102,13 @@ function draw() {
         drawSimulation();
     }
     else if (state === `love`) {
-        drawLoveless();
+        drawLove();
     }
     else if (state === `priority`) {
-        drawUnimportant();
+        drawPriority();
+    }
+    else if (state === `stick`) {
+        drawStick();
     };
 }
 
@@ -171,7 +178,15 @@ function prepareHand() {
         // Calls drawHand for the ring finger
         drawHand(hand.annotations.ringFinger, 101, 98, 131, 8);
         // Calls drawHand for the pinky finger
-        isolatePinky(hand.annotations.pinky, 125, 98, 131, 5);
+        drawHand(hand.annotations.pinky, 125, 98, 131, 5);
+
+        // Creating the distance between the index and thumb to be able to pinch
+        let thumbTip = hand.annotations.thumb[3];
+        let indexFingerTip = hand.annotations.indexFinger[3];
+        pinchAmount = dist(thumbTip[0], thumbTip[1], indexFingerTip[0], indexFingerTip[1]);
+        pinchLocation = [(thumbTip[0] + indexFingerTip[0]) / 2, (thumbTip[1] + indexFingerTip[1]) / 2];
+    } else {
+        pinchAmount = undefined;
     }
 }
 
@@ -199,29 +214,29 @@ function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
     tipY.push(tipFY);
 }
 
-// Creating a function like the drawHand() function but now only isolating the pinky
-function isolatePinky(pinky, strokeR, strokeG, strokeB, strokeW) {
-    // Creating the recognition for the pinky positions
-    let Mypinky = pinky;
-    let tipP = Mypinky[3];
-    let baseP = Mypinky[2];
-    let tipPX = tipP[0];
-    let tipPY = tipP[1];
-    let basePX = baseP[0];
-    let basePY = baseP[1];
+// // Creating a function like the drawHand() function but now only isolating the pinky
+// function isolatePinky(pinky, strokeR, strokeG, strokeB, strokeW) {
+//     // Creating the recognition for the pinky positions
+//     let Mypinky = pinky;
+//     let tipP = Mypinky[3];
+//     let baseP = Mypinky[2];
+//     let tipPX = tipP[0];
+//     let tipPY = tipP[1];
+//     let basePX = baseP[0];
+//     let basePY = baseP[1];
 
-    // Displaying the pinky
-    push();
-    noFill();
-    stroke(strokeR, strokeG, strokeB);
-    strokeWeight(strokeW);
-    line(basePX, basePY, tipPX, tipPY);
-    pop();
+//     // Displaying the pinky
+//     push();
+//     noFill();
+//     stroke(strokeR, strokeG, strokeB);
+//     strokeWeight(strokeW);
+//     line(basePX, basePY, tipPX, tipPY);
+//     pop();
 
-    // Calling the x and y variable for the tip of the pinky
-    tipPFX.push(tipPX);
-    tipPFY.push(tipPY);
-}
+//     // Calling the x and y variable for the tip of the pinky
+//     tipPFX.push(tipPX);
+//     tipPFY.push(tipPY);
+// }
 
 
 // Checks the overlaps of the middle fingers tip and whatever it is touching
@@ -230,7 +245,12 @@ function checkCloseness(heart) {
     for (let j = 0; j < tipX.length; j++) {
         let d = dist(tipX[j], tipY[j], heart.x, heart.y);
         if (d < heart.size + 10) {
-            heart.vx = heart.scaredSpeed;
+            if (tipX[j] < heart.x) {
+                heart.vx = heart.scaredSpeed;
+            }
+            else {
+                heart.vx = -heart.scaredSpeed;
+            }
         }
     }
 }
@@ -244,10 +264,10 @@ function moveHeart(heart) {
 
 // Make the plan run away from the middle finger tip
 function movePlan(plan) {
-    // Make the puppies scared of the dog
+    // Make the plan scared of the fingers
     for (let j = 0; j < tipX.length; j++) {
         let a = dist(tipX[j], tipY[j], plan.x, plan.y);
-        if (a < tipX[j] / 2 + plan.size / 2 + 300) {
+        if (a < 50) {
             if (tipX[j] < plan.x) {
                 plan.ax = plan.acceleration;
             }
@@ -274,12 +294,14 @@ function movePlan(plan) {
     plan.y += plan.vy;
 }
 
+// Makes the computer know when the hearts have gone off the sides of the screen on the left and right
 function heartGone(heart) {
-    if (heart.x - heart.size / 2 > width) {
+    if (heart.x - heart.size / 2 > width || heart.x + heart.size / 2 < 0) {
         heart.stay = false;
     }
 }
 
+// Makes the computer know when the plans have gone off all the canvas sides
 function planGone(plan) {
     if (plan.y + plan.size / 2 < 0 || plan.y - plan.size / 2 > height || plan.x + plan.size / 2 < 0 || plan.x - plan.size / 2 > width) {
         plan.stay = false;
@@ -310,9 +332,30 @@ function checkEndings() {
     if (allPlansGone) {
         state = `priority`;
     }
+
+    let allPlansUnpinched = true;
+    for (let plan of plans) {
+        let distancetoPlan = dist(pinchLocation[0], pinchLocation[1], plan.x, plan.y);
+        if (pinchAmount < 100 && distancetoPlan < 20) {
+            allPlansUnpinched = false;
+            if (pinchTime === undefined) {
+                pinchTime = new Date();
+            }
+        }
+    }
+    if (allPlansUnpinched) {
+        pinchTime = undefined;
+    }
+    if (pinchTime) {
+        let targetMillis = pinchTime.getTime() + 5000;
+        let currentMillis = new Date().getTime();
+        if (currentMillis > targetMillis) {
+            state = `stick`;
+        }
+    }
 }
 
-function drawLoveless() {
+function drawLove() {
     // love state
     background(51, 30, 74);
     push();
@@ -330,7 +373,7 @@ function drawLoveless() {
     pop();
 }
 
-function drawUnimportant() {
+function drawPriority() {
     // priority state
     background(48, 81, 104);
     push();
@@ -348,6 +391,24 @@ function drawUnimportant() {
     pop();
 }
 
+function drawStick() {
+    // stick state
+    background(48, 81, 104);
+    push();
+    textSize(50);
+    fill(113, 106, 129);
+    textAlign(CENTER, CENTER);
+    text(`Good Job`, width / 2, height / 2);
+    pop();
+
+    push();
+    textSize(17);
+    fill(134, 141, 169);
+    textAlign(CENTER, CENTER);
+    text(`(Press the Right Arrow Key to Go Back to the Title)`, width / 2, 300);
+    pop();
+}
+
 // Display the hearts
 function displayHeart(heart) {
     push();
@@ -361,7 +422,14 @@ function displayHeart(heart) {
 function displayPlan(plan) {
     push();
     noStroke();
-    fill(226, 177, 100);
+    let d = dist(pinchLocation[0], pinchLocation[1], plan.x, plan.y);
+    if (pinchAmount < 100 && d < 20) {
+        fill(255, 0, 0);
+        plan.maxSpeed = 0;
+    } else {
+        fill(226, 177, 100);
+        plan.maxSpeed = 1;
+    }
     rectMode(CENTER);
     rect(plan.x, plan.y, plan.size);
     pop();
@@ -388,8 +456,8 @@ function clearTips() {
     // Restarting the tips of the fingers each time the simulation restarts
     tipX = [];
     tipY = [];
-    tipPFX = [];
-    tipPFY = [];
+    // tipPFX = [];
+    // tipPFY = [];
 }
 
 // Calls the keyPressed function to work with all the switching states from title to simulation
@@ -398,6 +466,10 @@ function keyPressed() {
     if (keyCode === 39) {
         if (state === `title`) {
             state = `simulation`;
+        }
+        else if (state === `stick`) {
+            reset();
+            state = `title`;
         }
     }
 
