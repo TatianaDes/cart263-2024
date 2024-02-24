@@ -31,6 +31,9 @@ let plansSize = 2;
 let tipX = [];
 let tipY = [];
 
+let tipPFX = [];
+let tipPFY = [];
+
 // setup() creates the canvas and the calling of the handpose program as well as the webcam. It also gives the arrays random positions on the canvas
 function setup() {
     createCanvas(640, 480);
@@ -166,7 +169,7 @@ function prepareHand() {
         // Calls drawHand for the ring finger
         drawHand(hand.annotations.ringFinger, 101, 98, 131, 8);
         // Calls drawHand for the pinky finger
-        drawHand(hand.annotations.pinky, 125, 98, 131, 5);
+        isolatePinky(hand.annotations.pinky, 125, 98, 131, 5);
     }
 }
 
@@ -194,12 +197,35 @@ function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
     tipY.push(tipFY);
 }
 
+function isolatePinky(pinky, strokeR, strokeG, strokeB, strokeW) {
+    // Creating the recognition for all the finger positions
+    let Mypinky = pinky;
+    let tipP = Mypinky[3];
+    let baseP = Mypinky[2];
+    let tipPX = tipP[0];
+    let tipPY = tipP[1];
+    let basePX = baseP[0];
+    let basePY = baseP[1];
+
+    // Displaying all the fingers
+    push();
+    noFill();
+    stroke(strokeR, strokeG, strokeB);
+    strokeWeight(strokeW);
+    line(basePX, basePY, tipPX, tipPY);
+    pop();
+
+    // Calling the x and y variable for the tip of each finger
+    tipPFX.push(tipPX);
+    tipPFY.push(tipPY);
+}
+
 
 // Checks the overlaps of the middle fingers tip and whatever it is touching
 function checkCloseness(heart) {
     // Check if fingers and the heart get close to each other
-    for (let j = 0; j < tipX.length; j++) {
-        let d = dist(tipX[j], tipY[j], heart.x, heart.y);
+    for (let j = 0; j < tipPFX.length; j++) {
+        let d = dist(tipPFX[j], tipPFY[j], heart.x, heart.y);
         if (d < heart.size * 3) {
             heart.vx = heart.scaredSpeed;
         }
