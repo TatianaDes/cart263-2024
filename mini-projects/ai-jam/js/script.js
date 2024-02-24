@@ -375,14 +375,14 @@ function drawStick() {
     textSize(35);
     fill(230, 226, 186);
     textAlign(CENTER, CENTER);
-    text(`If it wants to go,\n let it go,\n you deserve more than to wait for someone\n that is trying to run.`, width / 2, height / 2);
+    text(`If they want to go, let them go,\n you deserve more than to\n wait for someone that\n is trying to run.\n`, width / 2, height / 2);
     pop();
 
     push();
     textSize(17);
-    fill(87, 161, 181);
+    fill(59, 130, 151);
     textAlign(CENTER, CENTER);
-    text(`(Press the Right Arrow Key to Go Back to the Title)`, width / 2, 300);
+    text(`(Press the Right Arrow Key to Go Back to the Title)`, width / 2, 330);
     pop();
 }
 
@@ -402,7 +402,7 @@ function displayPlan(plan) {
     // When the plan is being pinched the plan will stop and change colour
     let d = dist(pinchLocation[0], pinchLocation[1], plan.x, plan.y);
     if (pinchAmount < 100 && d < 20) {
-        fill(255, 0, 0);
+        fill(131, 0, 0);
         plan.maxSpeed = 0;
     } else {
         fill(226, 177, 100);
