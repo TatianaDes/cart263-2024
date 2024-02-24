@@ -197,8 +197,9 @@ function drawHand(finger, strokeR, strokeG, strokeB, strokeW) {
     tipY.push(tipFY);
 }
 
+// Creating a function like the drawHand() function but now only isolating the pinky
 function isolatePinky(pinky, strokeR, strokeG, strokeB, strokeW) {
-    // Creating the recognition for all the finger positions
+    // Creating the recognition for the pinky positions
     let Mypinky = pinky;
     let tipP = Mypinky[3];
     let baseP = Mypinky[2];
@@ -207,7 +208,7 @@ function isolatePinky(pinky, strokeR, strokeG, strokeB, strokeW) {
     let basePX = baseP[0];
     let basePY = baseP[1];
 
-    // Displaying all the fingers
+    // Displaying the pinky
     push();
     noFill();
     stroke(strokeR, strokeG, strokeB);
@@ -215,7 +216,7 @@ function isolatePinky(pinky, strokeR, strokeG, strokeB, strokeW) {
     line(basePX, basePY, tipPX, tipPY);
     pop();
 
-    // Calling the x and y variable for the tip of each finger
+    // Calling the x and y variable for the tip of the pinky
     tipPFX.push(tipPX);
     tipPFY.push(tipPY);
 }
@@ -224,8 +225,8 @@ function isolatePinky(pinky, strokeR, strokeG, strokeB, strokeW) {
 // Checks the overlaps of the middle fingers tip and whatever it is touching
 function checkCloseness(heart) {
     // Check if fingers and the heart get close to each other
-    for (let j = 0; j < tipPFX.length; j++) {
-        let d = dist(tipPFX[j], tipPFY[j], heart.x, heart.y);
+    for (let j = 0; j < tipX.length; j++) {
+        let d = dist(tipX[j] && tipPFX[j], tipY[j] && tipPFY[j], heart.x, heart.y);
         if (d < heart.size * 3) {
             heart.vx = heart.scaredSpeed;
         }
