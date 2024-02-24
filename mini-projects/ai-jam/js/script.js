@@ -226,7 +226,7 @@ function isolatePinky(pinky, strokeR, strokeG, strokeB, strokeW) {
 function checkCloseness(heart) {
     // Check if fingers and the heart get close to each other
     for (let j = 0; j < tipX.length; j++) {
-        let d = dist(tipX[j] && tipPFX[j], tipY[j] && tipPFY[j], heart.x, heart.y);
+        let d = dist(tipX[j], tipY[j], heart.x, heart.y);
         if (d < heart.size * 3) {
             heart.vx = heart.scaredSpeed;
         }
