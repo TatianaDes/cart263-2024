@@ -27,10 +27,11 @@ let heartsSize = 3;
 let plans = [];
 let plansSize = 2;
 
-// Creating an array for all the finger tips' x and y-axis
+// Creating an array for all the finger tips' x and y corrdinates on the axis
 let tipX = [];
 let tipY = [];
 
+// Creating an array for the pinky tip's x and y corrdinates on the axis
 let tipPFX = [];
 let tipPFY = [];
 
@@ -91,21 +92,21 @@ function createPlan(x, y) {
 function draw() {
     // Setting up all the different states
     if (state === `title`) {
-        title();
+        drawTitle();
     }
     else if (state === `simulation`) {
-        simulation();
+        drawSimulation();
     }
     else if (state === `love`) {
-        loveless();
+        drawLoveless();
     }
     else if (state === `priority`) {
-        unimportant();
+        drawUnimportant();
     };
 }
 
 // Allows a title state to be displayed with all its properties
-function title() {
+function drawTitle() {
     // Title state
     background(71, 98, 134);
     push();
@@ -130,7 +131,7 @@ function title() {
 }
 
 // Creates the simulation state that calls the functions for both the hearts and plans arrays
-function simulation() {
+function drawSimulation() {
     // Simulation state
     background(40, 53, 70);
     prepareHand();
@@ -154,6 +155,7 @@ function simulation() {
             displayPlan(plans[j]);
         }
     }
+    clearTips();
 }
 
 // Creates the finger position for all the fingers and takes the information from the handpose program
@@ -227,7 +229,7 @@ function checkCloseness(heart) {
     // Check if fingers and the heart get close to each other
     for (let j = 0; j < tipX.length; j++) {
         let d = dist(tipX[j], tipY[j], heart.x, heart.y);
-        if (d < heart.size * 3) {
+        if (d < heart.size + 10) {
             heart.vx = heart.scaredSpeed;
         }
     }
@@ -310,7 +312,7 @@ function checkEndings() {
     }
 }
 
-function loveless() {
+function drawLoveless() {
     // love state
     background(51, 30, 74);
     push();
@@ -328,7 +330,7 @@ function loveless() {
     pop();
 }
 
-function unimportant() {
+function drawUnimportant() {
     // priority state
     background(48, 81, 104);
     push();
@@ -371,15 +373,23 @@ function reset() {
     hearts = [];
     // Make hearts have random positions
     for (let i = 0; i < heartsSize; i++) {
-        hearts[i] = createHeart(random(0, width), random(0, height));
+        hearts[i] = createHeart(random(10, width - 10), random(10, height - 10));
     }
 
     // Calling the plans array again
     plans = [];
     // Make plans have random positions
     for (let i = 0; i < plansSize; i++) {
-        plans[i] = createPlan(random(0, width), random(0, height));
+        plans[i] = createPlan(random(10, width - 10), random(10, height - 10));
     }
+}
+
+function clearTips() {
+    // Restarting the tips of the fingers each time the simulation restarts
+    tipX = [];
+    tipY = [];
+    tipPFX = [];
+    tipPFY = [];
 }
 
 // Calls the keyPressed function to work with all the switching states from title to simulation
