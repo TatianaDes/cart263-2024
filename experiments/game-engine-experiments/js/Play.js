@@ -7,8 +7,28 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-        this.wall = this.physics.add.image(100, 100, `wall`);
-        this.wall.setTint(0xdd3333);
+        this.walls = this.physics.add.group({
+            key: `wall`,
+            immovable: true,
+            quantity: 100
+        });
+        this.walls.children.each(function (wall) {
+            let x = Math.random() * this.sys.canvas.width;
+            let y = Math.random() * this.sys.canvas.height;
+            wall.setPosition(x, y);
+            wall.setTint(0xdd3333);
+        }, this);
+
+        this.collectables = this.physics.add.group({
+            key: `wall`,
+            quantity: 100
+        });
+        this.collectables.children.each(function (collectable) {
+            let x = Math.random() * this.sys.canvas.width;
+            let y = Math.random() * this.sys.canvas.height;
+            collectable.setPosition(x, y);
+            collectable.setTint(0x33dd33);
+        }, this);
 
         this.avatar = this.physics.add.sprite(200, 200, `avatar`);
 
@@ -17,7 +37,14 @@ class Play extends Phaser.Scene {
         this.avatar.play(`avatar-idle`);
         this.avatar.setCollideWorldBounds(true);
 
+        this.physics.add.collider(this.avatar, this.walls);
+        this.physics.add.overlap(this.avatar, this.collectables, this.collectItem, null, this);
+
         this.cursors = this.input.keyboard.createCursorKeys();
+    }
+
+    collectItem(avatar, collectable) {
+        collectable.destroy();
     }
 
     update() {
