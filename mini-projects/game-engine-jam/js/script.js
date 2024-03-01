@@ -1,11 +1,9 @@
 /**
-Title of Project
+Hard to Move on
 Tatiana Désormeaux
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+A program using Phaser 3 code to help create a story about trying to move on from someone but recognizing the difficulty of it.
 */
 
 "use strict";
 
-// Code goes here
