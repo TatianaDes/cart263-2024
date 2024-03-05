@@ -7,6 +7,7 @@ A program using Phaser 3 code to help create a story about trying to move on fro
 
 "use strict";
 
+// Creates the call for the Phaser 3 library and gives the rundown of the canvas size and what kind of physics will be used.
 let config = {
     type: Phaser.AUTO,
     width: 800,
@@ -17,4 +18,5 @@ let config = {
     scene: [Title, Boot, Play]
 };
 
+// Creates the new Phaser 3 game with the Phaser 3 library.
 let game = new Phaser.Game(config);

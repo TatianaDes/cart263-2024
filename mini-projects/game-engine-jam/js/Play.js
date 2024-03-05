@@ -1,10 +1,12 @@
 class Play extends Phaser.Scene {
+    // Creates the key term that will be used to call this class.
     constructor() {
         super({
             key: `play`
         });
     }
 
+    // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
         // Create the avatar
         this.avatar = this.physics.add.sprite(400, 300, `avatar`);
@@ -39,6 +41,7 @@ class Play extends Phaser.Scene {
         this.sadness.setPosition(x, y);
     }
 
+    // Creates changes for individual frames so that each frame could have its own event.
     update() {
         if (this.cursors.left.isDown) {
             this.avatar.setAngularVelocity(-150);
