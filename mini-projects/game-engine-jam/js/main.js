@@ -1,5 +1,5 @@
 /**
-Hard to Move on
+Hard to Move On
 Tatiana Désormeaux
 
 A program using Phaser 3 code to help create a story about trying to move on from someone but recognizing the difficulty of it.
@@ -14,7 +14,7 @@ let config = {
     physics: {
         default: `arcade`
     },
-    scene: [Boot, Play]
+    scene: [Title, Boot, Play]
 };
 
 let game = new Phaser.Game(config);
