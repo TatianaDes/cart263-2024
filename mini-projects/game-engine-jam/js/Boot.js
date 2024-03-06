@@ -8,7 +8,12 @@ class Boot extends Phaser.Scene {
 
     // Loads all the images I would like to use.
     preload() {
-        this.load.spritesheet(`avatar`, 'assets/images/sheep.png', {
+        this.load.spritesheet(`sheep`, 'assets/images/sheep.png', {
+            frameWidth: 32,
+            frameHeight: 32,
+            endFrame: 3,
+        });
+        this.load.spritesheet(`coyote`, 'assets/images/coyote.png', {
             frameWidth: 32,
             frameHeight: 32,
             endFrame: 3,
