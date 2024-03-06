@@ -74,8 +74,9 @@ class Play extends Phaser.Scene {
     //     this.sheep.play(`sheep-idle`, true);
     // }
 
-
+    // Creates the animations for what frames are used of the sprite when it is in movement and when it is idle.
     createAnimations() {
+        // Animation frames for the sheep.
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('sheep', {
@@ -106,6 +107,7 @@ class Play extends Phaser.Scene {
             repeat: -1
         });
 
+        // Animation frames for the coyote.
         this.anims.create({
             key: `coyote-moving`,
             frames: this.anims.generateFrameNumbers(`coyote`, {
