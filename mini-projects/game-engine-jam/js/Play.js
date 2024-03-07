@@ -87,84 +87,64 @@ class Play extends Phaser.Scene {
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-        this.sheep.setVelocity(0);
+    //     this.sheep.setVelocity(0);
 
-        if (this.cursors.left.isDown) {
-            this.sheep.setVelocityX(-100);
-        }
-        else if (this.cursors.right.isDown) {
-            this.sheep.setVelocityX(100);
-        }
-
-        if (this.cursors.up.isDown) {
-            this.sheep.setVelocityY(-100);
-        }
-        else if (this.cursors.down.isDown) {
-            this.sheep.setVelocityY(100);
-        }
-
-        if (this.sheep.body.velocity.x !== 0 || this.sheep.body.velocity.y !== 0) {
-            this.sheep.play(`sheep-moving`, true);
-        }
-        else {
-            this.sheep.play(`sheep-idle`, true);
-        }
-
-
-    }
-    //     const { left, right, up } = this.cursors;
-
-    //     if (left.isDown) {
-    //         this.sheep.setVelocityX(-160);
-
-    //         this.sheep.anims.play('left', true);
+    //     if (this.cursors.left.isDown) {
+    //         this.sheep.setVelocityX(-100);
     //     }
-    //     else if (right.isDown) {
-    //         this.sheep.setVelocityX(160);
+    //     else if (this.cursors.right.isDown) {
+    //         this.sheep.setVelocityX(100);
+    //     }
 
-    //         this.sheep.anims.play('right', true);
+    //     if (this.cursors.up.isDown) {
+    //         this.sheep.setVelocityY(-100);
+    //     }
+    //     else if (this.cursors.down.isDown) {
+    //         this.sheep.setVelocityY(100);
+    //     }
+
+    //     if (this.sheep.body.velocity.x !== 0 || this.sheep.body.velocity.y !== 0) {
+    //         this.sheep.play(`sheep-moving`, true);
     //     }
     //     else {
-    //         this.sheep.setVelocityX(0);
-
-    //         this.sheep.anims.play('sheep-idle');
+    //         this.sheep.play(`sheep-idle`, true);
     //     }
 
-    //     if (up.isDown && this.sheep.body.touching.down) {
-    //         this.sheep.setVelocityY(-330);
-    //     }
+
     // }
+        const { left, right, up } = this.cursors;
+
+        if (left.isDown) {
+            this.sheep.setVelocityX(-160);
+
+            this.sheep.anims.play('left', true);
+        }
+        else if (right.isDown) {
+            this.sheep.setVelocityX(160);
+
+            this.sheep.anims.play('right', true);
+        }
+        else {
+            this.sheep.setVelocityX(0);
+
+            this.sheep.anims.play('sheep-idle');
+        }
+
+        if (up.isDown && this.sheep.body.touching.down) {
+            this.sheep.setVelocityY(-330);
+        }
+    }
 
     // Creates the animations for what frames are used of the sprite when it is in movement and when it is idle.
     createAnimations() {
         // Animation frames for the sheep.
-        this.anims.create({
-            key: `sheep-moving`,
-            frames: this.anims.generateFrameNumbers(`sheep`, {
-                start: 0,
-                end: 3
-            }),
-            frameRate: 24,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: `sheep-idle`,
-            frames: this.anims.generateFrameNumbers(`sheep`, {
-                start: 0,
-                end: 0
-            }),
-            frameRate: 24,
-            repeat: 0
-        });
-
         // this.anims.create({
-        //     key: 'left',
-        //     frames: this.anims.generateFrameNumbers('sheep', {
+        //     key: `sheep-moving`,
+        //     frames: this.anims.generateFrameNumbers(`sheep`, {
         //         start: 0,
-        //         end: 4
+        //         end: 3
         //     }),
-        //     frameRate: 10,
+        //     frameRate: 24,
         //     repeat: -1
         // });
 
@@ -178,15 +158,35 @@ class Play extends Phaser.Scene {
         //     repeat: 0
         // });
 
-        // this.anims.create({
-        //     key: 'right',
-        //     frames: this.anims.generateFrameNumbers('sheep', {
-        //         start: 5,
-        //         end: 8
-        //     }),
-        //     frameRate: 10,
-        //     repeat: -1
-        // });
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('sheep', {
+                start: 0,
+                end: 4
+            }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: `sheep-idle`,
+            frames: this.anims.generateFrameNumbers(`sheep`, {
+                start: 0,
+                end: 0
+            }),
+            frameRate: 24,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('sheep', {
+                start: 5,
+                end: 8
+            }),
+            frameRate: 10,
+            repeat: -1
+        });
 
         // Animation frames for the coyote.
         this.anims.create({
