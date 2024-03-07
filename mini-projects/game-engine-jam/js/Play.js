@@ -15,9 +15,9 @@ class Play extends Phaser.Scene {
         this.sheep = this.physics.add.sprite(80, 590, `sheep`);
         // this.sheep.setScale(2);
 
-        this.coyote = this.physics.add.sprite(600, 455, `coyote`);
-        // // this.coyote.setScale(2);
-        this.coyote.setCollideWorldBounds(true);
+        // this.coyote = this.physics.add.sprite(600, 455, `coyote`);
+        // // // this.coyote.setScale(2);
+        // this.coyote.setCollideWorldBounds(true);
 
         this.createAnimations();
 
@@ -26,6 +26,63 @@ class Play extends Phaser.Scene {
         // this.coyote.play(`coyote-idle`);
 
         this.cursors = this.input.keyboard.createCursorKeys();
+
+
+
+        // const path = this.createLoopPath();
+        const path = this.createZigZagPath();
+
+        const graphics = this.add.graphics();
+
+        const start = path.getStartPoint();
+        const distance = path.getLength();
+        const duration = 20000;
+        const speed = distance / duration;
+        const speedSec = 1000 * speed;
+        const tSpeed = 1 / duration;
+        const tSpeedSec = 1000 * tSpeed;
+
+        let t = 0;
+
+        const coyote = this.physics.add.sprite(start.x, start.y, 'coyote')
+            .setImmovable(true);
+
+        this.physics.world.on('worldstep', (delta) => {
+            t += delta * tSpeedSec;
+
+            if (t > 1) {
+                t -= 1;
+                coyote.body.reset(start.x, start.y);
+                graphics.clear();
+                path.draw(graphics);
+            }
+
+            path.getTangent(t, coyote.body.velocity);
+            coyote.body.velocity.scale(speedSec);
+        });
+    }
+
+    createLoopPath() {
+        const path = new Phaser.Curves.Path(50, 500);
+
+        path.splineTo([164, 446, 274, 542, 412, 457, 522, 541, 664, 464]);
+        path.lineTo(700, 300);
+        path.lineTo(600, 350);
+        path.ellipseTo(200, 100, 100, 250, false, 0);
+        path.cubicBezierTo(222, 119, 308, 107, 208, 368);
+        path.ellipseTo(60, 60, 0, 360, true);
+
+        return path;
+    }
+
+    createZigZagPath() {
+        const path = new Phaser.Curves.Path(600, 460);
+
+        path.lineTo(200, 480);
+
+        path.lineTo(600, 460);
+
+        return path;
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
@@ -52,6 +109,7 @@ class Play extends Phaser.Scene {
         else {
             this.sheep.play(`sheep-idle`, true);
         }
+
 
     }
     //     const { left, right, up } = this.cursors;
