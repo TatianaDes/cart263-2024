@@ -8,17 +8,17 @@ class Boot extends Phaser.Scene {
 
     // Loads all the images I would like to use.
     preload() {
-        this.load.image(`outdoors`, `assets/images/outdoors.jpg`);
+        // this.load.image(`outdoors`, `assets/images/outdoors.jpg`);
 
         this.load.spritesheet(`sheep`, 'assets/images/sheeps2.png', {
             frameWidth: 64,
             frameHeight: 64,
-            endFrame: 3,
+            endFrame: 7,
         });
         this.load.spritesheet(`coyote`, 'assets/images/coyotes2.png', {
             frameWidth: 64,
             frameHeight: 64,
-            endFrame: 3,
+            endFrame: 7,
         });
 
         // Calls on the next scene keyname to occur automatically once the program boots up.

@@ -9,8 +9,8 @@ class Play extends Phaser.Scene {
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
         // Creates background colour.
-        // this.cameras.main.setBackgroundColor("#244f28");
-        this.outdoors = this.add.image(400, 300, `outdoors`);
+        this.cameras.main.setBackgroundColor("#20252e");
+        // this.outdoors = this.add.image(400, 300, `outdoors`);
 
         this.sheep = this.physics.add.sprite(80, 590, `sheep`);
         // this.sheep.setScale(2);
@@ -76,51 +76,51 @@ class Play extends Phaser.Scene {
     }
 
     createZigZagPath() {
-        const path = new Phaser.Curves.Path(600, 460);
+        const path = new Phaser.Curves.Path(650, 70);
 
-        path.lineTo(200, 480);
+        path.lineTo(400, 100);
 
-        path.lineTo(600, 460);
+        path.lineTo(650, 70);
 
         return path;
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-    //     this.sheep.setVelocity(0);
+        //     this.sheep.setVelocity(0);
 
-    //     if (this.cursors.left.isDown) {
-    //         this.sheep.setVelocityX(-100);
-    //     }
-    //     else if (this.cursors.right.isDown) {
-    //         this.sheep.setVelocityX(100);
-    //     }
+        //     if (this.cursors.left.isDown) {
+        //         this.sheep.setVelocityX(-100);
+        //     }
+        //     else if (this.cursors.right.isDown) {
+        //         this.sheep.setVelocityX(100);
+        //     }
 
-    //     if (this.cursors.up.isDown) {
-    //         this.sheep.setVelocityY(-100);
-    //     }
-    //     else if (this.cursors.down.isDown) {
-    //         this.sheep.setVelocityY(100);
-    //     }
+        //     if (this.cursors.up.isDown) {
+        //         this.sheep.setVelocityY(-100);
+        //     }
+        //     else if (this.cursors.down.isDown) {
+        //         this.sheep.setVelocityY(100);
+        //     }
 
-    //     if (this.sheep.body.velocity.x !== 0 || this.sheep.body.velocity.y !== 0) {
-    //         this.sheep.play(`sheep-moving`, true);
-    //     }
-    //     else {
-    //         this.sheep.play(`sheep-idle`, true);
-    //     }
+        //     if (this.sheep.body.velocity.x !== 0 || this.sheep.body.velocity.y !== 0) {
+        //         this.sheep.play(`sheep-moving`, true);
+        //     }
+        //     else {
+        //         this.sheep.play(`sheep-idle`, true);
+        //     }
 
 
-    // }
-        const { left, right, up } = this.cursors;
+        // }
+        const { left, right, up, down } = this.cursors;
 
         if (left.isDown) {
-            this.sheep.setVelocityX(-160);
+            this.sheep.setVelocityX(-100);
 
             this.sheep.anims.play('left', true);
         }
         else if (right.isDown) {
-            this.sheep.setVelocityX(160);
+            this.sheep.setVelocityX(100);
 
             this.sheep.anims.play('right', true);
         }
@@ -130,8 +130,15 @@ class Play extends Phaser.Scene {
             this.sheep.anims.play('sheep-idle');
         }
 
-        if (up.isDown && this.sheep.body.touching.down) {
-            this.sheep.setVelocityY(-330);
+        if (up.isDown) {
+            this.sheep.setVelocityY(-100);
+
+            this.sheep.anims.play(`left`, true);
+        }
+        else if (down.isDown) {
+            this.sheep.setVelocityY(100);
+
+            this.sheep.anims.play(`left`, true);
         }
     }
 
@@ -162,7 +169,7 @@ class Play extends Phaser.Scene {
             key: 'left',
             frames: this.anims.generateFrameNumbers('sheep', {
                 start: 0,
-                end: 4
+                end: 3
             }),
             frameRate: 10,
             repeat: -1
@@ -182,7 +189,7 @@ class Play extends Phaser.Scene {
             key: 'right',
             frames: this.anims.generateFrameNumbers('sheep', {
                 start: 5,
-                end: 8
+                end: 7
             }),
             frameRate: 10,
             repeat: -1
