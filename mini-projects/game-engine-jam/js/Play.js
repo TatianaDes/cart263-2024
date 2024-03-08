@@ -20,6 +20,22 @@ class Play extends Phaser.Scene {
         // // // this.coyote.setScale(2);
         // this.coyote.setCollideWorldBounds(true);
 
+        this.tree = this.physics.add.group({
+            // Image key to use
+            key: `tree`,
+            // How many
+            quantity: 120,
+            // Gravity (how fast will they start and continue to fall)
+            gravityY: 100,
+            // Mass (how heavy are they)
+            mass: 20
+        });
+
+        Phaser.Actions.RandomRectangle(this.tree.getChildren(), this.physics.world.bounds);
+
+        this.physics.add.collider(this.sheep, this.tree);
+        this.physics.add.collider(this.tree, this.tree);
+
 
         // Calls the createAnimation() function.
         this.createAnimations();
