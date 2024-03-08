@@ -20,6 +20,7 @@ class Play extends Phaser.Scene {
         // // // this.coyote.setScale(2);
         // this.coyote.setCollideWorldBounds(true);
 
+        // Create the tree image and make it a group.
         this.tree = this.physics.add.group({
             // Image key to use
             key: `tree`,
@@ -31,8 +32,10 @@ class Play extends Phaser.Scene {
             mass: 20
         });
 
+        // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
         Phaser.Actions.RandomRectangle(this.tree.getChildren(), this.physics.world.bounds);
 
+        // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
         this.physics.add.collider(this.sheep, this.tree);
         this.physics.add.collider(this.tree, this.tree);
 
