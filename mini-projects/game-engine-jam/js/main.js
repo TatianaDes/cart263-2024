@@ -15,7 +15,7 @@ let config = {
     physics: {
         default: `arcade`
     },
-    scene: [Title, Boot, Play]
+    scene: [Title, Boot, Play, Why, Growing]
 };
 
 // Creates the new Phaser 3 game with the Phaser 3 library.

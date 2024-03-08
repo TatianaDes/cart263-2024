@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
         // Creates background colour.
-        this.cameras.main.setBackgroundColor("#20252e");
+        this.cameras.main.setBackgroundColor(`#20252e`);
         // this.outdoors = this.add.image(400, 300, `outdoors`);
 
         this.sheep = this.physics.add.sprite(80, 550, `sheep`);
@@ -69,24 +69,30 @@ class Play extends Phaser.Scene {
         let t = 0;
 
         // Creating the coyote sprite and making it immovable.
-        const coyote = this.physics.add.sprite(start.x, start.y, 'coyote')
+        this.coyote = this.physics.add.sprite(start.x, start.y, `coyote`)
             .setImmovable(true);
 
+        this.physics.add.collider(this.sheep, this.coyote);
+
+        // if (this.physics.add.collider(this.sheep, this.coyote) === true) {
+        //     this.scene.start(`why`);
+        // }
+
         // Creates the physics for the path and how it will be followed by the coyote.
-        this.physics.world.on('worldstep', (delta) => {
+        this.physics.world.on(`worldstep`, (delta) => {
             t += delta * tSpeedSec;
 
             // Allowing the path to loop and for the coyote to repeat on the path.
             if (t > 1) {
                 t -= 1;
-                coyote.body.reset(start.x, start.y);
+                this.coyote.body.reset(start.x, start.y);
                 graphics.clear();
                 path.draw(graphics);
             }
 
             // Calling back all the different variables.
-            path.getTangent(t, coyote.body.velocity);
-            coyote.body.velocity.scale(speedSec);
+            path.getTangent(t, this.coyote.body.velocity);
+            this.coyote.body.velocity.scale(speedSec);
         });
     }
 
@@ -163,8 +169,8 @@ class Play extends Phaser.Scene {
 
         // Creates the animation for when the left arrow key is pressed for the sheep.
         this.anims.create({
-            key: 'left',
-            frames: this.anims.generateFrameNumbers('sheep', {
+            key: `left`,
+            frames: this.anims.generateFrameNumbers(`sheep`, {
                 start: 0,
                 end: 3
             }),
@@ -185,8 +191,8 @@ class Play extends Phaser.Scene {
 
         // Creates the animation for when the right arrow key is pressed for the sheep.
         this.anims.create({
-            key: 'right',
-            frames: this.anims.generateFrameNumbers('sheep', {
+            key: `right`,
+            frames: this.anims.generateFrameNumbers(`sheep`, {
                 start: 4,
                 end: 7
             }),
