@@ -10,14 +10,14 @@ class Boot extends Phaser.Scene {
     preload() {
         // this.load.image(`outdoors`, `assets/images/outdoors.jpg`);
 
-        this.load.spritesheet(`sheep`, 'assets/images/sheeps2.png', {
-            frameWidth: 64,
-            frameHeight: 64,
+        this.load.spritesheet(`sheep`, 'assets/images/sheeps3.png', {
+            frameWidth: 38,
+            frameHeight: 30,
             endFrame: 7,
         });
-        this.load.spritesheet(`coyote`, 'assets/images/coyotes2.png', {
-            frameWidth: 64,
-            frameHeight: 64,
+        this.load.spritesheet(`coyote`, 'assets/images/coyotes3.png', {
+            frameWidth: 60,
+            frameHeight: 36,
             endFrame: 7,
         });
 

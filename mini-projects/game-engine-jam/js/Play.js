@@ -4,6 +4,7 @@ class Play extends Phaser.Scene {
         super({
             key: `play`
         })
+        this.sheepOrientation = `left`;
     }
 
     // Creates a function that allows all code that wants to be done immediately on the program.
@@ -12,28 +13,31 @@ class Play extends Phaser.Scene {
         this.cameras.main.setBackgroundColor("#20252e");
         // this.outdoors = this.add.image(400, 300, `outdoors`);
 
-        this.sheep = this.physics.add.sprite(80, 590, `sheep`);
+        this.sheep = this.physics.add.sprite(80, 550, `sheep`);
         // this.sheep.setScale(2);
 
         // this.coyote = this.physics.add.sprite(600, 455, `coyote`);
         // // // this.coyote.setScale(2);
         // this.coyote.setCollideWorldBounds(true);
 
+
+        // Calls the createAnimation() function.
         this.createAnimations();
 
-
-        this.sheep.play(`sheep-idle`);
+        // Set the initial sheep-idle to the left animation.
+        this.sheep.play(`sheep-idle-left`);
         // this.coyote.play(`coyote-idle`);
 
+        // Allows foir cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
 
-
-
-        // const path = this.createLoopPath();
+        // Calls the createZigZagPath() function.
         const path = this.createZigZagPath();
 
+        // Creates the graphics for the path to have it loop.
         const graphics = this.add.graphics();
 
+        // Creates constants for all the different assets of the path and its duration and speed.
         const start = path.getStartPoint();
         const distance = path.getLength();
         const duration = 20000;
@@ -42,14 +46,18 @@ class Play extends Phaser.Scene {
         const tSpeed = 1 / duration;
         const tSpeedSec = 1000 * tSpeed;
 
+        // Creates a variable.
         let t = 0;
 
+        // Creating the coyote sprite and making it immovable.
         const coyote = this.physics.add.sprite(start.x, start.y, 'coyote')
             .setImmovable(true);
 
+        // Creates the physics for the path and how it will be followed by the coyote.
         this.physics.world.on('worldstep', (delta) => {
             t += delta * tSpeedSec;
 
+            // Allowing the path to loop and for the coyote to repeat on the path.
             if (t > 1) {
                 t -= 1;
                 coyote.body.reset(start.x, start.y);
@@ -57,24 +65,13 @@ class Play extends Phaser.Scene {
                 path.draw(graphics);
             }
 
+            // Calling back all the different variables.
             path.getTangent(t, coyote.body.velocity);
             coyote.body.velocity.scale(speedSec);
         });
     }
 
-    createLoopPath() {
-        const path = new Phaser.Curves.Path(50, 500);
-
-        path.splineTo([164, 446, 274, 542, 412, 457, 522, 541, 664, 464]);
-        path.lineTo(700, 300);
-        path.lineTo(600, 350);
-        path.ellipseTo(200, 100, 100, 250, false, 0);
-        path.cubicBezierTo(222, 119, 308, 107, 208, 368);
-        path.ellipseTo(60, 60, 0, 360, true);
-
-        return path;
-    }
-
+    // Creates the path shape that the coyote will repeatedly follow.
     createZigZagPath() {
         const path = new Phaser.Curves.Path(650, 70);
 
@@ -87,84 +84,65 @@ class Play extends Phaser.Scene {
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-        //     this.sheep.setVelocity(0);
-
-        //     if (this.cursors.left.isDown) {
-        //         this.sheep.setVelocityX(-100);
-        //     }
-        //     else if (this.cursors.right.isDown) {
-        //         this.sheep.setVelocityX(100);
-        //     }
-
-        //     if (this.cursors.up.isDown) {
-        //         this.sheep.setVelocityY(-100);
-        //     }
-        //     else if (this.cursors.down.isDown) {
-        //         this.sheep.setVelocityY(100);
-        //     }
-
-        //     if (this.sheep.body.velocity.x !== 0 || this.sheep.body.velocity.y !== 0) {
-        //         this.sheep.play(`sheep-moving`, true);
-        //     }
-        //     else {
-        //         this.sheep.play(`sheep-idle`, true);
-        //     }
-
-
-        // }
+        // Creating a constant for all cursor left, right, up, and down calls from Phaser 3.
         const { left, right, up, down } = this.cursors;
 
-        if (left.isDown) {
-            this.sheep.setVelocityX(-100);
+        // Create variable for all x and y velocities.
+        let velocityX = 0;
+        let velocityY = 0;
 
-            this.sheep.anims.play('left', true);
+        // Create all the velocities for the left, right, up, and down keys being pressed.
+        if (left.isDown) {
+            velocityX = -100;
         }
         else if (right.isDown) {
-            this.sheep.setVelocityX(100);
-
-            this.sheep.anims.play('right', true);
-        }
-        else {
-            this.sheep.setVelocityX(0);
-
-            this.sheep.anims.play('sheep-idle');
+            velocityX = 100;
         }
 
         if (up.isDown) {
-            this.sheep.setVelocityY(-100);
-
-            this.sheep.anims.play(`left`, true);
+            velocityY = -100;
         }
         else if (down.isDown) {
-            this.sheep.setVelocityY(100);
+            velocityY = 100;
+        }
 
+        // Makes it so that if all the velocities on the x axis are less than zero the left animation plays.
+        if (velocityX < 0) {
+            this.sheepOrientation = `left`;
             this.sheep.anims.play(`left`, true);
         }
+        // Makes it so that if all the velocities on the x axis are more than zero the left animation plays.
+        else if (velocityX > 0) {
+            this.sheepOrientation = `right`;
+            this.sheep.anims.play(`right`, true);
+        }
+        // Makes it so that if the sheep is moving on the y axis the sheepOrientation will be remembered from where it was last and face that direction.
+        else if (velocityY !== 0) {
+            this.sheep.anims.play(this.sheepOrientation, true);
+        }
+        // Makes it so that if nothing that was said above is happening, then play the animation for both the sheep-idle-left and sheep-idle-right.
+        else {
+            this.sheep.anims.play(`sheep-idle-${this.sheepOrientation}`);
+        }
+
+        // Sets it so the velocity is towards the sheep sprite.
+        this.sheep.setVelocity(velocityX, velocityY);
     }
 
     // Creates the animations for what frames are used of the sprite when it is in movement and when it is idle.
     createAnimations() {
-        // Animation frames for the sheep.
-        // this.anims.create({
-        //     key: `sheep-moving`,
-        //     frames: this.anims.generateFrameNumbers(`sheep`, {
-        //         start: 0,
-        //         end: 3
-        //     }),
-        //     frameRate: 24,
-        //     repeat: -1
-        // });
+        // Creates the animation for the sheep being idle to the left.
+        this.anims.create({
+            key: `sheep-idle-left`,
+            frames: this.anims.generateFrameNumbers(`sheep`, {
+                start: 0,
+                end: 0
+            }),
+            frameRate: 10,
+            repeat: 0
+        });
 
-        // this.anims.create({
-        //     key: `sheep-idle`,
-        //     frames: this.anims.generateFrameNumbers(`sheep`, {
-        //         start: 0,
-        //         end: 0
-        //     }),
-        //     frameRate: 24,
-        //     repeat: 0
-        // });
-
+        // Creates the animation for when the left arrow key is pressed for the sheep.
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('sheep', {
@@ -175,20 +153,22 @@ class Play extends Phaser.Scene {
             repeat: -1
         });
 
+        // Creates the animation for the sheep being idle to the right.
         this.anims.create({
-            key: `sheep-idle`,
+            key: `sheep-idle-right`,
             frames: this.anims.generateFrameNumbers(`sheep`, {
-                start: 0,
-                end: 0
+                start: 4,
+                end: 4
             }),
-            frameRate: 24,
+            frameRate: 10,
             repeat: 0
         });
 
+        // Creates the animation for when the right arrow key is pressed for the sheep.
         this.anims.create({
             key: 'right',
             frames: this.anims.generateFrameNumbers('sheep', {
-                start: 5,
+                start: 4,
                 end: 7
             }),
             frameRate: 10,
