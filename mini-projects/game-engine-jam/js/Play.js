@@ -83,7 +83,7 @@ class Play extends Phaser.Scene {
         this.createAnimations();
 
         // Set the initial sheep-idle to the left animation.
-        this.sheep.play(`sheep-idle-left`);
+        this.sheep.play(`idle-left`);
         // this.coyote.play(`coyote-idle`);
 
         // Allows foir cursor keys to be called and work.
@@ -127,6 +127,14 @@ class Play extends Phaser.Scene {
                 this.coyote.body.reset(start.x, start.y);
                 graphics.clear();
                 path.draw(graphics);
+            }
+
+            // this.coyote.anims.play(t < 0.5 ? `left` : `right`, true); 
+            if (t < 0.5) {
+                this.coyote.anims.play(`coyoteleft`, true);
+            }
+            else {
+                this.coyote.anims.play(`coyoteright`, true);
             }
 
             // Calling back all the different variables.
@@ -173,20 +181,20 @@ class Play extends Phaser.Scene {
         // Makes it so that if all the velocities on the x axis are less than zero the left animation plays.
         if (velocityX < 0) {
             this.sheepOrientation = `left`;
-            this.sheep.anims.play(`left`, true);
+            this.sheep.anims.play(`sheepleft`, true);
         }
         // Makes it so that if all the velocities on the x axis are more than zero the left animation plays.
         else if (velocityX > 0) {
             this.sheepOrientation = `right`;
-            this.sheep.anims.play(`right`, true);
+            this.sheep.anims.play(`sheepright`, true);
         }
         // Makes it so that if the sheep is moving on the y axis the sheepOrientation will be remembered from where it was last and face that direction.
         else if (velocityY !== 0) {
-            this.sheep.anims.play(this.sheepOrientation, true);
+            this.sheep.anims.play(`sheep` + this.sheepOrientation, true);
         }
         // Makes it so that if nothing that was said above is happening, then play the animation for both the sheep-idle-left and sheep-idle-right.
         else {
-            this.sheep.anims.play(`sheep-idle-${this.sheepOrientation}`);
+            this.sheep.anims.play(`sheepidle-` + this.sheepOrientation);
         }
 
         // Sets it so the velocity is towards the sheep sprite.
@@ -195,69 +203,22 @@ class Play extends Phaser.Scene {
 
     // Creates the animations for what frames are used of the sprite when it is in movement and when it is idle.
     createAnimations() {
-        // Creates the animation for the sheep being idle to the left.
-        this.anims.create({
-            key: `sheep-idle-left`,
-            frames: this.anims.generateFrameNumbers(`sheep`, {
-                start: 0,
-                end: 0
-            }),
-            frameRate: 10,
-            repeat: 0
-        });
-
-        // Creates the animation for when the left arrow key is pressed for the sheep.
-        this.anims.create({
-            key: `left`,
-            frames: this.anims.generateFrameNumbers(`sheep`, {
-                start: 0,
-                end: 3
-            }),
-            frameRate: 10,
-            repeat: -1
-        });
-
-        // Creates the animation for the sheep being idle to the right.
-        this.anims.create({
-            key: `sheep-idle-right`,
-            frames: this.anims.generateFrameNumbers(`sheep`, {
-                start: 4,
-                end: 4
-            }),
-            frameRate: 10,
-            repeat: 0
-        });
-
-        // Creates the animation for when the right arrow key is pressed for the sheep.
-        this.anims.create({
-            key: `right`,
-            frames: this.anims.generateFrameNumbers(`sheep`, {
-                start: 4,
-                end: 7
-            }),
-            frameRate: 10,
-            repeat: -1
-        });
-
-        // Animation frames for the coyote.
-        this.anims.create({
-            key: `coyote-moving`,
-            frames: this.anims.generateFrameNumbers(`coyote`, {
-                start: 0,
-                end: 3
-            }),
-            frameRate: 24,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: `coyote-idle`,
-            frames: this.anims.generateFrameNumbers(`coyote`, {
-                start: 0,
-                end: 0
-            }),
-            frameRate: 24,
-            repeat: 0
-        });
+        [
+            { name: `sheep`, action: `idle-left`, start: 0, end: 0, repeat: 0 },
+            { name: `sheep`, action: `left`, start: 0, end: 3, repeat: -1 },
+            { name: `sheep`, action: `idle-right`, start: 4, end: 4, repeat: 0 },
+            { name: `sheep`, action: `right`, start: 4, end: 7, repeat: -1 },
+            { name: `coyote`, action: `left`, start: 0, end: 3, repeat: -1 },
+            { name: `coyote`, action: `right`, start: 4, end: 7, repeat: -1 },
+        ]
+            .forEach(animation => this.anims.create({
+                key: animation.name + animation.action,
+                frames: this.anims.generateFrameNumbers(animation.name, {
+                    start: animation.start,
+                    end: animation.end
+                }),
+                frameRate: 10,
+                repeat: animation.repeat
+            }));
     }
 }
