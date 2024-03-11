@@ -40,7 +40,7 @@ class Title extends Phaser.Scene {
 
         // Creates text with all their different sizes and colours.
         this.add.text(150, 250, `Hard to Move On`, { fontFamily: `Lora`, fontSize: 64, color: `#ff7171` });
-        this.add.text(550, 550, `Move around with the arrow keys`, { fontFamily: `Lora`, fontSize: 15, color: `#9e7c7c` });
+        this.add.text(550, 550, `Move with the arrow keys and try to keep moving onward.`, { fontFamily: `Lora`, fontSize: 15, color: `#9e7c7c` });
 
         container.on(`pointerdown`, () => this.scene.start(`boot`));
     }

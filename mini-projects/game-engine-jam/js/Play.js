@@ -19,7 +19,7 @@ class Play extends Phaser.Scene {
         // this.outdoors = this.add.image(400, 300, `outdoors`);
 
         // Creates the sheep sprite in the play scene.
-        this.sheep = this.physics.add.sprite(80, 550, `sheep`);
+        this.sheep = this.physics.add.sprite(80, 450, `sheep`);
 
         // Create the tree image and make it a group.
         this.tree = this.physics.add.group({
@@ -38,47 +38,6 @@ class Play extends Phaser.Scene {
         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
         this.physics.add.collider(this.sheep, this.tree);
         this.physics.add.collider(this.tree, this.tree);
-
-
-        // this.treeX = this.physics.add.group({
-        //     key: 'tree',
-        //     frameQuantity: 12,
-        //     gridAlign: {
-        //         x: 25,
-        //         y: 25,
-        //         width: 1,
-        //         height: 12,
-        //         cellWidth: 50,
-        //         cellHeight: 50,
-        //         mass: 20,
-        //         gravityY: 100
-        //     },
-        //     bounceX: 1,
-        //     collideWorldBounds: true
-        // });
-
-        // this.treeX.setVelocityX(200, 10);
-        // this.physics.add.collider(this.sheep, this.treeX);
-
-        // this.treeY = this.physics.add.group({
-        //     key: 'tree',
-        //     frameQuantity: 28,
-        //     gridAlign: {
-        //         x: 14,
-        //         y: 14,
-        //         width: 28,
-        //         height: 1,
-        //         cellWidth: 28,
-        //         mass: 20,
-        //         gravityY: 100
-        //     },
-        //     bounceY: 1,
-        //     collideWorldBounds: true
-        // });
-
-        // this.treeY.setVelocityY(300, 10);
-        // this.physics.add.collider(this.sheep, this.treeY);
-
 
         // Calls the createAnimation() function.
         this.createAnimations();
@@ -109,7 +68,7 @@ class Play extends Phaser.Scene {
 
         // Creating the coyote sprite and making it immovable.
         this.coyote = this.physics.add.sprite(start.x, start.y, `coyote`)
-        // .setImmovable(true);
+            .setImmovable(true);
 
         // 
         this.physics.add.collider(this.sheep, this.coyote);
