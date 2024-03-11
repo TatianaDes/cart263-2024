@@ -18,12 +18,8 @@ class Play extends Phaser.Scene {
         this.cameras.main.setBackgroundColor(`#20252e`);
         // this.outdoors = this.add.image(400, 300, `outdoors`);
 
+        // Creates the sheep sprite in the play scene.
         this.sheep = this.physics.add.sprite(80, 550, `sheep`);
-        // this.sheep.setScale(2);
-
-        // this.coyote = this.physics.add.sprite(600, 455, `coyote`);
-        // // // this.coyote.setScale(2);
-        // this.coyote.setCollideWorldBounds(true);
 
         // Create the tree image and make it a group.
         this.tree = this.physics.add.group({
@@ -88,8 +84,7 @@ class Play extends Phaser.Scene {
         this.createAnimations();
 
         // Set the initial sheep-idle to the left animation.
-        this.sheep.play(`idle-left`);
-        // this.coyote.play(`coyote-idle`);
+        this.sheep.play(`sheepidle-left`);
 
         // Allows foir cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -114,13 +109,10 @@ class Play extends Phaser.Scene {
 
         // Creating the coyote sprite and making it immovable.
         this.coyote = this.physics.add.sprite(start.x, start.y, `coyote`)
-            .setImmovable(true);
+        // .setImmovable(true);
 
+        // 
         this.physics.add.collider(this.sheep, this.coyote);
-
-        // if (this.physics.add.collider(this.sheep, this.coyote) === true) {
-        //     this.scene.start(`why`);
-        // }
 
         // Creates the physics for the path and how it will be followed by the coyote.
         this.physics.world.on(`worldstep`, (delta) => {
@@ -134,7 +126,8 @@ class Play extends Phaser.Scene {
                 path.draw(graphics);
             }
 
-            // this.coyote.anims.play(t < 0.5 ? `left` : `right`, true); 
+            // Creates the coyote animation right and left when the coyote lines up with the right time it takes to finish the path.
+            // this.coyote.anims.play(t < 0.5 ? `left` : `right`, true); <- This code is a simplified version of the code bellow.
             if (t < 0.5) {
                 this.coyote.anims.play(`coyoteleft`, true);
             }
@@ -229,6 +222,7 @@ class Play extends Phaser.Scene {
 
     // Creates the animations for what frames are used of the sprite when it is in movement and when it is idle.
     createAnimations() {
+        // Creates an array that has all the different assets needed to create call the actions and for what sprite and which frames to use.
         [
             { name: `sheep`, action: `idle-left`, start: 0, end: 0, repeat: 0 },
             { name: `sheep`, action: `left`, start: 0, end: 3, repeat: -1 },
@@ -237,6 +231,7 @@ class Play extends Phaser.Scene {
             { name: `coyote`, action: `left`, start: 0, end: 3, repeat: -1 },
             { name: `coyote`, action: `right`, start: 4, end: 7, repeat: -1 },
         ]
+            // Rather than having hard coded words here, the assets from above are called in the right places here.
             .forEach(animation => this.anims.create({
                 key: animation.name + animation.action,
                 frames: this.anims.generateFrameNumbers(animation.name, {
