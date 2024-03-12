@@ -31,21 +31,9 @@ class Play extends Phaser.Scene {
             gravityY: 100,
             // Mass (how heavy are they)
             mass: 20,
-            // Allows for the tree to start out existing
-            stay: true
         });
         // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
         Phaser.Actions.RandomRectangle(this.tree.getChildren(), this.physics.world.bounds);
-
-        // // Checks if all the bees have fallen
-        // let allBeesDead = true;
-        // for (let i = 0; i < bees.length; i++) {
-        //     if (bees[i].alive) {
-        //         allBeesDead = false;
-        //         break;
-        //     }
-        // }
-
 
         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
         this.physics.add.collider(this.sheep, this.tree);
@@ -84,31 +72,6 @@ class Play extends Phaser.Scene {
 
         // Makes the sheep and coyote collide and not go through each other.
         this.physics.add.collider(this.sheep, this.coyote);
-
-        // function checkOffscreen() {
-        //     // Check if the circles have gone offscreen
-        //       if (isOffscreen(circle1) || isOffscreen(circle2)) {
-        //       state = `sadness`;
-        //     }
-        //   }
-
-        //   function isOffscreen(circle) {
-        //       // Realization of when the circles are actually offscreen
-        //       if (circle.x < 0 || circle.x > width || circle.y < 0 || circle.y > height) {
-        //           return true;
-        //       }
-        //       else {
-        //           return false;
-        //       }
-        //   }
-
-        //   function checkOverlap() {
-        //    // Check if the circles overlap
-        //    let d = dist(circle1.x, circle1.y, circle2.x, circle2.y);
-        //    if (d < circle1.size/2 + circle2.size/2) {
-        //       state = `love`;
-        //    }
-        //   }
 
         // Creates the physics for the path and how it will be followed by the coyote.
         this.physics.world.on(`worldstep`, (delta) => {
