@@ -10,10 +10,6 @@ class Play extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
-        // if (this.physics.add.collider(this.sheep, this.coyote) === true) {
-        //     this.scene.start(`why`);
-        // };
-
         // Creates background colour.
         this.cameras.main.setBackgroundColor(`#20252e`);
         // this.outdoors = this.add.image(400, 300, `outdoors`);
