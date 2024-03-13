@@ -41,15 +41,19 @@ class Play extends Phaser.Scene {
         // Calls the createAnimation() function.
         this.createAnimations();
 
+        // Calls the coyoteMovement() function.
         this.coyoteMovement();
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
+        // Calls the treesFalling() function.
         this.treesFalling();
 
+        // Calls the sheepMovement() function.
         this.sheepMovement();
 
+        // Calls the checkEnding() function.
         this.checkEnding();
     }
 
@@ -76,6 +80,7 @@ class Play extends Phaser.Scene {
             }));
     }
 
+    // Creates all the animation code and movement of the coyote.
     coyoteMovement() {
         // Calls the createZigZagPath() function.
         const path = this.createCoyotePath();
@@ -139,6 +144,7 @@ class Play extends Phaser.Scene {
         return path;
     }
 
+    // Creates the trees that fall as the frames update and collides with the sheep.
     treesFalling() {
         this.frameCounter++;
         if ((this.frameCounter % 150) === 0) {
@@ -162,6 +168,7 @@ class Play extends Phaser.Scene {
         }
     }
 
+    // Creates the movement of the sheep and its animations.
     sheepMovement() {
         // Creating a constant for all cursor left, right, up, and down calls from Phaser 3.
         const { left, right, up, down } = this.cursors;
@@ -208,6 +215,7 @@ class Play extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
+    // Creates the ending for when the sheep goes off the canvas <- needs to do that for the top of the canvas and sides.
     checkEnding() {
         if (this.sheep.y > this.game.canvas.height || this.sheep.x > this.game.canvas.width) {
             this.scene.stop('play');
