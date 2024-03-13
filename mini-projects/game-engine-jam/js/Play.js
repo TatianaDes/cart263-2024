@@ -5,7 +5,7 @@ class Play extends Phaser.Scene {
             key: `play`
         })
         this.frameCounter = 0;
-        this.sheepOrientation = `left`;
+        this.sheepOrientation = `right`;
     }
 
     // Creates a function that allows all code that wants to be done immediately on the program.
@@ -17,36 +17,87 @@ class Play extends Phaser.Scene {
         // Creates the sheep sprite in the play scene.
         this.sheep = this.physics.add.sprite(80, 450, `sheep`);
 
-        // Create the tree image and make it a group.
-        this.tree = this.physics.add.group({
-            // Image key to use
-            key: `tree`,
-            // How many
-            quantity: 120,
-            // Gravity (how fast will they start and continue to fall)
-            gravityY: 100,
-            // Mass (how heavy are they)
-            mass: 20,
-        });
-        // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
-        Phaser.Actions.RandomRectangle(this.tree.getChildren(), this.physics.world.bounds);
+        // // Create the tree image and make it a group.
+        // this.tree = this.physics.add.group({
+        //     // Image key to use
+        //     key: `tree`,
+        //     // How many
+        //     quantity: 120,
+        //     // Gravity (how fast will they start and continue to fall)
+        //     gravityY: 100,
+        //     // Mass (how heavy are they)
+        //     mass: 20,
+        // });
+        // // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
+        // Phaser.Actions.RandomRectangle(this.tree.getChildren(), this.physics.world.bounds);
 
-        // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
-        this.physics.add.collider(this.sheep, this.tree);
-        this.physics.add.collider(this.tree, this.tree);
-
-        // Calls the createAnimation() function.
-        this.createAnimations();
-
-        // Set the initial sheep-idle to the left animation.
-        this.sheep.play(`sheepidle-left`);
+        // // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
+        // this.physics.add.collider(this.sheep, this.tree);
+        // this.physics.add.collider(this.tree, this.tree);
 
         // Allows foir cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        // Calls the createZigZagPath() function.
-        const path = this.createZigZagPath();
+        // Calls the createAnimation() function.
+        this.createAnimations();
 
+        this.coyoteMovement();
+    }
+
+    // Creates changes for individual frames so that each frame could have its own event.
+    update() {
+        this.frameCounter++;
+        if ((this.frameCounter % 150) === 0) {
+            // Create the tree image and make it a group.
+            this.tree = this.physics.add.group({
+                // Image key to use
+                key: `tree`,
+                // How many
+                quantity: 20,
+                // Gravity (how fast will they start and continue to fall)
+                gravityY: 100,
+                // Mass (how heavy are they)
+                mass: 20
+            });
+            // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
+            Phaser.Actions.RandomRectangle(this.tree.getChildren(), { x: 0, y: 0, width: 800, height: 50 });
+
+            // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
+            this.physics.add.collider(this.sheep, this.tree);
+            this.physics.add.collider(this.tree, this.tree);
+        }
+
+        this.sheepMovement();
+
+        this.checkEnding();
+    }
+
+    // Creates the animations for what frames are used of the sprite when it is in movement and when it is idle.
+    createAnimations() {
+        // Creates an array that has all the different assets needed to create call the actions and for what sprite and which frames to use.
+        [
+            { name: `sheep`, action: `idle-left`, start: 0, end: 0, repeat: 0 },
+            { name: `sheep`, action: `left`, start: 0, end: 3, repeat: -1 },
+            { name: `sheep`, action: `idle-right`, start: 4, end: 4, repeat: 0 },
+            { name: `sheep`, action: `right`, start: 4, end: 7, repeat: -1 },
+            { name: `coyote`, action: `left`, start: 0, end: 3, repeat: -1 },
+            { name: `coyote`, action: `right`, start: 4, end: 7, repeat: -1 },
+        ]
+            // Rather than having hard coded words here, the assets from above are called in the right places here.
+            .forEach(animation => this.anims.create({
+                key: animation.name + animation.action,
+                frames: this.anims.generateFrameNumbers(animation.name, {
+                    start: animation.start,
+                    end: animation.end
+                }),
+                frameRate: 10,
+                repeat: animation.repeat
+            }));
+    }
+
+    coyoteMovement() {
+        // Calls the createZigZagPath() function.
+        const path = this.createCoyotePath();
         // Creates the graphics for the path to have it loop.
         const graphics = this.add.graphics();
 
@@ -97,7 +148,7 @@ class Play extends Phaser.Scene {
     }
 
     // Creates the path shape that the coyote will repeatedly follow.
-    createZigZagPath() {
+    createCoyotePath() {
         const path = new Phaser.Curves.Path(650, 70);
 
         path.lineTo(400, 100);
@@ -107,29 +158,7 @@ class Play extends Phaser.Scene {
         return path;
     }
 
-    // Creates changes for individual frames so that each frame could have its own event.
-    update() {
-        this.frameCounter++;
-        if ((this.frameCounter % 200) === 0) {
-            // Create the tree image and make it a group.
-            this.tree = this.physics.add.group({
-                // Image key to use
-                key: `tree`,
-                // How many
-                quantity: 20,
-                // Gravity (how fast will they start and continue to fall)
-                gravityY: 100,
-                // Mass (how heavy are they)
-                mass: 20
-            });
-            // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
-            Phaser.Actions.RandomRectangle(this.tree.getChildren(), { x: 0, y: 0, width: 800, height: 50 });
-
-            // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
-            this.physics.add.collider(this.sheep, this.tree);
-            this.physics.add.collider(this.tree, this.tree);
-        }
-
+    sheepMovement() {
         // Creating a constant for all cursor left, right, up, and down calls from Phaser 3.
         const { left, right, up, down } = this.cursors;
 
@@ -175,26 +204,10 @@ class Play extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
-    // Creates the animations for what frames are used of the sprite when it is in movement and when it is idle.
-    createAnimations() {
-        // Creates an array that has all the different assets needed to create call the actions and for what sprite and which frames to use.
-        [
-            { name: `sheep`, action: `idle-left`, start: 0, end: 0, repeat: 0 },
-            { name: `sheep`, action: `left`, start: 0, end: 3, repeat: -1 },
-            { name: `sheep`, action: `idle-right`, start: 4, end: 4, repeat: 0 },
-            { name: `sheep`, action: `right`, start: 4, end: 7, repeat: -1 },
-            { name: `coyote`, action: `left`, start: 0, end: 3, repeat: -1 },
-            { name: `coyote`, action: `right`, start: 4, end: 7, repeat: -1 },
-        ]
-            // Rather than having hard coded words here, the assets from above are called in the right places here.
-            .forEach(animation => this.anims.create({
-                key: animation.name + animation.action,
-                frames: this.anims.generateFrameNumbers(animation.name, {
-                    start: animation.start,
-                    end: animation.end
-                }),
-                frameRate: 10,
-                repeat: animation.repeat
-            }));
+    checkEnding() {
+        if (this.sheep.y > this.game.canvas.height || this.sheep.x > this.game.canvas.width) {
+            this.scene.stop('play');
+            this.scene.start(`growing`);
+        }
     }
 }

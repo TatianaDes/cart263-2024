@@ -42,7 +42,10 @@ class Title extends Phaser.Scene {
         this.add.text(150, 250, `Hard to Move On`, { fontFamily: `Lora`, fontSize: 64, color: `#ff7171` });
         this.add.text(420, 550, `Move with the arrow keys and try to keep moving onward.`, { fontFamily: `Lora`, fontSize: 15, color: `#9e7c7c` });
 
-        container.on(`pointerdown`, () => this.scene.start(`boot`));
+        container.on(`pointerdown`, () => {
+            this.scene.stop('title');
+            this.scene.start(`boot`);
+        });
     }
 
     // Creates changes for individual frames so that each frame could have its own event.

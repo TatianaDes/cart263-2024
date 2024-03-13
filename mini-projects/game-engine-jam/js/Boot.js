@@ -25,6 +25,7 @@ class Boot extends Phaser.Scene {
 
         // Calls on the next scene keyname to occur automatically once the program boots up.
         this.load.on(`complete`, () => {
+            this.scene.stop('boot');
             this.scene.start(`play`);
         });
     }
