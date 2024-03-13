@@ -215,9 +215,9 @@ class Play extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
-    // Creates the ending for when the sheep goes off the canvas <- needs to do that for the top of the canvas and sides.
+    // Creates the ending for when the sheep goes off the canvas.
     checkEnding() {
-        if (this.sheep.y > this.game.canvas.height || this.sheep.x > this.game.canvas.width) {
+        if (this.sheep.x < 0 || this.sheep.x > this.game.canvas.width || this.sheep.y < 0 || this.sheep.y > this.game.canvas.height) {
             this.scene.stop('play');
             this.scene.start(`growing`);
         }
