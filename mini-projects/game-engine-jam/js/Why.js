@@ -12,7 +12,7 @@ class Why extends Phaser.Scene {
         this.cameras.main.setBackgroundColor(`#7a3131`);
 
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'start');
+        const bg = this.add.image(0, 0, 'start-over');
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 360, [bg]);
