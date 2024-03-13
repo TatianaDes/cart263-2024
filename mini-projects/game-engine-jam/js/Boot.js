@@ -28,6 +28,8 @@ class Boot extends Phaser.Scene {
             this.scene.stop('boot');
             this.scene.start(`play`);
         });
+
+        this.load.image(`flower`, `assets/images/flower.png`);
     }
 
     // Creates a function that allows all code that wants to be done immediately on the program.

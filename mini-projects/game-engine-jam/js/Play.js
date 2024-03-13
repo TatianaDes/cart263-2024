@@ -17,6 +17,9 @@ class Play extends Phaser.Scene {
         // Creates the sheep sprite in the play scene.
         this.sheep = this.physics.add.sprite(80, 450, `sheep`);
 
+        // Creates the flower sprite in the play scene.
+        this.flower = this.physics.add.sprite(90, 200, `flower`);
+
         // // Create the tree image and make it a group.
         // this.tree = this.physics.add.group({
         //     // Image key to use
@@ -43,6 +46,9 @@ class Play extends Phaser.Scene {
 
         // Calls the coyoteMovement() function.
         this.coyoteMovement();
+
+        // Calls the flowerCollide() function.
+        this.flowerCollide();
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
@@ -213,6 +219,11 @@ class Play extends Phaser.Scene {
 
         // Sets it so the velocity is towards the sheep sprite.
         this.sheep.setVelocity(velocityX, velocityY);
+    }
+
+    // Creates the movement of the flower when the sheep collides with it.
+    flowerCollide() {
+        this.physics.add.collider(this.sheep, this.flower);
     }
 
     // Creates the ending for when the sheep goes off the canvas.
