@@ -46,26 +46,7 @@ class Play extends Phaser.Scene {
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-        this.frameCounter++;
-        if ((this.frameCounter % 150) === 0) {
-            // Create the tree image and make it a group.
-            this.tree = this.physics.add.group({
-                // Image key to use
-                key: `tree`,
-                // How many
-                quantity: 20,
-                // Gravity (how fast will they start and continue to fall)
-                gravityY: 100,
-                // Mass (how heavy are they)
-                mass: 20
-            });
-            // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
-            Phaser.Actions.RandomRectangle(this.tree.getChildren(), { x: 0, y: 0, width: 800, height: 50 });
-
-            // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
-            this.physics.add.collider(this.sheep, this.tree);
-            this.physics.add.collider(this.tree, this.tree);
-        }
+        this.treesFalling();
 
         this.sheepMovement();
 
@@ -156,6 +137,29 @@ class Play extends Phaser.Scene {
         path.lineTo(650, 70);
 
         return path;
+    }
+
+    treesFalling() {
+        this.frameCounter++;
+        if ((this.frameCounter % 150) === 0) {
+            // Create the tree image and make it a group.
+            this.tree = this.physics.add.group({
+                // Image key to use
+                key: `tree`,
+                // How many
+                quantity: 20,
+                // Gravity (how fast will they start and continue to fall)
+                gravityY: 100,
+                // Mass (how heavy are they)
+                mass: 20
+            });
+            // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
+            Phaser.Actions.RandomRectangle(this.tree.getChildren(), { x: 0, y: 0, width: 800, height: 50 });
+
+            // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
+            this.physics.add.collider(this.sheep, this.tree);
+            this.physics.add.collider(this.tree, this.tree);
+        }
     }
 
     sheepMovement() {
