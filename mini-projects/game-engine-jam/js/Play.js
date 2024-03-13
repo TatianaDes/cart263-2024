@@ -17,8 +17,14 @@ class Play extends Phaser.Scene {
         // Creates the sheep sprite in the play scene.
         this.sheep = this.physics.add.sprite(80, 450, `sheep`);
 
-        // Creates the flower sprite in the play scene.
-        this.flower = this.physics.add.sprite(90, 200, `flower`);
+        this.flower = this.physics.add.group({
+            key: `flower`,
+            bounceX: 0.5,
+            bouceY: 0.5,
+            dragX: 50,
+            dragY: 50
+        });
+        Phaser.Actions.RandomRectangle(this.flower.getChildren(), this.physics.world.bounds);
 
         // // Create the tree image and make it a group.
         // this.tree = this.physics.add.group({
@@ -228,9 +234,13 @@ class Play extends Phaser.Scene {
 
     // Creates the ending for when the sheep goes off the canvas.
     checkEnding() {
-        if (this.sheep.x < 0 || this.sheep.x > this.game.canvas.width || this.sheep.y < 0 || this.sheep.y > this.game.canvas.height) {
+        if (this.sheep.y > this.game.canvas.height) {
             this.scene.stop('play');
             this.scene.start(`growing`);
+        }
+        if (this.flower.x < 0 || this.flower.x > this.game.canvas.width || this.flower.y < 0 || this.flower.y > this.game.canvas.height) {
+            this.scene.stop('play');
+            this.scene.start(`patience`);
         }
     }
 }
