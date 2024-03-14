@@ -38,7 +38,7 @@ class Patience extends Phaser.Scene {
         });
 
         container.on(`pointerdown`, () => {
-            this.scene.stop('growing');
+            this.scene.stop('patience');
             this.scene.start(`title`);
         });
     }

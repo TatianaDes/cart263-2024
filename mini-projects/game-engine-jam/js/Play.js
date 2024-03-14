@@ -17,14 +17,19 @@ class Play extends Phaser.Scene {
         // Creates the sheep sprite in the play scene.
         this.sheep = this.physics.add.sprite(80, 450, `sheep`);
 
-        this.flower = this.physics.add.group({
-            key: `flower`,
-            bounceX: 0.5,
-            bouceY: 0.5,
-            dragX: 50,
-            dragY: 50
-        });
-        Phaser.Actions.RandomRectangle(this.flower.getChildren(), this.physics.world.bounds);
+        this.flower = this.physics.add.sprite(0, 0, "flower")
+        this.flower.setBounce(0.5, 0.5);
+        this.flower.setDrag(50, 50);
+        Phaser.Actions.RandomRectangle([this.flower], this.physics.world.bounds);
+
+        // this.flower = this.physics.add.group({
+        //     key: `flower`,
+        //     bounceX: 0.5,
+        //     bouceY: 0.5,
+        //     dragX: 50,
+        //     dragY: 50
+        // });
+        // Phaser.Actions.RandomRectangle(this.flower.getChildren(), this.physics.world.bounds);
 
         // Allows foir cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
