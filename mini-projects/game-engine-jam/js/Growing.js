@@ -16,7 +16,6 @@ class Growing extends Phaser.Scene {
 
         // Creates text with all their different sizes and colours.
         this.add.text(150, 150, `Everything will be just fine.\nYou are doing great finally thinking\nabout yourself and what you want.\nI know it is hard, but to me,\nyou are the bravest individual\nI have ever met.\n`, { fontFamily: `Lora`, fontSize: 35, color: `#aed3e0` });
-        // this.add.text(220, 320, `(Press the Spacebar Key to Go Back to Title)`, { fontFamily: `Lora`, fontSize: 20, color: `#000000` });
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);

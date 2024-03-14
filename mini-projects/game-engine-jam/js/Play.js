@@ -34,9 +34,6 @@ class Play extends Phaser.Scene {
         // Allows foir cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        // Calls the createAnimation() function.
-        this.createAnimations();
-
         // Calls the coyoteMovement() function.
         this.coyoteMovement();
 
@@ -54,29 +51,6 @@ class Play extends Phaser.Scene {
 
         // Calls the checkEnding() function.
         this.checkEnding();
-    }
-
-    // Creates the animations for what frames are used of the sprite when it is in movement and when it is idle.
-    createAnimations() {
-        // Creates an array that has all the different assets needed to create call the actions and for what sprite and which frames to use.
-        [
-            { name: `sheep`, action: `idle-left`, start: 0, end: 0, repeat: 0 },
-            { name: `sheep`, action: `left`, start: 0, end: 3, repeat: -1 },
-            { name: `sheep`, action: `idle-right`, start: 4, end: 4, repeat: 0 },
-            { name: `sheep`, action: `right`, start: 4, end: 7, repeat: -1 },
-            { name: `coyote`, action: `left`, start: 0, end: 3, repeat: -1 },
-            { name: `coyote`, action: `right`, start: 4, end: 7, repeat: -1 },
-        ]
-            // Rather than having hard coded words here, the assets from above are called in the right places here.
-            .forEach(animation => this.anims.create({
-                key: animation.name + animation.action,
-                frames: this.anims.generateFrameNumbers(animation.name, {
-                    start: animation.start,
-                    end: animation.end
-                }),
-                frameRate: 10,
-                repeat: animation.repeat
-            }));
     }
 
     // Creates all the animation code and movement of the coyote.
@@ -225,12 +199,15 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.sheep, this.flower);
     }
 
-    // Creates the ending for when the sheep goes off the canvas.
+    // Creates the endings for both growing and patience.
     checkEnding() {
+        // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.y > this.game.canvas.height) {
             this.scene.stop('play');
             this.scene.start(`growing`);
         }
+
+        // Creates the ending for when the flower goes off the canvas.
         if (this.flower.x < 0 || this.flower.x > this.game.canvas.width || this.flower.y < 0 || this.flower.y > this.game.canvas.height) {
             this.scene.stop('play');
             this.scene.start(`patience`);

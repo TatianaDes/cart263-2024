@@ -14,6 +14,9 @@ class Why extends Phaser.Scene {
         // Creates the button sprite .
         const bg = this.add.image(0, 0, 'start-over2');
 
+        // Creates text with all their different sizes and colours.
+        this.add.text(150, 200, `Why do you keep going back?\nYou know there is nothing\ngood there for you anymore.\nWhy hurt yourself over something\nthat happened that was out of your control.\nIt's time to move on.\n`, { fontFamily: `Lora`, fontSize: 30, color: `#9bded1` });
+
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);
 
@@ -32,10 +35,6 @@ class Why extends Phaser.Scene {
             bg.clearTint();
 
         });
-
-        // Creates text with all their different sizes and colours.
-        this.add.text(150, 200, `Why do you keep going back?\nYou know there is nothing\ngood there for you anymore.\nWhy hurt yourself over something\nthat happened that was out of your control.\nIt's time to move on.\n`, { fontFamily: `Lora`, fontSize: 30, color: `#9bded1` });
-        // this.add.text(220, 320, `(Press the Spacebar Key to Go Back to Title)`, { fontFamily: `Lora`, fontSize: 20, color: `#000000` });
 
         container.on(`pointerdown`, () => {
             this.scene.stop('why');

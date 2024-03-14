@@ -15,8 +15,7 @@ class Patience extends Phaser.Scene {
         const bg = this.add.image(0, 0, 'start-over');
 
         // Creates text with all their different sizes and colours.
-        this.add.text(150, 150, `Take your time,\nfind the little things you\nlike and focus on that.\nYou can do this.\n`, { fontFamily: `Lora`, fontSize: 35, color: `#aed3e0` });
-        // this.add.text(220, 320, `(Press the Spacebar Key to Go Back to Title)`, { fontFamily: `Lora`, fontSize: 20, color: `#000000` });
+        this.add.text(250, 200, `Take your time,\nfind the little things you\nlike and focus on that.\nYou can do this.\n`, { fontFamily: `Lora`, fontSize: 35, color: `#aed3e0` });
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);
