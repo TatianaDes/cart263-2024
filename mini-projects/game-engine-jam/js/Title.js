@@ -10,6 +10,7 @@ class Title extends Phaser.Scene {
     preload() {
         this.load.image(`start`, `assets/images/start.png`);
         this.load.image(`start-over`, `assets/images/start-over.png`);
+        this.load.image(`start-over2`, `assets/images/start-over2.png`);
     }
 
     // Creates the background colour and all the assets I would like to display on this scene.

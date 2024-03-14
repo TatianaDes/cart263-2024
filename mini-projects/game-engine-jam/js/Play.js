@@ -116,7 +116,7 @@ class Play extends Phaser.Scene {
             .setImmovable(true);
 
         // Makes the sheep and coyote collide and not go through each other.
-        this.physics.add.collider(this.sheep, this.coyote);
+        this.physics.add.collider(this.sheep, this.coyote, this.sheepHitCoyote, undefined, this);
 
         // Creates the physics for the path and how it will be followed by the coyote.
         this.physics.world.on(`worldstep`, (delta) => {
@@ -143,6 +143,11 @@ class Play extends Phaser.Scene {
             path.getTangent(t, this.coyote.body.velocity);
             this.coyote.body.velocity.scale(speedSec);
         });
+    }
+
+    sheepHitCoyote() {
+        this.scene.stop('play');
+        this.scene.start(`why`);
     }
 
     // Creates the path shape that the coyote will repeatedly follow.
