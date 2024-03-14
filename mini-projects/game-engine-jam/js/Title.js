@@ -46,7 +46,7 @@ class Title extends Phaser.Scene {
 
         container.on(`pointerdown`, () => {
             this.scene.stop('title');
-            this.scene.start(`boot`);
+            this.scene.start(`play`);
         });
     }
 
