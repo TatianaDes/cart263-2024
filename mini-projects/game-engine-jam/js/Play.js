@@ -26,24 +26,6 @@ class Play extends Phaser.Scene {
         });
         Phaser.Actions.RandomRectangle(this.flower.getChildren(), this.physics.world.bounds);
 
-        // // Create the tree image and make it a group.
-        // this.tree = this.physics.add.group({
-        //     // Image key to use
-        //     key: `tree`,
-        //     // How many
-        //     quantity: 120,
-        //     // Gravity (how fast will they start and continue to fall)
-        //     gravityY: 100,
-        //     // Mass (how heavy are they)
-        //     mass: 20,
-        // });
-        // // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
-        // Phaser.Actions.RandomRectangle(this.tree.getChildren(), this.physics.world.bounds);
-
-        // // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
-        // this.physics.add.collider(this.sheep, this.tree);
-        // this.physics.add.collider(this.tree, this.tree);
-
         // Allows foir cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -115,7 +97,7 @@ class Play extends Phaser.Scene {
         this.coyote = this.physics.add.sprite(start.x, start.y, `coyote`)
             .setImmovable(true);
 
-        // Makes the sheep and coyote collide and not go through each other.
+        // Makes the sheep and coyote collide and not go through each other and send that information to the sheepHitCoyote.
         this.physics.add.collider(this.sheep, this.coyote, this.sheepHitCoyote, undefined, this);
 
         // Creates the physics for the path and how it will be followed by the coyote.
@@ -145,6 +127,7 @@ class Play extends Phaser.Scene {
         });
     }
 
+    // Makes it so when the sheep collides with the coyote it changes the scene to an ending.
     sheepHitCoyote() {
         this.scene.stop('play');
         this.scene.start(`why`);
