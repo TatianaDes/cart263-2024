@@ -26,7 +26,7 @@ class Patience extends Phaser.Scene {
 
         container.on('pointerover', () => {
 
-            bg.setTint(0xbddbe5);
+            bg.setTint(0xe4d7ba);
 
         });
 
