@@ -26,7 +26,7 @@ class Why extends Phaser.Scene {
 
         container.on('pointerover', () => {
 
-            bg.setTint(0xd99797);
+            bg.setTint(0xacd2cd);
 
         });
 
