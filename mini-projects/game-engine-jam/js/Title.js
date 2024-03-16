@@ -9,8 +9,8 @@ class Title extends Phaser.Scene {
     // Loads all the images I would like to use.
     preload() {
         this.load.image(`start`, `assets/images/start.png`);
-        this.load.image(`start-over`, `assets/images/start-over.png`);
-        this.load.image(`start-over2`, `assets/images/start-over2.png`);
+        this.load.image(`start-overR`, `assets/images/start-overR.png`);
+        this.load.image(`start-overG`, `assets/images/start-overG.png`);
     }
 
     // Creates the background colour and all the assets I would like to display on this scene.
@@ -21,7 +21,7 @@ class Title extends Phaser.Scene {
         // Creates the button sprite .
         const bg = this.add.image(0, 0, 'start');
 
-        // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
+        // Makes a conatiner around the button sprite that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 360, [bg]);
 
         container.setSize(bg.width, bg.height);
@@ -44,8 +44,8 @@ class Title extends Phaser.Scene {
         this.add.text(150, 250, `Hard to Move On`, { fontFamily: `Lora`, fontSize: 64, color: `#ff7171` });
         this.add.text(420, 550, `Move with the arrow keys and try to keep moving onward.`, { fontFamily: `Lora`, fontSize: 15, color: `#9e7c7c` });
 
+        // Changes the scene from the title to play by clicking on the button.
         container.on(`pointerdown`, () => {
-            this.scene.stop('title');
             this.scene.start(`play`);
         });
     }

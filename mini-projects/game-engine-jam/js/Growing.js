@@ -12,7 +12,7 @@ class Growing extends Phaser.Scene {
         this.cameras.main.setBackgroundColor(`#4383a8`);
 
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'start-over');
+        const bg = this.add.image(0, 0, 'start-overR');
 
         // Creates text with all their different sizes and colours.
         this.add.text(150, 150, `Everything will be just fine.\nYou are doing great finally thinking\nabout yourself and what you want.\nI know it is hard, but to me,\nyou are the bravest individual\nI have ever met.\n`, { fontFamily: `Lora`, fontSize: 35, color: `#aed3e0` });
@@ -36,8 +36,8 @@ class Growing extends Phaser.Scene {
 
         });
 
+        // Changes the scene from the growing to title by clicking on the button.
         container.on(`pointerdown`, () => {
-            this.scene.stop('growing');
             this.scene.start(`title`);
         });
     }

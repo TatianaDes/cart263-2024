@@ -12,7 +12,7 @@ class Why extends Phaser.Scene {
         this.cameras.main.setBackgroundColor(`#2e574f`);
 
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'start-over2');
+        const bg = this.add.image(0, 0, 'start-overG');
 
         // Creates text with all their different sizes and colours.
         this.add.text(150, 200, `Why do you keep going back?\nYou know there is nothing\ngood there for you anymore.\nWhy hurt yourself over something\nthat happened that was out of your control.\nIt's time to move on.\n`, { fontFamily: `Lora`, fontSize: 30, color: `#9bded1` });
@@ -36,8 +36,8 @@ class Why extends Phaser.Scene {
 
         });
 
+        // Changes the scene from the why to play by clicking on the button.
         container.on(`pointerdown`, () => {
-            this.scene.stop('why');
             this.scene.start(`play`);
         });
     }

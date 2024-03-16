@@ -4,7 +4,9 @@ class Play extends Phaser.Scene {
         super({
             key: `play`
         })
+        // What the frames changes start out as.
         this.frameCounter = 0;
+        // The initial position of the sheep is.
         this.sheepOrientation = `right`;
     }
 
@@ -12,26 +14,20 @@ class Play extends Phaser.Scene {
     create() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor(`#20252e`);
-        // this.outdoors = this.add.image(400, 300, `outdoors`);
 
         // Creates the sheep sprite in the play scene.
         this.sheep = this.physics.add.sprite(80, 450, `sheep`);
 
-        this.flower = this.physics.add.sprite(0, 0, "flower")
+        // Creates the flower sprite in the play scene.
+        this.flower = this.physics.add.sprite(0, 0, "flower");
+        // Sets the bounce of the flower.
         this.flower.setBounce(0.5, 0.5);
+        // Sets how far the flower will drag.
         this.flower.setDrag(50, 50);
+        // Puts the flower in random positions each time.
         Phaser.Actions.RandomRectangle([this.flower], this.physics.world.bounds);
 
-        // this.flower = this.physics.add.group({
-        //     key: `flower`,
-        //     bounceX: 0.5,
-        //     bouceY: 0.5,
-        //     dragX: 50,
-        //     dragY: 50
-        // });
-        // Phaser.Actions.RandomRectangle(this.flower.getChildren(), this.physics.world.bounds);
-
-        // Allows foir cursor keys to be called and work.
+        // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
 
         // Calls the coyoteMovement() function.
@@ -55,7 +51,7 @@ class Play extends Phaser.Scene {
 
     // Creates all the animation code and movement of the coyote.
     coyoteMovement() {
-        // Calls the createZigZagPath() function.
+        // Calls the createCoyotePath() function.
         const path = this.createCoyotePath();
         // Creates the graphics for the path to have it loop.
         const graphics = this.add.graphics();
@@ -108,7 +104,6 @@ class Play extends Phaser.Scene {
 
     // Makes it so when the sheep collides with the coyote it changes the scene to an ending.
     sheepHitCoyote() {
-        this.scene.stop('play');
         this.scene.start(`why`);
     }
 
@@ -129,13 +124,13 @@ class Play extends Phaser.Scene {
         if ((this.frameCounter % 150) === 0) {
             // Create the tree image and make it a group.
             this.tree = this.physics.add.group({
-                // Image key to use
+                // Image key to use.
                 key: `tree`,
-                // How many
+                // How many.
                 quantity: 20,
-                // Gravity (how fast will they start and continue to fall)
+                // Gravity (how fast will they start and continue to fall).
                 gravityY: 100,
-                // Mass (how heavy are they)
+                // Mass (how heavy are they).
                 mass: 20
             });
             // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
@@ -176,7 +171,7 @@ class Play extends Phaser.Scene {
             this.sheepOrientation = `left`;
             this.sheep.anims.play(`sheepleft`, true);
         }
-        // Makes it so that if all the velocities on the x axis are more than zero the left animation plays.
+        // Makes it so that if all the velocities on the x axis are more than zero the right animation plays.
         else if (velocityX > 0) {
             this.sheepOrientation = `right`;
             this.sheep.anims.play(`sheepright`, true);
@@ -185,7 +180,7 @@ class Play extends Phaser.Scene {
         else if (velocityY !== 0) {
             this.sheep.anims.play(`sheep` + this.sheepOrientation, true);
         }
-        // Makes it so that if nothing that was said above is happening, then play the animation for both the sheep-idle-left and sheep-idle-right.
+        // Makes it so that if nothing that was said above is happening, then play the animation for both the idle-left and idle-right.
         else {
             this.sheep.anims.play(`sheepidle-` + this.sheepOrientation);
         }
@@ -203,13 +198,11 @@ class Play extends Phaser.Scene {
     checkEnding() {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.y > this.game.canvas.height) {
-            this.scene.stop('play');
             this.scene.start(`growing`);
         }
 
         // Creates the ending for when the flower goes off the canvas.
         if (this.flower.x < 0 || this.flower.x > this.game.canvas.width || this.flower.y < 0 || this.flower.y > this.game.canvas.height) {
-            this.scene.stop('play');
             this.scene.start(`patience`);
         }
     }

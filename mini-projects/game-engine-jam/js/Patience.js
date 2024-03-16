@@ -12,7 +12,7 @@ class Patience extends Phaser.Scene {
         this.cameras.main.setBackgroundColor(`#c5a17f`);
 
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'start-over');
+        const bg = this.add.image(0, 0, 'start-overR');
 
         // Creates text with all their different sizes and colours.
         this.add.text(250, 200, `Take your time,\nfind the little things you\nlike and focus on that.\nYou can do this.\n`, { fontFamily: `Lora`, fontSize: 35, color: `#f0e197` });
@@ -36,8 +36,8 @@ class Patience extends Phaser.Scene {
 
         });
 
+        // Changes the scene from the patience to title by clicking on the button.
         container.on(`pointerdown`, () => {
-            this.scene.stop('patience');
             this.scene.start(`title`);
         });
     }
