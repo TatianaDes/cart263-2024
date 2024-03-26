@@ -49,7 +49,7 @@ class Level1 extends Phaser.Scene {
     update() {
         if (this.coyote.isPacing) {
             if (this.coyote.x < 100) {
-                
+
             }
         }
         // Calls the treesFalling() function.
@@ -166,10 +166,10 @@ class Level1 extends Phaser.Scene {
 
     // Creates the ending for patience.
     checkEnding() {
-         // NEW: Goes to the next level when the sheep goes off the bottom of the canvas.
-     if (this.sheep.y > this.game.canvas.height) {
-        this.scene.start(`level2`);
-    }
+        // NEW: Goes to the next level when the sheep goes off the bottom of the canvas.
+        if (this.sheep.y > this.game.canvas.height) {
+            this.scene.start(`level2`);
+        }
         // Creates the ending for when the flower goes off the canvas.
         if (this.flower.x < 0 || this.flower.x > this.game.canvas.width || this.flower.y < 0 || this.flower.y > this.game.canvas.height) {
             this.scene.start(`patience`);
