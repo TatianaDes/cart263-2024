@@ -37,12 +37,12 @@ class Level1 extends Phaser.Scene {
         // Calls the flowerCollide() function.
         this.flowerCollide();
 
-         // Creating the coyote sprite and making it immovable.
-         this.coyote = this.physics.add.sprite(650, 70, `coyote`);
+        // Creating the coyote sprite and making it immovable.
+        this.coyote = this.physics.add.sprite(650, 70, `coyote`);
 
-         this.coyote.isPacing = true;
-         this.coyote.setVelocity(-100, 0);
- 
+        this.coyote.isPacing = true;
+        this.coyote.setVelocity(-100, 0);
+
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
@@ -64,18 +64,64 @@ class Level1 extends Phaser.Scene {
 
     // Creates all the animation code and movement of the coyote.
     coyoteMovement() {
+        // create() {
+        //     this.coyote.isPacing = true;
+        //     this.coyote.setVelocity(-100, 0);
+        // }
+
+        // update() {
+        //     if (this.coyote.isPacing) {
+        //         if (this.coyote.x < 100) {
+        //             this.coyote.setVelocity(100);
+        //         }
+        //         else if (this.coyote.x > 600) {
+        //             this.coyote.setVelcoty(-100)
+        //         }
+        //     }
+
+        //     let d = Phaser.Math.Distance.Between(this.avatar.x, this.avatar.y, this.coyote.x, this.coyote.y);
+        //     if (d < 100) {
+        //         this.coyote.isPacing = false;
+        //         this.coyote.setVelocity(300, 0);
+        //     }
+        // }
+
+        // create() {
+        //     const smallBounds = new Phaser.Geom.Rectangle(0, -100, this.game.canvas.width, this.game.canvas.height + 100);
+
+        //     // Create sheep!
+        //     this.sheep.body.customBoundsRectangle = smallBounds;
+        // }
+
+        // this.start.scene("level2", {
+        //     sheep: {
+        //         x: this.sheep.x,
+        //         y: this.sheep.y
+        //     }
+        // });
 
 
-            // Creates the coyote animation right and left when the coyote lines up with the right time it takes to finish the path.
-            // this.coyote.anims.play(t < 0.5 ? `left` : `right`, true); <- This code is a simplified version of the code bellow.
-            // if (t < 0.5) {
-            //     this.coyote.anims.play(`coyoteleft`, true);
-            // }
-            // else {
-            //     this.coyote.anims.play(`coyoteright`, true);
-            // }
+        // // Level2
+        // init(data) {
+        //     this.data = data;
+        // }
+
+        // create() {
+        //     this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, `sheep`);
+        // }
+
+        // Creates the coyote animation right and left when the coyote lines up with the right time it takes to finish the path.
+        // this.coyote.anims.play(t < 0.5 ? `left` : `right`, true); <- This code is a simplified version of the code bellow.
+        // if (t < 0.5) {
+        //     this.coyote.anims.play(`coyoteleft`, true);
+        // }
+        // else {
+        //     this.coyote.anims.play(`coyoteright`, true);
+        // }
+
+
     }
-    
+
 
     // Creates the path shape that the coyote will repeatedly follow.
     createCoyotePath() {
