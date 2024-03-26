@@ -14,10 +14,11 @@ class Level2 extends Phaser.Scene {
    // Creates a function that allows all code that wants to be done immediately on the program.
    create() {
        // Creates background colour.
-       this.cameras.main.setBackgroundColor(`#681616`);
+       this.cameras.main.setBackgroundColor(`#581b1b`);
 
        // Creates the sheep sprite in the level1 scene.
        this.sheep = this.physics.add.sprite(80, 50, `sheep`);
+       // this.sheep.setCollideWorldBounds(true);
 
        // Allows for cursor keys to be called and work.
        this.cursors = this.input.keyboard.createCursorKeys();

@@ -52,53 +52,20 @@ class Level1 extends Phaser.Scene {
 
     // Creates all the animation code and movement of the coyote.
     coyoteMovement() {
-        // Calls the createCoyotePath() function.
-        const path = this.createCoyotePath();
-        // Creates the graphics for the path to have it loop.
-        const graphics = this.add.graphics();
-
-        // Creates constants for all the different assets of the path and its duration and speed.
-        const start = path.getStartPoint();
-        const distance = path.getLength();
-        const duration = 20000;
-        const speed = distance / duration;
-        const speedSec = 1000 * speed;
-        const tSpeed = 1 / duration;
-        const tSpeedSec = 1000 * tSpeed;
-
-        // Creates a variable.
-        let t = 0;
-
         // Creating the coyote sprite and making it immovable.
-        this.coyote = this.physics.add.sprite(start.x, start.y, `coyote`)
-            .setImmovable(true);
+        this.coyote = this.physics.add.sprite(650, 70, `coyote`)
 
-        // Creates the physics for the path and how it will be followed by the coyote.
-        this.physics.world.on(`worldstep`, (delta) => {
-            t += delta * tSpeedSec;
-
-            // Allowing the path to loop and for the coyote to repeat on the path.
-            if (t > 1) {
-                t -= 1;
-                this.coyote.body.reset(start.x, start.y);
-                graphics.clear();
-                path.draw(graphics);
-            }
 
             // Creates the coyote animation right and left when the coyote lines up with the right time it takes to finish the path.
             // this.coyote.anims.play(t < 0.5 ? `left` : `right`, true); <- This code is a simplified version of the code bellow.
-            if (t < 0.5) {
-                this.coyote.anims.play(`coyoteleft`, true);
-            }
-            else {
-                this.coyote.anims.play(`coyoteright`, true);
-            }
-
-            // Calling back all the different variables.
-            path.getTangent(t, this.coyote.body.velocity);
-            this.coyote.body.velocity.scale(speedSec);
-        });
-    }
+            // if (t < 0.5) {
+            //     this.coyote.anims.play(`coyoteleft`, true);
+            // }
+            // else {
+            //     this.coyote.anims.play(`coyoteright`, true);
+            // }
+        }
+    
 
     // Creates the path shape that the coyote will repeatedly follow.
     createCoyotePath() {
