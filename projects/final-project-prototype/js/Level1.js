@@ -31,15 +31,27 @@ class Level1 extends Phaser.Scene {
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        // Calls the coyoteMovement() function.
-        this.coyoteMovement();
+        // // Calls the coyoteMovement() function.
+        // this.coyoteMovement();
 
         // Calls the flowerCollide() function.
         this.flowerCollide();
+
+         // Creating the coyote sprite and making it immovable.
+         this.coyote = this.physics.add.sprite(650, 70, `coyote`);
+
+         this.coyote.isPacing = true;
+         this.coyote.setVelocity(-100, 0);
+ 
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
+        if (this.coyote.isPacing) {
+            if (this.coyote.x < 100) {
+                
+            }
+        }
         // Calls the treesFalling() function.
         this.treesFalling();
 
@@ -52,8 +64,6 @@ class Level1 extends Phaser.Scene {
 
     // Creates all the animation code and movement of the coyote.
     coyoteMovement() {
-        // Creating the coyote sprite and making it immovable.
-        this.coyote = this.physics.add.sprite(650, 70, `coyote`)
 
 
             // Creates the coyote animation right and left when the coyote lines up with the right time it takes to finish the path.
@@ -64,7 +74,7 @@ class Level1 extends Phaser.Scene {
             // else {
             //     this.coyote.anims.play(`coyoteright`, true);
             // }
-        }
+    }
     
 
     // Creates the path shape that the coyote will repeatedly follow.
