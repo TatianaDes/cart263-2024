@@ -11,22 +11,20 @@ class Level2 extends Phaser.Scene {
         this.sheepOrientation = `right`;
     }
 
+    // Creates the concrete data that stores all the previous knowledge of the positions.
     init(data) {
         this.data = data;
     }
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
-        const smallBounds = new Phaser.Geom.Rectangle(0, -100, this.game.canvas.width, this.game.canvas.height + 100);
-
-        this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, `sheep`);
-
-        // Create sheep!
-        this.sheep.body.customBoundsRectangle = smallBounds;
-        this.sheep.setCollideWorldBounds(true);
-
         // Creates background colour.
         this.cameras.main.setBackgroundColor(`#581b1b`);
+
+        // Creates the sheep sprite in the level2 that now has the same position as the last postion it was in.
+        this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, `sheep`);
+        // Calls the sheepBoarder() function.
+        this.sheepBoarder();
 
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -39,6 +37,17 @@ class Level2 extends Phaser.Scene {
 
         // Calls the checkEnding() function.
         this.checkEnding();
+    }
+
+    // Creates the function that calls the canvas boarder to work on the sheep.
+    sheepBoarder() {
+        // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and other that can.
+        const smallBounds = new Phaser.Geom.Rectangle(0, -100, this.game.canvas.width, this.game.canvas.height + 100);
+
+        // Calls the smallBounds constant to work on the sheep.
+        this.sheep.body.customBoundsRectangle = smallBounds;
+        // Creates the setCollideWorldBounds function from Phaser 3.
+        this.sheep.setCollideWorldBounds(true);
     }
 
     // Creates the movement of the sheep and its animations.
@@ -93,6 +102,13 @@ class Level2 extends Phaser.Scene {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.y < 0) {
             this.scene.start(`level1`);
+            // Calls the previous scene but also sets the initial position of the sheep.
+            // this.scene.start(`level1`, {
+            //     sheep: {
+            //         x: this.sheep.x,
+            //         y: this.sheep.y
+            //     }
+            // });
         }
     }
 }

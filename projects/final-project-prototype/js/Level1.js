@@ -10,14 +10,21 @@ class Level1 extends Phaser.Scene {
         this.sheepOrientation = `right`;
     }
 
+    // // NEW: Creates the concrete data that stores all the previous knowledge of the positions.
+    // init(data) {
+    //     this.data = data;
+    // }
+
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
         // Creates background colour.
-        // NEW: Changed it to a dark grey 
+        // NEW: Changed it to a dark grey.
         this.cameras.main.setBackgroundColor(`#3a3a3a`);
 
         // Creates the sheep sprite in the level1 scene.
         this.sheep = this.physics.add.sprite(80, 450, `sheep`);
+        //  // NEW: Creates the sheep sprite in the level2 that now has the same position as the last postion it was in.
+        //  this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, `sheep`);
 
         // NEW: Creating the coyote sprite and its initial position.
         this.coyote = this.physics.add.sprite(650, 70, `coyote`);
