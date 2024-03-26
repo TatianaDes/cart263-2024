@@ -11,14 +11,22 @@ class Level2 extends Phaser.Scene {
        this.sheepOrientation = `right`;
    }
 
+   init(data) {
+        this.data = data;
+    }
+
    // Creates a function that allows all code that wants to be done immediately on the program.
    create() {
+    const smallBounds = new Phaser.Geom.Rectangle(0, -100, this.game.canvas.width, this.game.canvas.height + 100);
+
+    this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, `sheep`);
+
+    // Create sheep!
+    this.sheep.body.customBoundsRectangle = smallBounds;
+    this.sheep.setCollideWorldBounds(true);
+
        // Creates background colour.
        this.cameras.main.setBackgroundColor(`#581b1b`);
-
-       // Creates the sheep sprite in the level1 scene.
-       this.sheep = this.physics.add.sprite(80, 50, `sheep`);
-       // this.sheep.setCollideWorldBounds(true);
 
        // Allows for cursor keys to be called and work.
        this.cursors = this.input.keyboard.createCursorKeys();

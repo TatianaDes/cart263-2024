@@ -31,9 +31,6 @@ class Level1 extends Phaser.Scene {
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        // // Calls the coyoteMovement() function.
-        // this.coyoteMovement();
-
         // Calls the flowerCollide() function.
         this.flowerCollide();
 
@@ -41,17 +38,30 @@ class Level1 extends Phaser.Scene {
         this.coyote = this.physics.add.sprite(650, 70, `coyote`);
 
         this.coyote.isPacing = true;
-        this.coyote.setVelocity(-100, 0);
-
+            this.coyote.setVelocity(-100, 0);
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
         if (this.coyote.isPacing) {
-            if (this.coyote.x < 100) {
+                    if (this.coyote.x < 100) {
+                        this.coyote.setVelocity(100, 0);
+                    }
+                    else if (this.coyote.x > 650) {
+                        this.coyote.setVelocity(-100, 0)
+                    }
+                }
+    
+                let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyote.x, this.coyote.y);
+                if (d < 100) {
+                    this.coyote.isPacing = false;
+                    this.coyote.setVelocity(300, 0);
+                }
 
-            }
-        }
+             // Calls the coyoteMovement() function.
+             this.coyoteMovement();
+
+
         // Calls the treesFalling() function.
         this.treesFalling();
 
@@ -64,62 +74,14 @@ class Level1 extends Phaser.Scene {
 
     // Creates all the animation code and movement of the coyote.
     coyoteMovement() {
-        // create() {
-        //     this.coyote.isPacing = true;
-        //     this.coyote.setVelocity(-100, 0);
-        // }
-
-        // update() {
-        //     if (this.coyote.isPacing) {
-        //         if (this.coyote.x < 100) {
-        //             this.coyote.setVelocity(100);
-        //         }
-        //         else if (this.coyote.x > 600) {
-        //             this.coyote.setVelcoty(-100)
-        //         }
-        //     }
-
-        //     let d = Phaser.Math.Distance.Between(this.avatar.x, this.avatar.y, this.coyote.x, this.coyote.y);
-        //     if (d < 100) {
-        //         this.coyote.isPacing = false;
-        //         this.coyote.setVelocity(300, 0);
-        //     }
-        // }
-
-        // create() {
-        //     const smallBounds = new Phaser.Geom.Rectangle(0, -100, this.game.canvas.width, this.game.canvas.height + 100);
-
-        //     // Create sheep!
-        //     this.sheep.body.customBoundsRectangle = smallBounds;
-        // }
-
-        // this.start.scene("level2", {
-        //     sheep: {
-        //         x: this.sheep.x,
-        //         y: this.sheep.y
-        //     }
-        // });
-
-
-        // // Level2
-        // init(data) {
-        //     this.data = data;
-        // }
-
-        // create() {
-        //     this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, `sheep`);
-        // }
-
         // Creates the coyote animation right and left when the coyote lines up with the right time it takes to finish the path.
         // this.coyote.anims.play(t < 0.5 ? `left` : `right`, true); <- This code is a simplified version of the code bellow.
-        // if (t < 0.5) {
-        //     this.coyote.anims.play(`coyoteleft`, true);
-        // }
-        // else {
-        //     this.coyote.anims.play(`coyoteright`, true);
-        // }
-
-
+        if (this.coyote.body.velocity.x < 0) {
+            this.coyote.anims.play(`coyoteleft`, true);
+        }
+        else {
+            this.coyote.anims.play(`coyoteright`, true);
+        }
     }
 
 
@@ -214,7 +176,12 @@ class Level1 extends Phaser.Scene {
     checkEnding() {
         // NEW: Goes to the next level when the sheep goes off the bottom of the canvas.
         if (this.sheep.y > this.game.canvas.height) {
-            this.scene.start(`level2`);
+            this.scene.start(`level2`, {
+                    sheep: {
+                        x: this.sheep.x,
+                        y: this.sheep.y
+                    }
+                });
         }
         // Creates the ending for when the flower goes off the canvas.
         if (this.flower.x < 0 || this.flower.x > this.game.canvas.width || this.flower.y < 0 || this.flower.y > this.game.canvas.height) {
