@@ -47,6 +47,12 @@ class Title extends Phaser.Scene {
         // Changes the scene from the title to level1 by clicking on the button.
         container.on(`pointerdown`, () => {
             this.scene.start(`level1`);
+            // this.scene.start(`level1`, {
+            //     sheep: {
+            //         x: this.sheep.x,
+            //         y: this.sheep.y
+            //     }
+            // });
         });
     }
 
