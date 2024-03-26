@@ -6,7 +6,7 @@ class Patience extends Phaser.Scene {
         });
     }
 
-    // Creates the background colour and all the assets I would like to display on this scene.
+    // Creates the background colour and all the assets I would like to dislevel1 on this scene.
     create() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor(`#c5a17f`);

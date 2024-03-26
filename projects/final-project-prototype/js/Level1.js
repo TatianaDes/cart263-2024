@@ -1,8 +1,8 @@
-class Play extends Phaser.Scene {
+class Level1 extends Phaser.Scene {
     // Creates the key term that will be used to call this class.
     constructor() {
         super({
-            key: `play`
+            key: `level1`
         })
         // What the frames changes start out as.
         this.frameCounter = 0;
@@ -15,10 +15,10 @@ class Play extends Phaser.Scene {
         // Creates background colour.
         this.cameras.main.setBackgroundColor(`#20252e`);
 
-        // Creates the sheep sprite in the play scene.
+        // Creates the sheep sprite in the level1 scene.
         this.sheep = this.physics.add.sprite(80, 450, `sheep`);
 
-        // Creates the flower sprite in the play scene.
+        // Creates the flower sprite in the level1 scene.
         this.flower = this.physics.add.sprite(0, 0, "flower");
         // Sets the bounce of the flower.
         this.flower.setBounce(0.5, 0.5);
@@ -72,9 +72,6 @@ class Play extends Phaser.Scene {
         this.coyote = this.physics.add.sprite(start.x, start.y, `coyote`)
             .setImmovable(true);
 
-        // Makes the sheep and coyote collide and not go through each other and send that information to the sheepHitCoyote.
-        this.physics.add.collider(this.sheep, this.coyote, this.sheepHitCoyote, undefined, this);
-
         // Creates the physics for the path and how it will be followed by the coyote.
         this.physics.world.on(`worldstep`, (delta) => {
             t += delta * tSpeedSec;
@@ -100,11 +97,6 @@ class Play extends Phaser.Scene {
             path.getTangent(t, this.coyote.body.velocity);
             this.coyote.body.velocity.scale(speedSec);
         });
-    }
-
-    // Makes it so when the sheep collides with the coyote it changes the scene to an ending.
-    sheepHitCoyote() {
-        this.scene.start(`why`);
     }
 
     // Creates the path shape that the coyote will repeatedly follow.
@@ -166,12 +158,12 @@ class Play extends Phaser.Scene {
             velocityY = 100;
         }
 
-        // Makes it so that if all the velocities on the x axis are less than zero the left animation plays.
+        // Makes it so that if all the velocities on the x axis are less than zero the left animation level1s.
         if (velocityX < 0) {
             this.sheepOrientation = `left`;
             this.sheep.anims.play(`sheepleft`, true);
         }
-        // Makes it so that if all the velocities on the x axis are more than zero the right animation plays.
+        // Makes it so that if all the velocities on the x axis are more than zero the right animation level1s.
         else if (velocityX > 0) {
             this.sheepOrientation = `right`;
             this.sheep.anims.play(`sheepright`, true);
@@ -180,7 +172,7 @@ class Play extends Phaser.Scene {
         else if (velocityY !== 0) {
             this.sheep.anims.play(`sheep` + this.sheepOrientation, true);
         }
-        // Makes it so that if nothing that was said above is happening, then play the animation for both the idle-left and idle-right.
+        // Makes it so that if nothing that was said above is happening, then level1 the animation for both the idle-left and idle-right.
         else {
             this.sheep.anims.play(`sheepidle-` + this.sheepOrientation);
         }
@@ -194,13 +186,8 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.sheep, this.flower);
     }
 
-    // Creates the endings for both growing and patience.
+    // Creates the ending for patience.
     checkEnding() {
-        // Creates the ending for when the sheep goes off the canvas.
-        if (this.sheep.y > this.game.canvas.height) {
-            this.scene.start(`growing`);
-        }
-
         // Creates the ending for when the flower goes off the canvas.
         if (this.flower.x < 0 || this.flower.x > this.game.canvas.width || this.flower.y < 0 || this.flower.y > this.game.canvas.height) {
             this.scene.start(`patience`);
