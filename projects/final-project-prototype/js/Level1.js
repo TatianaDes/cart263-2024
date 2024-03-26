@@ -98,6 +98,52 @@ class Level1 extends Phaser.Scene {
             path.getTangent(t, this.coyote.body.velocity);
             this.coyote.body.velocity.scale(speedSec);
         });
+
+        // create() {
+        //     this.coyote.isPacing = true;
+        //     this.coyote.setVelocity(-100, 0);
+        // }
+
+        // update() {
+        //     if (this.coyote.isPacing) {
+        //         if (this.coyote.x < 100) {
+        //             this.coyote.setVelocity(100);
+        //         }
+        //         else if (this.coyote.x > 600) {
+        //             this.coyote.setVelcoty(-100)
+        //         }
+        //     }
+
+        //     let d = Phaser.Math.Distance.Between(this.avatar.x, this.avatar.y, this.coyote.x, this.coyote.y);
+        //     if (d < 100) {
+        //         this.coyote.isPacing = false;
+        //         this.coyote.setVelocity(300, 0);
+        //     }
+        // }
+
+        // create() {
+        //     const smallBounds = new Phaser.Geom.Rectangle(0, -100, this.game.canvas.width, this.game.canvas.height + 100);
+
+        //     // Create sheep!
+        //     this.sheep.body.customBoundsRectangle = smallBounds;
+        // }
+
+        // this.start.scene("level2", {
+        //     sheep: {
+        //         x: this.sheep.x,
+        //         y: this.sheep.y
+        //     }
+        // });
+
+
+        // // Level2
+        // init(data) {
+        //     this.data = data;
+        // }
+
+        // create() {
+        //     this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, `sheep`);
+        // }
     }
 
     // Creates the path shape that the coyote will repeatedly follow.
@@ -189,10 +235,10 @@ class Level1 extends Phaser.Scene {
 
     // Creates the ending for patience.
     checkEnding() {
-         // NEW: Goes to the next level when the sheep goes off the bottom of the canvas.
-     if (this.sheep.y > this.game.canvas.height) {
-        this.scene.start(`level2`);
-    }
+        // NEW: Goes to the next level when the sheep goes off the bottom of the canvas.
+        if (this.sheep.y > this.game.canvas.height) {
+            this.scene.start(`level2`);
+        }
         // Creates the ending for when the flower goes off the canvas.
         if (this.flower.x < 0 || this.flower.x > this.game.canvas.width || this.flower.y < 0 || this.flower.y > this.game.canvas.height) {
             this.scene.start(`patience`);
