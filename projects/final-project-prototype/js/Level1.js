@@ -13,7 +13,8 @@ class Level1 extends Phaser.Scene {
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
         // Creates background colour.
-        this.cameras.main.setBackgroundColor(`#20252e`);
+        // NEW: Changed it to a dark grey 
+        this.cameras.main.setBackgroundColor(`#3a3a3a`);
 
         // Creates the sheep sprite in the level1 scene.
         this.sheep = this.physics.add.sprite(80, 450, `sheep`);
@@ -113,7 +114,7 @@ class Level1 extends Phaser.Scene {
     // Creates the trees that fall as the frames update and collides with the sheep.
     treesFalling() {
         this.frameCounter++;
-        if ((this.frameCounter % 150) === 0) {
+        if ((this.frameCounter % 90) === 0) {
             // Create the tree image and make it a group.
             this.tree = this.physics.add.group({
                 // Image key to use.
@@ -188,6 +189,10 @@ class Level1 extends Phaser.Scene {
 
     // Creates the ending for patience.
     checkEnding() {
+         // NEW: Goes to the next level when the sheep goes off the bottom of the canvas.
+     if (this.sheep.y > this.game.canvas.height) {
+        this.scene.start(`level2`);
+    }
         // Creates the ending for when the flower goes off the canvas.
         if (this.flower.x < 0 || this.flower.x > this.game.canvas.width || this.flower.y < 0 || this.flower.y > this.game.canvas.height) {
             this.scene.start(`patience`);

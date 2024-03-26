@@ -38,7 +38,7 @@ class Patience extends Phaser.Scene {
 
         // Changes the scene from the patience to title by clicking on the button.
         container.on(`pointerdown`, () => {
-            this.scene.start(`title`);
+            this.scene.start(`level1`);
         });
     }
 
