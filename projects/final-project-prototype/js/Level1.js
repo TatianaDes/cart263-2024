@@ -19,6 +19,13 @@ class Level1 extends Phaser.Scene {
         // Creates the sheep sprite in the level1 scene.
         this.sheep = this.physics.add.sprite(80, 450, `sheep`);
 
+        // NEW: Creating the coyote sprite and its initial position.
+        this.coyote = this.physics.add.sprite(650, 70, `coyote`);
+        // NEW: Creating the initial state of the coyote to be pacing.
+        this.coyote.isPacing = true;
+        // NEW: Stting the velocity for the coyote.
+        this.coyote.setVelocity(-50, 0);
+
         // Creates the flower sprite in the level1 scene.
         this.flower = this.physics.add.sprite(0, 0, "flower");
         // Sets the bounce of the flower.
@@ -33,33 +40,12 @@ class Level1 extends Phaser.Scene {
 
         // Calls the flowerCollide() function.
         this.flowerCollide();
-
-        // Creating the coyote sprite and making it immovable.
-        this.coyote = this.physics.add.sprite(650, 70, `coyote`);
-
-        this.coyote.isPacing = true;
-            this.coyote.setVelocity(-100, 0);
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-        if (this.coyote.isPacing) {
-                    if (this.coyote.x < 100) {
-                        this.coyote.setVelocity(100, 0);
-                    }
-                    else if (this.coyote.x > 650) {
-                        this.coyote.setVelocity(-100, 0)
-                    }
-                }
-    
-                let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyote.x, this.coyote.y);
-                if (d < 100) {
-                    this.coyote.isPacing = false;
-                    this.coyote.setVelocity(300, 0);
-                }
-
-             // Calls the coyoteMovement() function.
-             this.coyoteMovement();
+        // Calls the coyoteMovement() function.
+        this.coyoteMovement();
 
 
         // Calls the treesFalling() function.
@@ -74,8 +60,25 @@ class Level1 extends Phaser.Scene {
 
     // Creates all the animation code and movement of the coyote.
     coyoteMovement() {
-        // Creates the coyote animation right and left when the coyote lines up with the right time it takes to finish the path.
-        // this.coyote.anims.play(t < 0.5 ? `left` : `right`, true); <- This code is a simplified version of the code bellow.
+        // NEW: Creates the pacing to the left and its speed as well as when it turns back to the right and its speed.
+        if (this.coyote.isPacing) {
+            if (this.coyote.x < 100) {
+                this.coyote.setVelocity(50, 0);
+            }
+            else if (this.coyote.x > 650) {
+                this.coyote.setVelocity(-50, 0)
+            }
+        }
+
+        // NEW: Allows for the coyote to run away to the right when the sheep gets near.
+        let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyote.x, this.coyote.y);
+        if (d < 100) {
+            this.coyote.isPacing = false;
+            this.coyote.setVelocity(300, 0);
+        }
+
+        // Creates the coyote animation right and left when the coyote moves completely to the left and then completely to the right.
+        // this.coyote.anims.play(this.coyote.body.velocity.x < 0 ? `left` : `right`, true); <- This code is a simplified version of the code bellow.
         if (this.coyote.body.velocity.x < 0) {
             this.coyote.anims.play(`coyoteleft`, true);
         }
@@ -84,22 +87,10 @@ class Level1 extends Phaser.Scene {
         }
     }
 
-
-    // Creates the path shape that the coyote will repeatedly follow.
-    createCoyotePath() {
-        const path = new Phaser.Curves.Path(650, 70);
-
-        path.lineTo(400, 100);
-
-        path.lineTo(650, 70);
-
-        return path;
-    }
-
     // Creates the trees that fall as the frames update and collides with the sheep.
     treesFalling() {
         this.frameCounter++;
-        if ((this.frameCounter % 90) === 0) {
+        if ((this.frameCounter % 150) === 0) {
             // Create the tree image and make it a group.
             this.tree = this.physics.add.group({
                 // Image key to use.
@@ -177,11 +168,11 @@ class Level1 extends Phaser.Scene {
         // NEW: Goes to the next level when the sheep goes off the bottom of the canvas.
         if (this.sheep.y > this.game.canvas.height) {
             this.scene.start(`level2`, {
-                    sheep: {
-                        x: this.sheep.x,
-                        y: this.sheep.y
-                    }
-                });
+                sheep: {
+                    x: this.sheep.x,
+                    y: this.sheep.y
+                }
+            });
         }
         // Creates the ending for when the flower goes off the canvas.
         if (this.flower.x < 0 || this.flower.x > this.game.canvas.width || this.flower.y < 0 || this.flower.y > this.game.canvas.height) {
