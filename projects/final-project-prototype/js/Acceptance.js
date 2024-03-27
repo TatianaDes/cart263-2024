@@ -12,7 +12,7 @@ class Acceptance extends Phaser.Scene {
         this.cameras.main.setBackgroundColor(`#f3f3f3`);
 
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'start-overR');
+        const bg = this.add.image(0, 0, 'continueG');
 
         // Creates text with all their different sizes and colours.
         this.add.text(250, 250, `The Acceptance Level`, { fontFamily: `Lora`, fontSize: 35, color: `#959595` });
@@ -26,7 +26,7 @@ class Acceptance extends Phaser.Scene {
 
         container.on('pointerover', () => {
 
-            bg.setTint(0xe4d7ba);
+            bg.setTint(0xdbdbdb);
 
         });
 

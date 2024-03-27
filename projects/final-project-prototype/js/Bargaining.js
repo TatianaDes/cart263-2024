@@ -12,7 +12,7 @@ class Bargaining extends Phaser.Scene {
         this.cameras.main.setBackgroundColor(`#033d0c`);
 
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'start-overR');
+        const bg = this.add.image(0, 0, 'continueG');
 
         // Creates text with all their different sizes and colours.
         this.add.text(250, 250, `The Bargaining Level`, { fontFamily: `Lora`, fontSize: 35, color: `#a2c2a0` });
@@ -26,7 +26,7 @@ class Bargaining extends Phaser.Scene {
 
         container.on('pointerover', () => {
 
-            bg.setTint(0xe4d7ba);
+            bg.setTint(0xd5eed9);
 
         });
 

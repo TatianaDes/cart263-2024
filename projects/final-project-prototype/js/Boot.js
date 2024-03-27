@@ -21,12 +21,18 @@ class Boot extends Phaser.Scene {
             endFrame: 7,
         });
 
+        this.load.image(`flower`, `assets/images/flower.png`);
+
+        this.load.image(`start`, `assets/images/start.png`);
+        this.load.image(`start-overR`, `assets/images/start-overR.png`);
+        this.load.image(`start-overG`, `assets/images/start-overG.png`);
+        this.load.image(`continueG`, `assets/images/continueG.png`);
+        this.load.image(`continueB`, `assets/images/continueB.png`);
+
         // Calls on the next scene keyname to occur automatically once the program boots up.
         this.load.on(`complete`, () => {
             this.scene.start(`title`);
         });
-
-        this.load.image(`flower`, `assets/images/flower.png`);
     }
 
     // Creates a function that allows all code that wants to be done immediately on the program.

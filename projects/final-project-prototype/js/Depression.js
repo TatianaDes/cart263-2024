@@ -12,7 +12,7 @@ class Depression extends Phaser.Scene {
         this.cameras.main.setBackgroundColor(`#1e5f78`);
 
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'start-overR');
+        const bg = this.add.image(0, 0, 'continueG');
 
         // Creates text with all their different sizes and colours.
         this.add.text(250, 250, `The Depression Level`, { fontFamily: `Lora`, fontSize: 35, color: `#a0c1c2` });
@@ -26,7 +26,7 @@ class Depression extends Phaser.Scene {
 
         container.on('pointerover', () => {
 
-            bg.setTint(0xe4d7ba);
+            bg.setTint(0xcee4ec);
 
         });
 
