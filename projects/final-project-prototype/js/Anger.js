@@ -1,9 +1,9 @@
-// NEW: Created the Level2 class and everything in it.
-class Level2 extends Phaser.Scene {
+// NEW: Created the Anger class and everything in it.
+class Anger extends Phaser.Scene {
     // Creates the key term that will be used to call this class.
     constructor() {
         super({
-            key: `level2`
+            key: `anger`
         })
         // What the frames changes start out as.
         this.frameCounter = 0;
@@ -21,7 +21,7 @@ class Level2 extends Phaser.Scene {
         // Creates background colour.
         this.cameras.main.setBackgroundColor(`#581b1b`);
 
-        // Creates the sheep sprite in the level2 that now has the same position as the last postion it was in.
+        // Creates the sheep sprite in the Anger that now has the same position as the last postion it was in.
         this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, `sheep`);
         // Calls the sheepBoarder() function.
         this.sheepBoarder();
@@ -74,12 +74,12 @@ class Level2 extends Phaser.Scene {
             velocityY = 100;
         }
 
-        // Makes it so that if all the velocities on the x axis are less than zero the left animation level1s.
+        // Makes it so that if all the velocities on the x axis are less than zero the left animation Denials.
         if (velocityX < 0) {
             this.sheepOrientation = `left`;
             this.sheep.anims.play(`sheepleft`, true);
         }
-        // Makes it so that if all the velocities on the x axis are more than zero the right animation level1s.
+        // Makes it so that if all the velocities on the x axis are more than zero the right animation Denials.
         else if (velocityX > 0) {
             this.sheepOrientation = `right`;
             this.sheep.anims.play(`sheepright`, true);
@@ -88,7 +88,7 @@ class Level2 extends Phaser.Scene {
         else if (velocityY !== 0) {
             this.sheep.anims.play(`sheep` + this.sheepOrientation, true);
         }
-        // Makes it so that if nothing that was said above is happening, then level1 the animation for both the idle-left and idle-right.
+        // Makes it so that if nothing that was said above is happening, then Denial the animation for both the idle-left and idle-right.
         else {
             this.sheep.anims.play(`sheepidle-` + this.sheepOrientation);
         }
@@ -101,9 +101,9 @@ class Level2 extends Phaser.Scene {
     checkEnding() {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.y < 0) {
-            this.scene.start(`level1`);
+            this.scene.start(`Denial`);
             // Calls the previous scene but also sets the initial position of the sheep.
-            // this.scene.start(`level1`, {
+            // this.scene.start(`Denial`, {
             //     sheep: {
             //         x: this.sheep.x,
             //         y: this.sheep.y
