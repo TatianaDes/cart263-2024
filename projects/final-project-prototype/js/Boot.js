@@ -29,12 +29,16 @@ class Boot extends Phaser.Scene {
 
         this.load.image(`flower`, `assets/images/flower.png`);
 
+        // NEW: Creating objects for the Anger scene
+        this.load.image(`jar`, `assets/images/jar1.png`);
+
         this.load.image(`start`, `assets/images/start.png`);
         this.load.image(`start-overR`, `assets/images/start-overR.png`);
         this.load.image(`start-overG`, `assets/images/start-overG.png`);
         // NEW: Creating continue buttons instead of start over buttons.
         this.load.image(`continueG`, `assets/images/continueG.png`);
         this.load.image(`continueB`, `assets/images/continueB.png`);
+
 
         // Calls on the next scene keyname to occur automatically once the program boots up.
         this.load.on(`complete`, () => {

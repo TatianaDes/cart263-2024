@@ -35,7 +35,7 @@ class Denial extends Phaser.Scene {
         this.coyosheep.setVelocity(-50, 0);
 
         // Creates the flower sprite in the Denial scene.
-        this.flower = this.physics.add.sprite(0, 0, "flower");
+        this.flower = this.physics.add.sprite(0, 0, `flower`);
         // Sets the bounce of the flower.
         this.flower.setBounce(0.5, 0.5);
         // Sets how far the flower will drag.
