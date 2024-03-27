@@ -15,6 +15,11 @@ class Boot extends Phaser.Scene {
             frameHeight: 30,
             endFrame: 7,
         });
+        this.load.spritesheet(`coyosheep`, `assets/images/coyosheep.png`, {
+            frameWidth: 38,
+            frameHeight: 30,
+            endFrame: 7,
+        });
         this.load.spritesheet(`coyote`, `assets/images/coyote.png`, {
             frameWidth: 60,
             frameHeight: 36,
@@ -54,6 +59,8 @@ class Boot extends Phaser.Scene {
             { name: `sheep`, action: `left`, start: 0, end: 3, repeat: -1 },
             { name: `sheep`, action: `idle-right`, start: 4, end: 4, repeat: 0 },
             { name: `sheep`, action: `right`, start: 4, end: 7, repeat: -1 },
+            { name: `coyosheep`, action: `left`, start: 0, end: 3, repeat: -1 },
+            { name: `coyosheep`, action: `right`, start: 4, end: 7, repeat: -1 },
             { name: `coyote`, action: `left`, start: 0, end: 3, repeat: -1 },
             { name: `coyote`, action: `right`, start: 4, end: 7, repeat: -1 },
         ]

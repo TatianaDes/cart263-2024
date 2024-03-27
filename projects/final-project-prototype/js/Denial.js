@@ -26,12 +26,12 @@ class Denial extends Phaser.Scene {
         //  // NEW: Creates the sheep sprite in the anger that now has the same position as the last postion it was in.
         //  this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, `sheep`);
 
-        // NEW: Creating the coyote sprite and its initial position.
-        this.coyote = this.physics.add.sprite(650, 70, `coyote`);
-        // NEW: Creating the initial state of the coyote to be pacing.
-        this.coyote.isPacing = true;
-        // NEW: Stting the velocity for the coyote.
-        this.coyote.setVelocity(-50, 0);
+        // NEW: Creating the coyosheep sprite and its initial position.
+        this.coyosheep = this.physics.add.sprite(650, 70, `coyosheep`);
+        // NEW: Creating the initial state of the coyosheep to be pacing.
+        this.coyosheep.isPacing = true;
+        // NEW: Stting the velocity for the coyosheep.
+        this.coyosheep.setVelocity(-50, 0);
 
         // Creates the flower sprite in the Denial scene.
         this.flower = this.physics.add.sprite(0, 0, "flower");
@@ -51,8 +51,8 @@ class Denial extends Phaser.Scene {
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-        // Calls the coyoteMovement() function.
-        this.coyoteMovement();
+        // Calls the coyosheepMovement() function.
+        this.coyosheepMovement();
 
 
         // Calls the treesFalling() function.
@@ -65,32 +65,32 @@ class Denial extends Phaser.Scene {
         this.checkEnding();
     }
 
-    // Creates all the animation code and movement of the coyote.
-    coyoteMovement() {
+    // Creates all the animation code and movement of the coyosheep.
+    coyosheepMovement() {
         // NEW: Creates the pacing to the left and its speed as well as when it turns back to the right and its speed.
-        if (this.coyote.isPacing) {
-            if (this.coyote.x < 100) {
-                this.coyote.setVelocity(50, 0);
+        if (this.coyosheep.isPacing) {
+            if (this.coyosheep.x < 100) {
+                this.coyosheep.setVelocity(50, 0);
             }
-            else if (this.coyote.x > 650) {
-                this.coyote.setVelocity(-50, 0)
+            else if (this.coyosheep.x > 650) {
+                this.coyosheep.setVelocity(-50, 0)
             }
         }
 
-        // NEW: Allows for the coyote to run away to the right when the sheep gets near.
-        let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyote.x, this.coyote.y);
+        // NEW: Allows for the coyosheep to run away to the right when the sheep gets near.
+        let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
         if (d < 100) {
-            this.coyote.isPacing = false;
-            this.coyote.setVelocity(300, 0);
+            this.coyosheep.isPacing = false;
+            this.coyosheep.setVelocity(300, 0);
         }
 
-        // Creates the coyote animation right and left when the coyote moves completely to the left and then completely to the right.
-        // this.coyote.anims.play(this.coyote.body.velocity.x < 0 ? `left` : `right`, true); <- This code is a simplified version of the code bellow.
-        if (this.coyote.body.velocity.x < 0) {
-            this.coyote.anims.play(`coyoteleft`, true);
+        // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
+        // this.coyosheep.anims.play(this.coyosheep.body.velocity.x < 0 ? `left` : `right`, true); <- This code is a simplified version of the code bellow.
+        if (this.coyosheep.body.velocity.x < 0) {
+            this.coyosheep.anims.play(`coyosheepleft`, true);
         }
         else {
-            this.coyote.anims.play(`coyoteright`, true);
+            this.coyosheep.anims.play(`coyosheepright`, true);
         }
     }
 
