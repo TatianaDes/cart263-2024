@@ -15,6 +15,7 @@ class Boot extends Phaser.Scene {
             frameHeight: 30,
             endFrame: 7,
         });
+        // NEW: Creating the coyosheep as the antagonist instead of the coyote.
         this.load.spritesheet(`coyosheep`, `assets/images/coyosheep.png`, {
             frameWidth: 38,
             frameHeight: 30,
@@ -31,6 +32,7 @@ class Boot extends Phaser.Scene {
         this.load.image(`start`, `assets/images/start.png`);
         this.load.image(`start-overR`, `assets/images/start-overR.png`);
         this.load.image(`start-overG`, `assets/images/start-overG.png`);
+        // NEW: Creating continue buttons instead of start over buttons.
         this.load.image(`continueG`, `assets/images/continueG.png`);
         this.load.image(`continueB`, `assets/images/continueB.png`);
 
@@ -59,6 +61,7 @@ class Boot extends Phaser.Scene {
             { name: `sheep`, action: `left`, start: 0, end: 3, repeat: -1 },
             { name: `sheep`, action: `idle-right`, start: 4, end: 4, repeat: 0 },
             { name: `sheep`, action: `right`, start: 4, end: 7, repeat: -1 },
+            // NEW: Adding the animation frames for the coyosheep.
             { name: `coyosheep`, action: `left`, start: 0, end: 3, repeat: -1 },
             { name: `coyosheep`, action: `right`, start: 4, end: 7, repeat: -1 },
             { name: `coyote`, action: `left`, start: 0, end: 3, repeat: -1 },
