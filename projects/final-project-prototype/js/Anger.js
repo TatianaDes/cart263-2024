@@ -4,7 +4,8 @@ class Anger extends Phaser.Scene {
     constructor() {
         super({
             key: `anger`
-        })
+        });
+
         // What the frames changes start out as.
         this.frameCounter = 0;
         // The initial position of the sheep is.
@@ -26,17 +27,20 @@ class Anger extends Phaser.Scene {
         // Calls the sheepBoarder() function.
         this.sheepBoarder();
 
-        // NEW: Creates the jar sprite in the Anger scene.
+        // Creates the butterfly sprite in the Anger scene.
+        this.butterfly = this.physics.add.sprite(100, 100, `butterfly`);
+
+        // Creates the jar sprite in the Anger scene.
         this.jar = this.physics.add.sprite(400, 500, `jar`);
 
-        // NEW: Creates the scale sprite in the Anger scene.
+        // Creates the scale sprite in the Anger scene.
         this.scale = this.physics.add.sprite(100, 350, `scale`);
 
-        // NEW: Creates the owl sprite in the Anger scene.
+        // Creates the owl sprite in the Anger scene.
         this.owl = this.physics.add.sprite(700, 250, `owl`);
 
-        // NEW: Creates the butterfly sprite in the Anger scene.
-        this.butterfly = this.physics.add.sprite(100, 100, `butterfly`);
+         // Calls the butterflyInteraction() function. 
+        this.butterflyInteraction();
 
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -60,6 +64,20 @@ class Anger extends Phaser.Scene {
         this.sheep.body.customBoundsRectangle = smallBounds;
         // Creates the setCollideWorldBounds function from Phaser 3.
         this.sheep.setCollideWorldBounds(true);
+    }
+
+    // Creates the function that allows all the interactions and movements of the butterfly.
+    butterflyInteraction() {
+        // Adding a collider between the sheep and the butterfly.
+        this.physics.add.collider(this.sheep, this.butterfly);
+        // Adding a bounce to the butterfly.
+        this.butterfly.setBounce(0.7);
+        // Adding a drag to the butterfly.
+        this.butterfly.setDrag(1);
+        // Creates the wall boundary for the butterfly.
+        this.butterfly.setCollideWorldBounds(true);
+        // Adding velocity to the butterfly movement.
+        this.butterfly.setVelocity(Phaser.Math.Between(-800, 800), 0);
     }
 
     // Creates the movement of the sheep and its animations.
