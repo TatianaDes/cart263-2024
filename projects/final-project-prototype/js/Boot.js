@@ -33,6 +33,7 @@ class Boot extends Phaser.Scene {
         this.load.image(`jar`, `assets/images/jar.png`);
         this.load.image(`scale`, `assets/images/scale.png`);
         this.load.image(`owl`, `assets/images/owl.png`);
+        this.load.image(`butterfly`, `assets/images/butterfly.png`);
 
         this.load.image(`start`, `assets/images/start.png`);
         this.load.image(`start-overR`, `assets/images/start-overR.png`);

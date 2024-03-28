@@ -35,6 +35,9 @@ class Anger extends Phaser.Scene {
         // NEW: Creates the owl sprite in the Anger scene.
         this.owl = this.physics.add.sprite(700, 250, `owl`);
 
+        // NEW: Creates the butterfly sprite in the Anger scene.
+        this.butterfly = this.physics.add.sprite(100, 100, `butterfly`);
+
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
     }
