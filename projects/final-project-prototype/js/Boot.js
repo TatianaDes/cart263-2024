@@ -30,7 +30,8 @@ class Boot extends Phaser.Scene {
         this.load.image(`flower`, `assets/images/flower.png`);
 
         // NEW: Creating objects for the Anger scene
-        this.load.image(`jar`, `assets/images/jar1.png`);
+        this.load.image(`jar`, `assets/images/jar.png`);
+        this.load.image(`scale`, `assets/images/scale.png`);
 
         this.load.image(`start`, `assets/images/start.png`);
         this.load.image(`start-overR`, `assets/images/start-overR.png`);

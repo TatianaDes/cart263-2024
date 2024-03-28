@@ -26,8 +26,11 @@ class Anger extends Phaser.Scene {
         // Calls the sheepBoarder() function.
         this.sheepBoarder();
 
-        // Creates the jar sprite in the Denial scene.
-        this.jar = this.physics.add.sprite(400, 450, `jar`);
+        // NEW: Creates the jar sprite in the Anger scene.
+        this.jar = this.physics.add.sprite(400, 500, `jar`);
+
+        // NEW: Creates the scale sprite in the Anger scene.
+        this.scale = this.physics.add.sprite(100, 350, `scale`);
 
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
