@@ -12,7 +12,7 @@ class ForNothing extends Phaser.Scene {
         this.cameras.main.setBackgroundColor(`#979797`);
 
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'continueG');
+        const bg = this.add.image(0, 0, 'continueB');
 
         // Creates text with all their different sizes and colours.
         this.add.text(100, 150, `Was this really all for nothing?\nWere my efforts pointless in the end?\nI tried.\nI tried and I tried and I tried, and what did I get from all of this.\nNothing.\nYou could not even be honest with me by the end,\nand you struggled so much to prioritize me,\nlet alone the way you acted like a child when it was all over.\nWhat was the point in trying for you any longer?\n`, { fontFamily: `Lora`, fontSize: 25, color: `#cbcd21` });
