@@ -27,7 +27,7 @@ class Anger extends Phaser.Scene {
         // Calls the sheepBoarder() function.
         this.sheepBoarder();
 
-         // NEW: Creating the coyosheep sprite and its initial position.
+        // NEW: Creating the coyosheep sprite and its initial position.
         this.coyosheep = this.physics.add.sprite(785, 585, `coyosheep`);
         this.coyosheep.setImmovable(true);
 
@@ -36,14 +36,17 @@ class Anger extends Phaser.Scene {
 
         // Creates the jar sprite in the Anger scene.
         this.jar = this.physics.add.sprite(400, 500, `jar`);
+        this.jar.setAlpha(0.6);
 
         // Creates the scale sprite in the Anger scene.
         this.scale = this.physics.add.sprite(100, 350, `scale`);
+        this.scale.setAlpha(0.6);
 
         // Creates the owl sprite in the Anger scene.
         this.owl = this.physics.add.sprite(700, 250, `owl`);
+        this.owl.setAlpha(0.6);
 
-         // Calls the butterflyInteraction() function. 
+        // Calls the butterflyInteraction() function. 
         this.butterflyInteraction();
 
         // Allows for cursor keys to be called and work.
@@ -136,8 +139,8 @@ class Anger extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
-      // Creates all the animation code and movement of the coyosheep.
-      coyosheepMovement() {
+    // Creates all the animation code and movement of the coyosheep.
+    coyosheepMovement() {
         // NEW: Allows for the coyosheep to run away to the right when the sheep gets near.
         let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
         if (d < 100) {
