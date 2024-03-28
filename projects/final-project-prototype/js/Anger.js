@@ -27,6 +27,10 @@ class Anger extends Phaser.Scene {
         // Calls the sheepBoarder() function.
         this.sheepBoarder();
 
+         // NEW: Creating the coyosheep sprite and its initial position.
+        this.coyosheep = this.physics.add.sprite(785, 585, `coyosheep`);
+        this.coyosheep.setImmovable(true);
+
         // Creates the butterfly sprite in the Anger scene.
         this.butterfly = this.physics.add.sprite(100, 100, `butterfly`);
 
@@ -51,6 +55,9 @@ class Anger extends Phaser.Scene {
         // Calls the sheepMovement() function.
         this.sheepMovement();
 
+        // Calls the coyosheepMovement() function.
+        this.coyosheepMovement();
+
         // Calls the checkEnding() function.
         this.checkEnding();
     }
@@ -70,6 +77,8 @@ class Anger extends Phaser.Scene {
     butterflyInteraction() {
         // Adding a collider between the sheep and the butterfly.
         this.physics.add.collider(this.sheep, this.butterfly);
+        // Adding a collider between the coyosheep and the butterfly.
+        this.physics.add.collider(this.coyosheep, this.butterfly);
         // Adding a bounce to the butterfly.
         this.butterfly.setBounce(0.7);
         // Adding a drag to the butterfly.
@@ -125,6 +134,23 @@ class Anger extends Phaser.Scene {
 
         // Sets it so the velocity is towards the sheep sprite.
         this.sheep.setVelocity(velocityX, velocityY);
+    }
+
+      // Creates all the animation code and movement of the coyosheep.
+      coyosheepMovement() {
+        // NEW: Allows for the coyosheep to run away to the right when the sheep gets near.
+        let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
+        if (d < 100) {
+            this.coyosheep.isPacing = false;
+            this.coyosheep.setVelocity(300, 0);
+            this.scene.start(`forNothing`);
+        }
+
+        // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
+        // this.coyosheep.anims.play(this.coyosheep.body.velocity.x < 0 ? `left` : `right`, true); <- This code is a simplified version of the code bellow.
+        if (this.coyosheep.body.velocity.x > 0) {
+            this.coyosheep.anims.play(`coyosheepright`, true);
+        }
     }
 
     // Creates the ending for patience.

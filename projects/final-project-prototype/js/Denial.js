@@ -27,7 +27,7 @@ class Denial extends Phaser.Scene {
         //  this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, `sheep`);
 
         // NEW: Creating the coyosheep sprite and its initial position.
-        // NEW: All coyosheep actions and spriteare new to the program.
+        // NEW: All coyosheep actions and sprites are new to the program.
         this.coyosheep = this.physics.add.sprite(650, 70, `coyosheep`);
         // NEW: Creating the initial state of the coyosheep to be pacing.
         this.coyosheep.isPacing = true;
