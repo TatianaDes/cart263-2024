@@ -32,6 +32,9 @@ class Anger extends Phaser.Scene {
         // NEW: Creates the scale sprite in the Anger scene.
         this.scale = this.physics.add.sprite(100, 350, `scale`);
 
+        // NEW: Creates the owl sprite in the Anger scene.
+        this.owl = this.physics.add.sprite(700, 250, `owl`);
+
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
     }
