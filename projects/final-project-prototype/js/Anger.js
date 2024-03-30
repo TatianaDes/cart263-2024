@@ -159,14 +159,14 @@ class Anger extends Phaser.Scene {
     checkEnding() {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.y < 0) {
-            // this.scene.start(`denial`);
-            // Calls the previous scene but also sets the initial position of the sheep.
-            this.scene.start(`denial`, {
-                sheep: {
-                    x: this.sheep.x,
-                    y: this.sheep.y
-                }
-            });
+            this.scene.start(`denial`);
+            // // Calls the previous scene but also sets the initial position of the sheep.
+            // this.scene.start(`denial`, {
+            //     sheep: {
+            //         x: this.sheep.x,
+            //         y: this.sheep.y
+            //     }
+            // });
         }
     }
 }

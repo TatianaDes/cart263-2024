@@ -21,10 +21,17 @@ class Denial extends Phaser.Scene {
         // NEW: Changed it to a dark grey.
         this.cameras.main.setBackgroundColor(`#3a3a3a`);
 
-        // Creates the sheep sprite in the denial scene.
-        this.sheep = this.physics.add.sprite(80, 450, `sheep`);
-        // // NEW: Creates the sheep sprite in the anger that now has the same position as the last postion it was in.
+        // // Creates the sheep sprite in the denial scene.
+        // this.sheep = this.physics.add.sprite(80, 450, `sheep`);
+        // NEW: Creates the sheep sprite in the anger that now has the same position as the last postion it was in.
         // this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, `sheep`);
+
+        if (this.sheep) {
+            // true usimg coorsd
+            this.sheep = this.physics.add.sprite(this.sheep.x, 550, `sheep`);
+        } else {
+            this.sheep = this.physics.add.sprite(80, 450, `sheep`);
+        }
 
         // NEW: Creating the coyosheep sprite and its initial position.
         // NEW: All coyosheep actions and sprites are new to the program.
