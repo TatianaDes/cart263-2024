@@ -116,12 +116,12 @@ class Anger extends Phaser.Scene {
             velocityY = 100;
         }
 
-        // Makes it so that if all the velocities on the x axis are less than zero the left animation Denials.
+        // Makes it so that if all the velocities on the x axis are less than zero the left animation plays.
         if (velocityX < 0) {
             this.sheepOrientation = `left`;
             this.sheep.anims.play(`sheepleft`, true);
         }
-        // Makes it so that if all the velocities on the x axis are more than zero the right animation Denials.
+        // Makes it so that if all the velocities on the x axis are more than zero the right animation plays.
         else if (velocityX > 0) {
             this.sheepOrientation = `right`;
             this.sheep.anims.play(`sheepright`, true);
@@ -130,7 +130,7 @@ class Anger extends Phaser.Scene {
         else if (velocityY !== 0) {
             this.sheep.anims.play(`sheep` + this.sheepOrientation, true);
         }
-        // Makes it so that if nothing that was said above is happening, then Denial the animation for both the idle-left and idle-right.
+        // Makes it so that if nothing that was said above is happening, then plays the animation for both the idle-left and idle-right.
         else {
             this.sheep.anims.play(`sheepidle-` + this.sheepOrientation);
         }
@@ -159,14 +159,14 @@ class Anger extends Phaser.Scene {
     checkEnding() {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.y < 0) {
-            this.scene.start(`Denial`);
+            // this.scene.start(`denial`);
             // Calls the previous scene but also sets the initial position of the sheep.
-            // this.scene.start(`Denial`, {
-            //     sheep: {
-            //         x: this.sheep.x,
-            //         y: this.sheep.y
-            //     }
-            // });
+            this.scene.start(`denial`, {
+                sheep: {
+                    x: this.sheep.x,
+                    y: this.sheep.y
+                }
+            });
         }
     }
 }

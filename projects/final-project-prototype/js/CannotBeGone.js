@@ -40,7 +40,7 @@ class CannotBeGone extends Phaser.Scene {
 
         // Changes the scene from the CannotBeGone to title by clicking on the button.
         container.on(`pointerdown`, () => {
-            this.scene.start(`Denial`);
+            this.scene.start(`denial`);
         });
     }
 
