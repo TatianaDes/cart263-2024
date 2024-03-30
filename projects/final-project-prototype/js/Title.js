@@ -2,14 +2,14 @@ class Title extends Phaser.Scene {
     // Creates the key term that will be used to call this class.
     constructor() {
         super({
-            key: `title`
+            key: 'title'
         });
     }
 
     // Creates the background colour and all the assets I would like to display on this scene.
     create() {
         // Creates background colour.
-        this.cameras.main.setBackgroundColor(`#7a3131`);
+        this.cameras.main.setBackgroundColor('#7a3131');
 
         // Creates the button sprite .
         const bg = this.add.image(0, 0, 'start');
@@ -34,14 +34,14 @@ class Title extends Phaser.Scene {
         });
 
         // Creates text with all their different sizes and colours.
-        this.add.text(150, 250, `Hard to Move On`, { fontFamily: `Lora`, fontSize: 64, color: `#ff7171` });
-        this.add.text(420, 550, `Move with the arrow keys and try to keep moving onward.`, { fontFamily: `Lora`, fontSize: 15, color: `#9e7c7c` });
+        this.add.text(150, 250, 'Hard to Move On', { fontFamily: 'Lora', fontSize: 64, color: '#ff7171' });
+        this.add.text(420, 550, 'Move with the arrow keys and try to keep moving onward.', { fontFamily: 'Lora', fontSize: 15, color: '#9e7c7c' });
 
         // Changes the scene from the title to denial by clicking on the button.
-        container.on(`pointerdown`, () => {
-            this.scene.start(`denial`);
+        container.on('pointerdown', () => {
+            this.scene.start('denial');
             // // NEW: Calls the next scene but also sets the initial position of the sheep.
-            // this.scene.start(`denial`, {
+            // this.scene.start('denial', {
             //     sheep: {
             //         x: this.sheep.x,
             //         y: this.sheep.y

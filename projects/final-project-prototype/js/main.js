@@ -13,7 +13,7 @@ let config = {
     width: 800,
     height: 600,
     physics: {
-        default: `arcade`
+        default: 'arcade'
     },
     scene: [Boot, Title, Denial, CannotBeGone, Anger, ForNothing, Bargaining, Depression, Acceptance]
 };
