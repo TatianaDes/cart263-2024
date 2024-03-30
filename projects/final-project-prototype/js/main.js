@@ -2,7 +2,7 @@
 Hard to Move On Prototype
 Tatiana Désormeaux
 
-A program using Phaser 3 code to help create a story about trying to move on from someone but recognizing the difficulty of it. It is about patience and effort that takes someone to be able to move forward in the first place even though the idea of going back feels so much easier but comes with so many more complications.
+A program prototype using Phaser 3 code to help create a story about the stages of grief someone goes through when losing someone that was important to them and trying to truly move on when falling back into the same unhealthy cycle is desired and longed for.
 */
 
 "use strict";
