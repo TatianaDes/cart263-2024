@@ -1,3 +1,4 @@
+// NEW: Created the Bargaining class and everything in it.
 class Bargaining extends Phaser.Scene {
     // Creates the key term that will be used to call this class.
     constructor() {

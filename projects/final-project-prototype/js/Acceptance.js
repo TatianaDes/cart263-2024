@@ -1,3 +1,4 @@
+// NEW: Created the Acceptance class and everything in it.
 class Acceptance extends Phaser.Scene {
     // Creates the key term that will be used to call this class.
     constructor() {

@@ -150,7 +150,6 @@ class Anger extends Phaser.Scene {
         }
 
         // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
-        // this.coyosheep.anims.play(this.coyosheep.body.velocity.x < 0 ? `left` : `right`, true); <- This code is a simplified version of the code bellow.
         if (this.coyosheep.body.velocity.x > 0) {
             this.coyosheep.anims.play(`coyosheepright`, true);
         }

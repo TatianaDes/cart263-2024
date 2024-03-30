@@ -70,7 +70,7 @@ class Denial extends Phaser.Scene {
     coyosheepMovement() {
         // NEW: Creates the pacing to the left and its speed as well as when it turns back to the right and its speed.
         if (this.coyosheep.isPacing) {
-            if (this.coyosheep.x < 100) {
+            if (this.coyosheep.x < 150) {
                 this.coyosheep.setVelocity(50, 0);
             }
             else if (this.coyosheep.x > 650) {
@@ -171,7 +171,7 @@ class Denial extends Phaser.Scene {
         this.physics.add.collider(this.sheep, this.flower);
     }
 
-    // Creates the ending for patience.
+    // Creates the next scene for when the sheep falls off the bottom of the screen.
     checkEnding() {
         // NEW: Goes to the next level when the sheep goes off the bottom of the canvas.
         if (this.sheep.y > this.game.canvas.height) {
@@ -200,7 +200,7 @@ class Denial extends Phaser.Scene {
 
         // Creates the ending for when the flower goes off the canvas.
         if (this.flower.x < 0 || this.flower.x > this.game.canvas.width || this.flower.y < 0 || this.flower.y > this.game.canvas.height) {
-            this.scene.start(`patience`);
+            this.scene.start(`cannotBeGone`);
         }
     }
 }
