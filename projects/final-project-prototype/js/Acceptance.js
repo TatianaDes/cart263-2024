@@ -20,24 +20,18 @@ class Acceptance extends Phaser.Scene {
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);
-
         container.setSize(bg.width, bg.height);
-
         container.setInteractive();
 
         container.on('pointerover', () => {
-
             bg.setTint(0xdbdbdb);
-
         });
 
         container.on('pointerout', () => {
-
             bg.clearTint();
-
         });
 
-        // Changes the scene from the patience to title by clicking on the button.
+        // Changes the scene from Acceptance to Denial by clicking on the button.
         container.on('pointerdown', () => {
             this.scene.start('denial');
         });

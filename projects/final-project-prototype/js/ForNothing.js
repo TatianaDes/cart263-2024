@@ -20,26 +20,20 @@ class ForNothing extends Phaser.Scene {
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);
-
         container.setSize(bg.width, bg.height);
-
         container.setInteractive();
 
         container.on('pointerover', () => {
-
             bg.setTint(0xd5eed9);
-
         });
 
         container.on('pointerout', () => {
-
             bg.clearTint();
-
         });
 
-        // Changes the scene from the patience to title by clicking on the button.
+        // Changes the scene from ForNothing to Anger by clicking on the button.
         container.on('pointerdown', () => {
-            this.scene.start('denial');
+            this.scene.start('anger');
         });
     }
 

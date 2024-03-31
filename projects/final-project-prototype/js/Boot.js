@@ -8,33 +8,38 @@ class Boot extends Phaser.Scene {
 
     // Loads all the images I would like to use.
     preload() {
+        // Loads the tree in the Denial scene.
         this.load.image('tree', 'assets/images/tree.png');
 
+        // Loads the sheep sprite.
         this.load.spritesheet('sheep', 'assets/images/sheep.png', {
             frameWidth: 38,
             frameHeight: 30,
             endFrame: 7,
         });
-        // NEW: Creating the coyosheep as the antagonist instead of the coyote.
+        // NEW: Loads the coyosheep to have the same mechanics as the coyote because they are the same.
         this.load.spritesheet('coyosheep', 'assets/images/coyosheep.png', {
             frameWidth: 38,
             frameHeight: 30,
             endFrame: 7,
         });
+        // Loads the coyote sprite.
         this.load.spritesheet('coyote', 'assets/images/coyote.png', {
             frameWidth: 60,
             frameHeight: 36,
             endFrame: 7,
         });
 
+        // Loads the flower in the Denial scene.
         this.load.image('flower', 'assets/images/flower.png');
 
-        // NEW: Creating objects for the Anger scene
+        // NEW: Creating objects for the Anger scene.
         this.load.image('jar', 'assets/images/jar.png');
         this.load.image('scale', 'assets/images/scale.png');
         this.load.image('owl', 'assets/images/owl.png');
         this.load.image('butterfly', 'assets/images/butterfly.png');
 
+        // Loads the start and start over buttons for the title and ending scenes.
         this.load.image('start', 'assets/images/start.png');
         this.load.image('start-overR', 'assets/images/start-overR.png');
         this.load.image('start-overG', 'assets/images/start-overG.png');

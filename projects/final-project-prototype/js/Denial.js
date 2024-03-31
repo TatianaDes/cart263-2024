@@ -4,8 +4,6 @@ class Denial extends Phaser.Scene {
         super({
             key: 'denial'
         })
-        // What the frames changes start out as.
-        this.frameCounter = 0;
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
 
@@ -26,7 +24,7 @@ class Denial extends Phaser.Scene {
 
         // NEW: Creates an if statement that if the position of the sheep is already there, then the scene will remember it and save it, but if there is no previous position information it will start at 80 on the x-axis and 450 on the y-axis. 
         if (this.data && this.data.sheep) {
-            // NEW: Calls the sheep's x position from the last scene and places it at the bottom of the scene.
+            // NEW: Calls the sheep's x position from the last scene and places the sheep at the bottom of the scene.
             this.sheep = this.physics.add.sprite(this.data.sheep.x, 550, 'sheep');
         } else {
             // Creates the initial position of the sheep when the program first starts.
@@ -38,23 +36,16 @@ class Denial extends Phaser.Scene {
         this.coyosheep = this.physics.add.sprite(650, 70, 'coyosheep');
         // NEW: Creating the initial state of the coyosheep to be pacing.
         this.coyosheep.isPacing = true;
-        // NEW: Stting the velocity for the coyosheep.
+        // NEW: Setting the velocity for the coyosheep.
         this.coyosheep.setVelocity(-50, 0);
 
-        // Creates the flower sprite in the denial scene.
+        // Creates the flower sprite in the Denial scene.
         this.flower = this.physics.add.sprite(0, 0, 'flower');
-        // Sets the bounce of the flower.
-        this.flower.setBounce(0.5, 0.5);
-        // Sets how far the flower will drag.
-        this.flower.setDrag(50, 50);
-        // Puts the flower in random positions each time.
-        Phaser.Actions.RandomRectangle([this.flower], this.physics.world.bounds);
+        // Calls the flowerCollide() function.
+        this.flowerCollide();
 
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
-
-        // Calls the flowerCollide() function.
-        this.flowerCollide();
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
@@ -102,7 +93,7 @@ class Denial extends Phaser.Scene {
 
     // Creates the trees that fall as the time update and changes and collides with the sheep.
     treesFalling() {
-        // NEW: Creates a constant for the function new Date().getTime() which a function already understood by JavaScript to get the current live time.
+        // NEW: Creates a constant for the function new Date().getTime() which is a function already understood by JavaScript to get the current live time.
         const currentTime = new Date().getTime();
         // NEW: Creates an if statement that measure if the current live time minus the last set of trees that fell are less than 1 second in between each other, then new trees will fall.
         if (currentTime - this.lastTrees > 1000) {
@@ -110,7 +101,7 @@ class Denial extends Phaser.Scene {
             this.lastTrees = new Date().getTime();
             // Create the tree image and make it a group.
             this.tree = this.physics.add.group({
-                // Key being used.
+                // Key term being used.
                 key: 'tree',
                 // How many are being created.
                 quantity: 8,
@@ -152,17 +143,17 @@ class Denial extends Phaser.Scene {
             velocityY = 100;
         }
 
-        // Makes it so that if all the velocities on the x axis are less than zero the left animation playss.
+        // Makes it so that if all the velocities on the x-axis are less than zero the left animation playss.
         if (velocityX < 0) {
             this.sheepOrientation = 'left';
             this.sheep.anims.play('sheepleft', true);
         }
-        // Makes it so that if all the velocities on the x axis are more than zero the right animation playss.
+        // Makes it so that if all the velocities on the x-axis are more than zero the right animation playss.
         else if (velocityX > 0) {
             this.sheepOrientation = 'right';
             this.sheep.anims.play('sheepright', true);
         }
-        // Makes it so that if the sheep is moving on the y axis the sheepOrientation will be remembered from where it was last and face that direction.
+        // Makes it so that if the sheep is moving on the y-axis the sheepOrientation will be remembered from where it was last and face that direction.
         else if (velocityY !== 0) {
             this.sheep.anims.play('sheep' + this.sheepOrientation, true);
         }
@@ -177,6 +168,13 @@ class Denial extends Phaser.Scene {
 
     // Creates the movement of the flower when the sheep collides with it.
     flowerCollide() {
+        // Sets the bounce of the flower.
+        this.flower.setBounce(0.5, 0.5);
+        // Sets how far the flower will drag.
+        this.flower.setDrag(50, 50);
+        // Puts the flower in random positions each time.
+        Phaser.Actions.RandomRectangle([this.flower], this.physics.world.bounds);
+        // Allows the sheep to collide with the flower.
         this.physics.add.collider(this.sheep, this.flower);
     }
 
@@ -185,7 +183,7 @@ class Denial extends Phaser.Scene {
         // NEW: Goes to the next level when the sheep goes off the bottom of the canvas.
         if (this.sheep.y > this.game.canvas.height) {
             this.scene.start('anger', {
-                // NEW: Sets the position of the sheep to wherever it was leaving this scene to the next and vise versa.
+                // NEW: Sets the position of the sheep to wherever it was leaving this scene to the next and vice versa.
                 sheep: {
                     x: this.sheep.x,
                     y: this.sheep.y

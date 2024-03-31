@@ -5,9 +5,6 @@ class Anger extends Phaser.Scene {
         super({
             key: 'anger'
         });
-
-        // What the frames changes start out as.
-        this.frameCounter = 0;
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
     }
@@ -22,28 +19,30 @@ class Anger extends Phaser.Scene {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#581b1b');
 
-        // Creates the sheep sprite in the Anger that now has the same position as the last postion it was in.
+        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
         this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, 'sheep');
         // Calls the sheepBoarder() function.
         this.sheepBoarder();
 
         // NEW: Creating the coyosheep sprite and its initial position.
         this.coyosheep = this.physics.add.sprite(785, 585, 'coyosheep');
-        this.coyosheep.setImmovable(true);
 
         // Creates the butterfly sprite in the Anger scene.
         this.butterfly = this.physics.add.sprite(100, 100, 'butterfly');
 
         // Creates the jar sprite in the Anger scene.
         this.jar = this.physics.add.sprite(400, 500, 'jar');
+        // Sets the opacity of the image to 0.6.
         this.jar.setAlpha(0.6);
 
         // Creates the scale sprite in the Anger scene.
         this.scale = this.physics.add.sprite(100, 350, 'scale');
+        // Sets the opacity of the image to 0.6.
         this.scale.setAlpha(0.6);
 
         // Creates the owl sprite in the Anger scene.
         this.owl = this.physics.add.sprite(700, 250, 'owl');
+        // Sets the opacity of the image to 0.6.
         this.owl.setAlpha(0.6);
 
         // Calls the butterflyInteraction() function. 
@@ -67,7 +66,7 @@ class Anger extends Phaser.Scene {
 
     // Creates the function that calls the canvas boarder to work on the sheep.
     sheepBoarder() {
-        // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and other that can.
+        // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and others that can.
         const smallBounds = new Phaser.Geom.Rectangle(0, -100, this.game.canvas.width, this.game.canvas.height + 100);
 
         // Calls the smallBounds constant to work on the sheep.
@@ -116,17 +115,17 @@ class Anger extends Phaser.Scene {
             velocityY = 100;
         }
 
-        // Makes it so that if all the velocities on the x axis are less than zero the left animation plays.
+        // Makes it so that if all the velocities on the x-axis are less than zero the left animation plays.
         if (velocityX < 0) {
             this.sheepOrientation = 'left';
             this.sheep.anims.play('sheepleft', true);
         }
-        // Makes it so that if all the velocities on the x axis are more than zero the right animation plays.
+        // Makes it so that if all the velocities on the x-axis are more than zero the right animation plays.
         else if (velocityX > 0) {
             this.sheepOrientation = 'right';
             this.sheep.anims.play('sheepright', true);
         }
-        // Makes it so that if the sheep is moving on the y axis the sheepOrientation will be remembered from where it was last and face that direction.
+        // Makes it so that if the sheep is moving on the y-axis the sheepOrientation will be remembered from where it was last and face that direction.
         else if (velocityY !== 0) {
             this.sheep.anims.play('sheep' + this.sheepOrientation, true);
         }
@@ -143,7 +142,7 @@ class Anger extends Phaser.Scene {
     coyosheepMovement() {
         // NEW: Allows for the coyosheep to run away to the right when the sheep gets near.
         let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
-        if (d < 100) {
+        if (d < 90) {
             this.coyosheep.isPacing = false;
             this.coyosheep.setVelocity(300, 0);
             this.scene.start('forNothing');
@@ -155,7 +154,7 @@ class Anger extends Phaser.Scene {
         }
     }
 
-    // Creates the ending for patience.
+    // Creates the ending for CannotBeGone.
     checkEnding() {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.y < 0) {
