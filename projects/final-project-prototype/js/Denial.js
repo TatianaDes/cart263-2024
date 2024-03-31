@@ -8,12 +8,14 @@ class Denial extends Phaser.Scene {
         this.frameCounter = 0;
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
+
+        this.lastTrees = new Date().getTime();
     }
 
-    // // NEW: Creates the concrete data that stores all the previous knowledge of the positions.
-    // init(data) {
-    //     this.data = data;
-    // }
+    // NEW: Creates the concrete data that stores all the previous knowledge of the positions.
+    init(data) {
+        this.data = data;
+    }
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
@@ -23,12 +25,12 @@ class Denial extends Phaser.Scene {
 
         // // Creates the sheep sprite in the denial scene.
         // this.sheep = this.physics.add.sprite(80, 450, 'sheep');
-        // NEW: Creates the sheep sprite in the anger that now has the same position as the last postion it was in.
+        // // NEW: Creates the sheep sprite in the anger that now has the same position as the last postion it was in.
         // this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, 'sheep');
 
-        if (this.sheep) {
+        if (this.data && this.data.sheep) {
             // true usimg coorsd
-            this.sheep = this.physics.add.sprite(this.sheep.x, 550, 'sheep');
+            this.sheep = this.physics.add.sprite(this.data.sheep.x, 550, 'sheep');
         } else {
             this.sheep = this.physics.add.sprite(80, 450, 'sheep');
         }
@@ -61,7 +63,6 @@ class Denial extends Phaser.Scene {
     update() {
         // Calls the coyosheepMovement() function.
         this.coyosheepMovement();
-
 
         // Calls the treesFalling() function.
         this.treesFalling();
@@ -102,16 +103,30 @@ class Denial extends Phaser.Scene {
         }
     }
 
+    // // Creates the trees that fall as the frames update and collides with the sheep.
+    // treesFalling() {
+    //     this.frameCounter++;
+    //     if ((this.frameCounter % 150) === 0) {
+    //         const tree = this.physics.add.sprite(50, 10, 'tree');
+    //         tree.body.velocity.y = 50;
+
+    //         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
+    //         this.physics.add.collider(this.sheep, tree);
+    //         // this.physics.add.collider(this.tree, tree);
+    //     }
+    // }
+
     // Creates the trees that fall as the frames update and collides with the sheep.
     treesFalling() {
-        this.frameCounter++;
-        if ((this.frameCounter % 150) === 0) {
+        const currentTime = new Date().getTime();
+        if (currentTime - this.lastTrees > 1000) {
+            this.lastTrees = new Date().getTime();
             // Create the tree image and make it a group.
             this.tree = this.physics.add.group({
                 // Image key to use.
                 key: 'tree',
                 // How many.
-                quantity: 20,
+                quantity: 8,
                 // Gravity (how fast will they start and continue to fall).
                 gravityY: 100,
                 // Mass (how heavy are they).
