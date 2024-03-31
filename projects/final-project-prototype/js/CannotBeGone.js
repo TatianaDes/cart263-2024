@@ -17,7 +17,7 @@ class CannotBeGone extends Phaser.Scene {
 
         // Creates text with all their different sizes and colours.
         // NEW: Changed the wording to work with the denial stage.
-        this.add.text(100, 200, 'Maybe in time we will be friends again.\nIt was not all bad,\nperhaps they will see that and try to make things work again.\nThey cannot be gone from my life forever,\nthat would mean I lose everything.\n', { fontFamily: 'Lora', fontSize: 25, color: '#f0e197' });
+        this.add.text(100, 200, 'Maybe in time we will be friends again.\nIt was not all bad,\nperhaps they will see that and try to make things work again.\nThey cannot be gone from my life forever,\nthat would mean I lose everything...\n', { fontFamily: 'Lora', fontSize: 25, color: '#f0e197' });
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);
