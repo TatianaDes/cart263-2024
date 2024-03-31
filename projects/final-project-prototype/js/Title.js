@@ -40,13 +40,6 @@ class Title extends Phaser.Scene {
         // Changes the scene from the title to denial by clicking on the button.
         container.on('pointerdown', () => {
             this.scene.start('denial');
-            // // NEW: Calls the next scene but also sets the initial position of the sheep.
-            // this.scene.start('denial', {
-            //     sheep: {
-            //         x: this.sheep.x,
-            //         y: this.sheep.y
-            //     }
-            // });
         });
     }
 

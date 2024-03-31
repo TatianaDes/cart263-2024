@@ -1,4 +1,4 @@
-// NEW: Created the Anger class and everything in it.
+// NEW: Created the Anger class and everything in it, thus everything is new.
 class Anger extends Phaser.Scene {
     // Creates the key term that will be used to call this class.
     constructor() {
@@ -88,7 +88,7 @@ class Anger extends Phaser.Scene {
         this.butterfly.setDrag(1);
         // Creates the wall boundary for the butterfly.
         this.butterfly.setCollideWorldBounds(true);
-        // Adding velocity to the butterfly movement.
+        // Adding velocity to the butterfly movement and making it random each time the scene starts.
         this.butterfly.setVelocity(Phaser.Math.Between(-800, 800), 0);
     }
 
@@ -160,7 +160,7 @@ class Anger extends Phaser.Scene {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.y < 0) {
             this.scene.start('denial');
-            // Calls the previous scene but also sets the initial position of the sheep.
+            // Calls the previous scene but also sets the position of the sheep to where it left off in this scene.
             this.scene.start('denial', {
                 sheep: {
                     x: this.sheep.x,

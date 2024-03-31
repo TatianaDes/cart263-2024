@@ -9,6 +9,7 @@ class Denial extends Phaser.Scene {
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
 
+        // NEW: Creates the variable lastTrees and makes it record the amount of live time it has taken for them to be created.
         this.lastTrees = new Date().getTime();
     }
 
@@ -23,15 +24,12 @@ class Denial extends Phaser.Scene {
         // NEW: Changed it to a dark grey.
         this.cameras.main.setBackgroundColor('#3a3a3a');
 
-        // // Creates the sheep sprite in the denial scene.
-        // this.sheep = this.physics.add.sprite(80, 450, 'sheep');
-        // // NEW: Creates the sheep sprite in the anger that now has the same position as the last postion it was in.
-        // this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, 'sheep');
-
+        // NEW: Creates an if statement that if the position of the sheep is already there, then the scene will remember it and save it, but if there is no previous position information it will start at 80 on the x-axis and 450 on the y-axis. 
         if (this.data && this.data.sheep) {
-            // true usimg coorsd
+            // NEW: Calls the sheep's x position from the last scene and places it at the bottom of the scene.
             this.sheep = this.physics.add.sprite(this.data.sheep.x, 550, 'sheep');
         } else {
+            // Creates the initial position of the sheep when the program first starts.
             this.sheep = this.physics.add.sprite(80, 450, 'sheep');
         }
 
@@ -94,7 +92,6 @@ class Denial extends Phaser.Scene {
         }
 
         // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
-        // this.coyosheep.anims.play(this.coyosheep.body.velocity.x < 0 ? 'left' : 'right', true); <- This code is a simplified version of the code bellow.
         if (this.coyosheep.body.velocity.x < 0) {
             this.coyosheep.anims.play('coyosheepleft', true);
         }
@@ -103,33 +100,23 @@ class Denial extends Phaser.Scene {
         }
     }
 
-    // // Creates the trees that fall as the frames update and collides with the sheep.
-    // treesFalling() {
-    //     this.frameCounter++;
-    //     if ((this.frameCounter % 150) === 0) {
-    //         const tree = this.physics.add.sprite(50, 10, 'tree');
-    //         tree.body.velocity.y = 50;
-
-    //         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
-    //         this.physics.add.collider(this.sheep, tree);
-    //         // this.physics.add.collider(this.tree, tree);
-    //     }
-    // }
-
-    // Creates the trees that fall as the frames update and collides with the sheep.
+    // Creates the trees that fall as the time update and changes and collides with the sheep.
     treesFalling() {
+        // NEW: Creates a constant for the function new Date().getTime() which a function already understood by JavaScript to get the current live time.
         const currentTime = new Date().getTime();
+        // NEW: Creates an if statement that measure if the current live time minus the last set of trees that fell are less than 1 second in between each other, then new trees will fall.
         if (currentTime - this.lastTrees > 1000) {
+            // NEW: Calls the this.lastTrees information from the constructor.
             this.lastTrees = new Date().getTime();
             // Create the tree image and make it a group.
             this.tree = this.physics.add.group({
-                // Image key to use.
+                // Key being used.
                 key: 'tree',
-                // How many.
+                // How many are being created.
                 quantity: 8,
-                // Gravity (how fast will they start and continue to fall).
+                // How quickly the gravity will make the object fall.
                 gravityY: 100,
-                // Mass (how heavy are they).
+                // How heavy the object will be when falling and colliding with objects.
                 mass: 20
             });
             // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
@@ -198,6 +185,7 @@ class Denial extends Phaser.Scene {
         // NEW: Goes to the next level when the sheep goes off the bottom of the canvas.
         if (this.sheep.y > this.game.canvas.height) {
             this.scene.start('anger', {
+                // NEW: Sets the position of the sheep to wherever it was leaving this scene to the next and vise versa.
                 sheep: {
                     x: this.sheep.x,
                     y: this.sheep.y
