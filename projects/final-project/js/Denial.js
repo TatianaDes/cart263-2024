@@ -24,7 +24,7 @@ class Denial extends Phaser.Scene {
         // Creates an if statement that if the position of the sheep is already there, then the scene will remember it and save it, but if there is no previous position information it will start at 80 on the x-axis and 450 on the y-axis. 
         if (this.data && this.data.sheep) {
             // Calls the sheep's x position from the last scene and places the sheep at the bottom of the scene.
-            this.sheep = this.physics.add.sprite(this.data.sheep.x, 550, 'sheep');
+            this.sheep = this.physics.add.sprite(this.data.sheep.x, this.data.sheep.y, 'sheep');
         } else {
             // Creates the initial position of the sheep when the program first starts.
             this.sheep = this.physics.add.sprite(80, 450, 'sheep');
@@ -185,7 +185,7 @@ class Denial extends Phaser.Scene {
                 // Sets the position of the sheep to wherever it was leaving this scene to the next and vice versa.
                 sheep: {
                     x: this.sheep.x,
-                    y: this.sheep.y
+                    y: 50
                 }
             });
         }
@@ -195,7 +195,7 @@ class Denial extends Phaser.Scene {
             this.scene.start('bargaining', {
                 sheep: {
                     x: this.sheep.x,
-                    y: this.sheep.y
+                    y: 550
                 }
             });
         }

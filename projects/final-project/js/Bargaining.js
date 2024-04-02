@@ -45,7 +45,7 @@ update() {
 // Creates the function that calls the canvas boarder to work on the sheep.
 sheepBoarder() {
     // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and others that can.
-    const smallBounds = new Phaser.Geom.Rectangle(0, -100, this.game.canvas.width, this.game.canvas.height + 100);
+    const smallBounds = new Phaser.Geom.Rectangle(0, 0, this.game.canvas.width, this.game.canvas.height + 100);
 
     // Calls the smallBounds constant to work on the sheep.
     this.sheep.body.customBoundsRectangle = smallBounds;
@@ -119,12 +119,12 @@ coyosheepMovement() {
 // Creates the ending for CannotBeGone.
 checkEnding() {
     // Creates the ending for when the sheep goes off the canvas.
-    if (this.sheep.y < 0) {
+    if (this.sheep.y > this.game.canvas.height) {
         // Calls the previous scene but also sets the position of the sheep to where it left off in this scene.
         this.scene.start('denial', {
             sheep: {
                 x: this.sheep.x,
-                y: this.sheep.y
+                y: 50
             }
         });
     }
