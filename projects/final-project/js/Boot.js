@@ -17,7 +17,7 @@ class Boot extends Phaser.Scene {
             frameHeight: 30,
             endFrame: 7,
         });
-        // NEW: Loads the coyosheep to have the same mechanics as the coyote because they are the same.
+        // Loads the coyosheep to have the same mechanics as the coyote because they are the same.
         this.load.spritesheet('coyosheep', 'assets/images/coyosheep.png', {
             frameWidth: 38,
             frameHeight: 30,
@@ -33,7 +33,7 @@ class Boot extends Phaser.Scene {
         // Loads the flower in the Denial scene.
         this.load.image('flower', 'assets/images/flower.png');
 
-        // NEW: Creating objects for the Anger scene.
+        // Creating objects for the Anger scene.
         this.load.image('jar', 'assets/images/jar.png');
         this.load.image('scale', 'assets/images/scale.png');
         this.load.image('owl', 'assets/images/owl.png');
@@ -43,7 +43,7 @@ class Boot extends Phaser.Scene {
         this.load.image('start', 'assets/images/start.png');
         this.load.image('start-overR', 'assets/images/start-overR.png');
         this.load.image('start-overG', 'assets/images/start-overG.png');
-        // NEW: Creating continue buttons instead of start over buttons.
+        // Creating continue buttons instead of start over buttons.
         this.load.image('continueG', 'assets/images/continueG.png');
         this.load.image('continueB', 'assets/images/continueB.png');
 
@@ -73,7 +73,6 @@ class Boot extends Phaser.Scene {
             { name: 'sheep', action: 'left', start: 0, end: 3, repeat: -1 },
             { name: 'sheep', action: 'idle-right', start: 4, end: 4, repeat: 0 },
             { name: 'sheep', action: 'right', start: 4, end: 7, repeat: -1 },
-            // NEW: Adding the animation frames for the coyosheep.
             { name: 'coyosheep', action: 'left', start: 0, end: 3, repeat: -1 },
             { name: 'coyosheep', action: 'right', start: 4, end: 7, repeat: -1 },
             { name: 'coyote', action: 'left', start: 0, end: 3, repeat: -1 },

@@ -1,4 +1,3 @@
-// NEW: Created the Anger class and everything in it, thus everything is new.
 class Anger extends Phaser.Scene {
     // Creates the key term that will be used to call this class.
     constructor() {
@@ -24,7 +23,7 @@ class Anger extends Phaser.Scene {
         // Calls the sheepBoarder() function.
         this.sheepBoarder();
 
-        // NEW: Creating the coyosheep sprite and its initial position.
+        // Creating the coyosheep sprite and its initial position.
         this.coyosheep = this.physics.add.sprite(785, 585, 'coyosheep');
 
         // Creates the butterfly sprite in the Anger scene.
@@ -140,7 +139,7 @@ class Anger extends Phaser.Scene {
 
     // Creates all the animation code and movement of the coyosheep.
     coyosheepMovement() {
-        // NEW: Allows for the coyosheep to run away to the right when the sheep gets near.
+        // Allows for the coyosheep to run away to the right when the sheep gets near.
         let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
         if (d < 90) {
             this.coyosheep.isPacing = false;

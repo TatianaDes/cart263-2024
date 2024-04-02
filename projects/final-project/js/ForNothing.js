@@ -1,4 +1,3 @@
-// NEW: Created the ForNothing class and everything in it, thus everything is new.
 class ForNothing extends Phaser.Scene {
     // Creates the key term that will be used to call this class.
     constructor() {
