@@ -192,17 +192,32 @@ class Denial extends Phaser.Scene {
 
         // Goes to the next level when the sheep goes off the top of the canvas.
         if (this.sheep.y < 0) {
-            this.scene.start('bargaining');
+            this.scene.start('bargaining', {
+                sheep: {
+                    x: this.sheep.x,
+                    y: this.sheep.y
+                }
+            });
         }
 
         // Goes to the next level when the sheep goes off the left of the canvas.
         if (this.sheep.x < 0) {
-            this.scene.start('depression');
+            this.scene.start('depression', {
+                sheep: {
+                    x: this.sheep.x,
+                    y: this.sheep.y
+                }
+            });
         }
 
         // Goes to the next level when the sheep goes off the right of the canvas.
         if (this.sheep.x > this.game.canvas.width) {
-            this.scene.start('acceptance');
+            this.scene.start('acceptance', {
+                sheep: {
+                    x: this.sheep.x,
+                    y: this.sheep.y
+                }
+            });
         }
 
         // Creates the ending for when the flower goes off the canvas.
