@@ -19,7 +19,7 @@ create() {
     this.cameras.main.setBackgroundColor('#033d0c');
 
     // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
-    this.sheep = this.physics.add.sprite(this.data.sheep.x, 50, 'sheep');
+    this.sheep = this.physics.add.sprite(this.data.sheep.x, 550, 'sheep');
     // Calls the sheepBoarder() function.
     this.sheepBoarder();
 

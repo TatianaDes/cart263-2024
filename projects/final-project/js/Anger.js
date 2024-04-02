@@ -26,9 +26,6 @@ class Anger extends Phaser.Scene {
         // Creating the coyosheep sprite and its initial position.
         this.coyosheep = this.physics.add.sprite(785, 585, 'coyosheep');
 
-        // Creates the butterfly sprite in the Anger scene.
-        this.butterfly = this.physics.add.sprite(100, 100, 'butterfly');
-
         // Creates the jar sprite in the Anger scene.
         this.jar = this.physics.add.sprite(400, 500, 'jar');
         // Sets the opacity of the image to 0.6.
@@ -44,15 +41,14 @@ class Anger extends Phaser.Scene {
         // Sets the opacity of the image to 0.6.
         this.owl.setAlpha(0.6);
 
-        // Calls the butterflyInteraction() function. 
-        this.butterflyInteraction();
-
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
+        this.sheepShoot();
+
         // Calls the sheepMovement() function.
         this.sheepMovement();
 
@@ -74,20 +70,13 @@ class Anger extends Phaser.Scene {
         this.sheep.setCollideWorldBounds(true);
     }
 
-    // Creates the function that allows all the interactions and movements of the butterfly.
-    butterflyInteraction() {
-        // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.sheep, this.butterfly);
-        // Adding a collider between the coyosheep and the butterfly.
-        this.physics.add.collider(this.coyosheep, this.butterfly);
-        // Adding a bounce to the butterfly.
-        this.butterfly.setBounce(0.7);
-        // Adding a drag to the butterfly.
-        this.butterfly.setDrag(1);
-        // Creates the wall boundary for the butterfly.
-        this.butterfly.setCollideWorldBounds(true);
+    sheepShoot() {
+        if (this.input.keyboard.checkDown(this.cursors.space, 300)) {
+                // Creates the butterfly sprite in the Anger scene.
+                const butterfly = this.physics.add.sprite(this.sheep.x, this.sheep.y, 'butterfly');
         // Adding velocity to the butterfly movement and making it random each time the scene starts.
-        this.butterfly.setVelocity(Phaser.Math.Between(-800, 800), 0);
+        butterfly.setVelocity(0, 500);
+            }
     }
 
     // Creates the movement of the sheep and its animations.
