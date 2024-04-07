@@ -39,6 +39,9 @@ class Boot extends Phaser.Scene {
         this.load.image('owl', 'assets/images/owl.png');
         this.load.image('butterfly', 'assets/images/butterfly.png');
 
+        // Creating objects for the Bargaining scene.
+        this.load.image('beer', 'assets/images/beer.png');
+
         // Loads the start and start over buttons for the title and ending scenes.
         this.load.image('start', 'assets/images/start.png');
         this.load.image('start-overR', 'assets/images/start-overR.png');
