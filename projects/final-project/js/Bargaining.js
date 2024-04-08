@@ -29,6 +29,9 @@ class Bargaining extends Phaser.Scene {
         // Creates the beer sprite in the Bargaining scene.
         this.beer = this.physics.add.sprite(400, 300, 'beer');
 
+        // Creates the beer sprite in the Bargaining scene.
+        this.beer = this.physics.add.sprite(600, 400, 'chips');
+
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
     }
