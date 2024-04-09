@@ -86,11 +86,11 @@ class Boot extends Phaser.Scene {
             { name: 'coyosheep', action: 'right', start: 4, end: 7, repeat: -1 },
             { name: 'coyote', action: 'left', start: 0, end: 3, repeat: -1 },
             { name: 'coyote', action: 'right', start: 4, end: 7, repeat: -1 },
-            { name: 'mirror', action: 'full', start: 0, end: 0, repeat: -1 },
-            { name: 'mirror', action: 'cracked', start: 1, end: 1, repeat: -1 },
-            { name: 'mirror', action: 'breaking', start: 2, end: 2, repeat: -1 },
-            { name: 'mirror', action: 'falling', start: 3, end: 3, repeat: -1 },
-            { name: 'mirror', action: 'broken', start: 4, end: 4, repeat: -1 },
+            { name: 'mirror', action: 'full', start: 0, end: 0, repeat: 0 },
+            { name: 'mirror', action: 'cracked', start: 1, end: 1, repeat: 0 },
+            { name: 'mirror', action: 'breaking', start: 2, end: 2, repeat: 0 },
+            { name: 'mirror', action: 'falling', start: 3, end: 3, repeat: 0 },
+            { name: 'mirror', action: 'broken', start: 4, end: 4, repeat: 0 },
         ]
             // Rather than having hard coded words here, the assets from above are called in the right places.
             .forEach(animation => this.anims.create({
