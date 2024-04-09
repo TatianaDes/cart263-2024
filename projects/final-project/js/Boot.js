@@ -42,6 +42,11 @@ class Boot extends Phaser.Scene {
         // Creating objects for the Bargaining scene.
         this.load.image('beer', 'assets/images/beer.png');
         this.load.image('chips', 'assets/images/chips.png');
+        this.load.spritesheet('mirror', 'assets/images/mirror.png', {
+            frameWidth: 165,
+            frameHeight: 171,
+            endFrame: 4,
+        });
 
         // Loads the start and start over buttons for the title and ending scenes.
         this.load.image('start', 'assets/images/start.png');
@@ -81,6 +86,11 @@ class Boot extends Phaser.Scene {
             { name: 'coyosheep', action: 'right', start: 4, end: 7, repeat: -1 },
             { name: 'coyote', action: 'left', start: 0, end: 3, repeat: -1 },
             { name: 'coyote', action: 'right', start: 4, end: 7, repeat: -1 },
+            { name: 'mirror', action: 'full', start: 0, end: 0, repeat: -1 },
+            { name: 'mirror', action: 'cracked', start: 1, end: 1, repeat: -1 },
+            { name: 'mirror', action: 'breaking', start: 2, end: 2, repeat: -1 },
+            { name: 'mirror', action: 'falling', start: 3, end: 3, repeat: -1 },
+            { name: 'mirror', action: 'broken', start: 4, end: 4, repeat: -1 },
         ]
             // Rather than having hard coded words here, the assets from above are called in the right places.
             .forEach(animation => this.anims.create({

@@ -27,10 +27,13 @@ class Bargaining extends Phaser.Scene {
         this.coyosheep = this.physics.add.sprite(785, 585, 'coyosheep');
 
         // Creates the beer sprite in the Bargaining scene.
-        this.beer = this.physics.add.sprite(400, 300, 'beer');
+        this.beer = this.physics.add.sprite(200, 400, 'beer');
 
         // Creates the beer sprite in the Bargaining scene.
-        this.beer = this.physics.add.sprite(600, 400, 'chips');
+        this.beer = this.physics.add.sprite(600, 500, 'chips');
+
+        // Creating the mirror sprite and its initial position.
+        this.mirror = this.physics.add.sprite(400, 100, 'mirror');
 
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
