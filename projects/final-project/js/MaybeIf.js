@@ -32,7 +32,7 @@ class MaybeIf extends Phaser.Scene {
 
         // Changes the scene from ForNothing to Anger by clicking on the button.
         container.on('pointerdown', () => {
-            this.scene.start('anger');
+            this.scene.start('bargaining');
         });
     }
 

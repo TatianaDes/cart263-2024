@@ -25,7 +25,7 @@ class Bargaining extends Phaser.Scene {
         this.sheepBoarder();
 
         // Creating the coyosheep sprite and its initial position.
-        this.coyosheep = this.physics.add.sprite(785, 585, 'coyosheep');
+        this.coyosheep = this.physics.add.sprite(30, 100, 'coyosheep');
 
         // Creates the beer sprite in the Bargaining scene.
         this.beer = this.physics.add.sprite(200, 400, 'beer');
@@ -76,6 +76,7 @@ class Bargaining extends Phaser.Scene {
                 this.mirrorStage++;
             }
             else if (this.mirrorStage >= allStages.length) {
+                this.mirrorStage = 0;
                 this.scene.start('maybeIf');
             }
         });
@@ -104,6 +105,7 @@ class Bargaining extends Phaser.Scene {
                 this.mirrorStage++;
             }
             else if (this.mirrorStage >= allStages.length) {
+                this.mirrorStage = 0;
                 this.scene.start('maybeIf');
             }
         });
@@ -188,10 +190,9 @@ class Bargaining extends Phaser.Scene {
     coyosheepMovement() {
         // Allows for the coyosheep to run away to the right when the sheep gets near.
         let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
-        if (d < 90) {
+        if (d < 70) {
             this.coyosheep.isPacing = false;
             this.coyosheep.setVelocity(300, 0);
-            this.scene.start('forNothing');
         }
 
         // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
