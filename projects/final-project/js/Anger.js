@@ -75,7 +75,7 @@ class Anger extends Phaser.Scene {
                 // Creates the butterfly sprite in the Anger scene.
                 const butterfly = this.physics.add.sprite(this.sheep.x, this.sheep.y, 'butterfly');
         // Adding velocity to the butterfly movement and making it random each time the scene starts.
-        butterfly.setVelocity(0, 500);
+        butterfly.setVelocity(Phaser.Math.Between(-500, 500), 500);
             }
     }
 
