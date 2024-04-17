@@ -26,7 +26,15 @@ class Depression extends Phaser.Scene {
         this.sheepBoarder();
 
         // Creating the coyosheep sprite and its initial position.
-        this.coyosheep = this.physics.add.sprite(20, 100, 'coyosheep');
+        this.coyosheep = this.physics.add.sprite(80, 180, 'coyosheep');
+
+        // Creates the bed sprite in the Depression scene.
+        this.bed = this.physics.add.sprite(110, 200, 'bed');
+        // Adding a collider between the sheep and the butterfly.
+        this.physics.add.collider(this.sheep, this.bed);
+        //    Making the mirror immovable.
+        this.bed.setImmovable(true);
+
 
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
