@@ -158,7 +158,7 @@ class Denial extends Phaser.Scene {
         }
         // Makes it so that if nothing that was said above is happening, then plays the animation for both the idle-left and idle-right.
         else {
-            this.sheep.anims.play('sheepidle-' + this.sheepOrientation);
+            this.sheep.anims.play('sheepidle-' + this.sheepOrientation, true);
         }
 
         // Sets it so the velocity is towards the sheep sprite.

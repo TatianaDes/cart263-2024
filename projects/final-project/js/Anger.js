@@ -72,11 +72,11 @@ class Anger extends Phaser.Scene {
 
     sheepShoot() {
         if (this.input.keyboard.checkDown(this.cursors.space, 300)) {
-                // Creates the butterfly sprite in the Anger scene.
-                const butterfly = this.physics.add.sprite(this.sheep.x, this.sheep.y, 'butterfly');
-        // Adding velocity to the butterfly movement and making it random each time the scene starts.
-        butterfly.setVelocity(Phaser.Math.Between(-500, 500), 500);
-            }
+            // Creates the butterfly sprite in the Anger scene.
+            const butterfly = this.physics.add.sprite(this.sheep.x, this.sheep.y, 'butterfly');
+            // Adding velocity to the butterfly movement and making it random each time the scene starts.
+            butterfly.setVelocity(Phaser.Math.Between(-500, 500), 500);
+        }
     }
 
     // Creates the movement of the sheep and its animations.
@@ -119,7 +119,7 @@ class Anger extends Phaser.Scene {
         }
         // Makes it so that if nothing that was said above is happening, then plays the animation for both the idle-left and idle-right.
         else {
-            this.sheep.anims.play('sheepidle-' + this.sheepOrientation);
+            this.sheep.anims.play('sheepidle-' + this.sheepOrientation, true);
         }
 
         // Sets it so the velocity is towards the sheep sprite.
