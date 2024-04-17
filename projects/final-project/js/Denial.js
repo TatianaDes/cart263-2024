@@ -204,7 +204,7 @@ class Denial extends Phaser.Scene {
         if (this.sheep.x < 0) {
             this.scene.start('depression', {
                 sheep: {
-                    x: this.sheep.x,
+                    x: 50,
                     y: this.sheep.y
                 }
             });
