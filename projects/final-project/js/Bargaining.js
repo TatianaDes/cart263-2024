@@ -37,11 +37,9 @@ class Bargaining extends Phaser.Scene {
         // Creating the mirror sprite and its initial position.
         this.mirror = this.physics.add.sprite(400, 100, 'mirror');
 
-        // Calls the beerActivity() function.
-        this.beerActivity();
-
-        // Calls the beerActivity() function.
-        this.chipsActivity();
+        // Calls the objectActivity() function.
+        this.objectActivity(this.beer, this.chips);
+        this.objectActivity(this.chips, this.beer);
 
         // Calls the beerActivity() function.
         this.mirrorAnimation();
@@ -64,13 +62,13 @@ class Bargaining extends Phaser.Scene {
     }
 
     // Creates the function that allows all the interactions and movements of the butterfly.
-    beerActivity() {
+    objectActivity(object1, object2) {
         // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.sheep, this.beer);
+        this.physics.add.collider(this.sheep, object1);
         // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.beer, this.chips);
+        this.physics.add.collider(object1, object2);
         // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.beer, this.mirror, (beer, mirror) => {
+        this.physics.add.collider(object1, this.mirror, (theObject, mirror) => {
             let allStages = ['mirrorcracked', 'mirrorbreaking', 'mirrorfalling', 'mirrorbroken'];
             if (this.mirrorStage < allStages.length) {
                 this.mirror.anims.play(`${allStages[this.mirrorStage]}`);
@@ -82,44 +80,15 @@ class Bargaining extends Phaser.Scene {
             }
         });
         // Adding a bounce to the butterfly.
-        this.beer.setBounce(1);
+        object1.setBounce(1);
         // Adding a drag to the butterfly.
-        this.beer.setDrag(1);
+        object1.setDrag(1);
         // Creates the wall boundary for the butterfly.
-        this.beer.setCollideWorldBounds(true);
+        object1.setCollideWorldBounds(true);
         // Adding velocity to the butterfly movement and making it random each time the scene starts.
-        this.beer.setVelocity(Phaser.Math.Between(5, 300), Phaser.Math.Between(5, 300));
+        object1.setVelocity(Phaser.Math.Between(5, 300), Phaser.Math.Between(5, 300));
         // Puts the flower in random positions each time.
-        Phaser.Actions.RandomRectangle([this.beer], this.physics.world.bounds);
-    }
-
-    chipsActivity() {
-        // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.sheep, this.chips);
-        // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.chips, this.beer);
-        // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.chips, this.mirror, (chips, mirror) => {
-            let allStages = ['mirrorcracked', 'mirrorbreaking', 'mirrorfalling', 'mirrorbroken'];
-            if (this.mirrorStage < allStages.length) {
-                this.mirror.anims.play(`${allStages[this.mirrorStage]}`);
-                this.mirrorStage++;
-            }
-            else if (this.mirrorStage >= allStages.length) {
-                this.mirrorStage = 0;
-                this.scene.start('maybeIf');
-            }
-        });
-        // Adding a bounce to the butterfly.
-        this.chips.setBounce(1);
-        // Adding a drag to the butterfly.
-        this.chips.setDrag(1);
-        // Creates the wall boundary for the butterfly.
-        this.chips.setCollideWorldBounds(true);
-        // Adding velocity to the butterfly movement and making it random each time the scene starts.
-        this.chips.setVelocity(Phaser.Math.Between(5, 300), Phaser.Math.Between(5, 300));
-        // Puts the flower in random positions each time.
-        Phaser.Actions.RandomRectangle([this.chips], this.physics.world.bounds);
+        Phaser.Actions.RandomRectangle([object1], this.physics.world.bounds);
     }
 
     mirrorAnimation() {
