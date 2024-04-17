@@ -120,17 +120,17 @@ class Bargaining extends Phaser.Scene {
 
         // Create all the velocities for the left, right, up, and down keys being pressed.
         if (left.isDown) {
-            velocityX = -100;
+            velocityX = -150;
         }
         else if (right.isDown) {
-            velocityX = 100;
+            velocityX = 150;
         }
 
         if (up.isDown) {
-            velocityY = -100;
+            velocityY = -150;
         }
         else if (down.isDown) {
-            velocityY = 100;
+            velocityY = 150;
         }
 
         // Makes it so that if all the velocities on the x-axis are less than zero the left animation plays.
