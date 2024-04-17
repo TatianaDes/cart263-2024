@@ -7,7 +7,9 @@ class Depression extends Phaser.Scene {
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
         this.coyosheepOrientation = 'right';
-        this.mirrorStage = 0;
+
+        // Creates the variable lastTrees and makes it record the amount of live time it has taken for them to be created.
+        this.lastRain = new Date().getTime();
     }
 
     // Creates the concrete data that stores all the previous knowledge of the positions.
@@ -45,6 +47,9 @@ class Depression extends Phaser.Scene {
 
         // Calls the sheepMovement() function.
         this.sheepMovement();
+
+        // Calls the treesFalling() function.
+        this.rainFalling();
 
         // Calls the coyosheepMovement() function.
         this.coyosheepMovement();
@@ -109,6 +114,30 @@ class Depression extends Phaser.Scene {
 
         // Sets it so the velocity is towards the sheep sprite.
         this.sheep.setVelocity(velocityX, velocityY);
+    }
+
+    // Creates the trees that fall as the time update and changes and collides with the sheep.
+    rainFalling() {
+        // Creates a constant for the function new Date().getTime() which is a function already understood by JavaScript to get the current live time.
+        const currentTime = new Date().getTime();
+        // Creates an if statement that measure if the current live time minus the last set of trees that fell are less than 1 second in between each other, then new trees will fall.
+        if (currentTime - this.lastRain > 1000) {
+            // Calls the this.lastRain information from the constructor.
+            this.lastRain = new Date().getTime();
+            // Create the tree image and make it a group.
+            this.tree = this.physics.add.group({
+                // Key term being used.
+                key: 'rain',
+                // How many are being created.
+                quantity: 8,
+                // How quickly the gravity will make the object fall.
+                gravityY: 100,
+                // How heavy the object will be when falling and colliding with objects.
+                mass: 20
+            });
+            // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
+            Phaser.Actions.RandomRectangle(this.tree.getChildren(), { x: 0, y: 0, width: 800, height: 50 });
+        }
     }
 
     // Creates all the animation code and movement of the coyosheep.
