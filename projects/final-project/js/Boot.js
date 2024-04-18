@@ -58,6 +58,13 @@ class Boot extends Phaser.Scene {
             endFrame: 4,
         });
 
+        // Creating objects for the Acceptance scene.
+        // Loads the sheep sprite.
+        this.load.spritesheet('friends', 'assets/images/friends.png', {
+            frameWidth: 38,
+            frameHeight: 30,
+            endFrame: 7,
+        });
 
         // Loads the start and start over buttons for the title and ending scenes.
         this.load.image('start', 'assets/images/start.png');
@@ -109,6 +116,10 @@ class Boot extends Phaser.Scene {
             { name: 'bin', action: 'full', start: 2, end: 2, repeat: 0 },
             { name: 'bin', action: 'overflow', start: 3, end: 3, repeat: 0 },
             { name: 'bin', action: 'floor', start: 4, end: 4, repeat: 0 },
+            { name: 'friends', action: 'idle-left', start: 0, end: 0, repeat: 0 },
+            { name: 'friends', action: 'left', start: 0, end: 3, repeat: -1 },
+            { name: 'friends', action: 'idle-right', start: 4, end: 4, repeat: 0 },
+            { name: 'friends', action: 'right', start: 4, end: 7, repeat: -1 },
         ]
             // Rather than having hard coded words here, the assets from above are called in the right places.
             .forEach(animation => this.anims.create({
