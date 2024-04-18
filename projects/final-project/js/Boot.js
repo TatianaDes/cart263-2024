@@ -52,6 +52,12 @@ class Boot extends Phaser.Scene {
         this.load.image('bed', 'assets/images/bed.png');
         this.load.image('rain', 'assets/images/rain.png');
         this.load.image('tissue', 'assets/images/tissue.png');
+        this.load.spritesheet('bin', 'assets/images/bin.png', {
+            frameWidth: 70,
+            frameHeight: 81,
+            endFrame: 4,
+        });
+
 
         // Loads the start and start over buttons for the title and ending scenes.
         this.load.image('start', 'assets/images/start.png');
@@ -98,6 +104,11 @@ class Boot extends Phaser.Scene {
             { name: 'mirror', action: 'breaking', start: 2, end: 2, repeat: 0 },
             { name: 'mirror', action: 'falling', start: 3, end: 3, repeat: 0 },
             { name: 'mirror', action: 'broken', start: 4, end: 4, repeat: 0 },
+            { name: 'bin', action: 'empty', start: 0, end: 0, repeat: 0 },
+            { name: 'bin', action: 'filling', start: 1, end: 1, repeat: 0 },
+            { name: 'bin', action: 'full', start: 2, end: 2, repeat: 0 },
+            { name: 'bin', action: 'overflow', start: 3, end: 3, repeat: 0 },
+            { name: 'bin', action: 'floor', start: 4, end: 4, repeat: 0 },
         ]
             // Rather than having hard coded words here, the assets from above are called in the right places.
             .forEach(animation => this.anims.create({

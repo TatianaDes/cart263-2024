@@ -92,7 +92,7 @@ class Bargaining extends Phaser.Scene {
     }
 
     mirrorAnimation() {
-        //    Making the mirror immovable.
+        // Making the mirror immovable.
         this.mirror.setImmovable(true);
         // Adding a collider between the sheep and the butterfly.
         this.physics.add.collider(this.sheep, this.mirror);

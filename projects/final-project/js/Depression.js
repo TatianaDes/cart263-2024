@@ -7,6 +7,7 @@ class Depression extends Phaser.Scene {
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
         this.coyosheepOrientation = 'right';
+        this.binStage = 0;
 
         // Creates the variable lastTrees and makes it record the amount of live time it has taken for them to be created.
         this.lastRain = new Date().getTime();
@@ -33,8 +34,17 @@ class Depression extends Phaser.Scene {
         // Calls the sheepBoarder() function.
         this.sheepBoarder();
 
+        // Creating the bin sprite and its initial position.
+        this.bin = this.physics.add.sprite(50, 250, 'bin');
+
         // Calls the tissueLaying() function.
         this.tissueLaying();
+
+        // Calls the tissueActivity() function.
+        this.tissueActivity();
+
+        // Calls the binAnimation() function.
+        this.binAnimation();
 
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -74,6 +84,30 @@ class Depression extends Phaser.Scene {
         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
         this.physics.add.collider(this.sheep, this.tissue);
         this.physics.add.collider(this.tissue, this.tissue);
+    }
+
+    // Creates the function that allows all the interactions and movements of the butterfly.
+    tissueActivity() {
+        // Adding a collider between the sheep and the butterfly.
+        this.physics.add.collider(this.sheep, this.tissue);
+        // Adding a collider between the sheep and the butterfly.
+        this.physics.add.collider(this.tissue, this.bin, () => {
+            let allStages = ['binfilling', 'binfull', 'binoverflow', 'binfloor'];
+            if (this.binStage < allStages.length) {
+                this.bin.anims.play(`${allStages[this.binStage]}`);
+                this.binStage++;
+            }
+            else if (this.binStage >= allStages.length) {
+                this.binStage = 0;
+            }
+        });
+    }
+
+    binAnimation() {
+        // Making the bin immovable.
+        this.bin.setImmovable(true);
+        // Adding a collider between the sheep and the butterfly.
+        this.physics.add.collider(this.sheep, this.bin);
     }
 
     // Creates the function that calls the canvas boarder to work on the sheep.
