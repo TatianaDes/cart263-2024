@@ -51,6 +51,7 @@ class Boot extends Phaser.Scene {
         // Creating objects for the Depression scene.
         this.load.image('bed', 'assets/images/bed.png');
         this.load.image('rain', 'assets/images/rain.png');
+        this.load.image('tissue', 'assets/images/tissue.png');
 
         // Loads the start and start over buttons for the title and ending scenes.
         this.load.image('start', 'assets/images/start.png');

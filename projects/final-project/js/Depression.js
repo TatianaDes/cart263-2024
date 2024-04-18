@@ -22,21 +22,19 @@ class Depression extends Phaser.Scene {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#1e5f78');
 
-        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
-        this.sheep = this.physics.add.sprite(750, this.data.sheep.y, 'sheep');
-        // Calls the sheepBoarder() function.
-        this.sheepBoarder();
-
         // Creating the coyosheep sprite and its initial position.
         this.coyosheep = this.physics.add.sprite(80, 180, 'coyosheep');
 
         // Creates the bed sprite in the Depression scene.
         this.bed = this.physics.add.sprite(110, 200, 'bed');
-        // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.sheep, this.bed);
-        //    Making the mirror immovable.
-        this.bed.setImmovable(true);
 
+        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
+        this.sheep = this.physics.add.sprite(750, this.data.sheep.y, 'sheep');
+        // Calls the sheepBoarder() function.
+        this.sheepBoarder();
+
+        // Calls the tissueLaying() function.
+        this.tissueLaying();
 
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -44,7 +42,6 @@ class Depression extends Phaser.Scene {
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-
         // Calls the sheepMovement() function.
         this.sheepMovement();
 
@@ -56,6 +53,27 @@ class Depression extends Phaser.Scene {
 
         // Calls the checkEnding() function.
         this.checkEnding();
+    }
+
+    // Creates the trees that fall as the time update and changes and collides with the sheep.
+    tissueLaying() {
+        // Create the tree image and make it a group.
+        this.tissue = this.physics.add.group({
+            // Key term being used.
+            key: 'tissue',
+            // How many are being created.
+            quantity: 8,
+            // How heavy the object will be when falling and colliding with objects.
+            mass: 100,
+
+            collideWorldBounds: true
+        });
+        // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
+        Phaser.Actions.RandomRectangle(this.tissue.getChildren(), { x: 50, y: 50, width: 800, height: 200 });
+
+        // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
+        this.physics.add.collider(this.sheep, this.tissue);
+        this.physics.add.collider(this.tissue, this.tissue);
     }
 
     // Creates the function that calls the canvas boarder to work on the sheep.
@@ -125,7 +143,7 @@ class Depression extends Phaser.Scene {
             // Calls the this.lastRain information from the constructor.
             this.lastRain = new Date().getTime();
             // Create the tree image and make it a group.
-            this.tree = this.physics.add.group({
+            this.rain = this.physics.add.group({
                 // Key term being used.
                 key: 'rain',
                 // How many are being created.
@@ -136,7 +154,11 @@ class Depression extends Phaser.Scene {
                 mass: 20
             });
             // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
-            Phaser.Actions.RandomRectangle(this.tree.getChildren(), { x: 0, y: 0, width: 800, height: 50 });
+            Phaser.Actions.RandomRectangle(this.rain.getChildren(), { x: 0, y: 0, width: 800, height: 50 });
+
+            this.rain.children.each((rain) => {
+                this.rain.setAlpha(0.6);
+            });
         }
     }
 
