@@ -89,8 +89,6 @@ class Depression extends Phaser.Scene {
     // Creates the function that allows all the interactions and movements of the butterfly.
     tissueActivity() {
         // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.sheep, this.tissue);
-        // Adding a collider between the sheep and the butterfly.
         this.physics.add.collider(this.tissue, this.bin, () => {
             let allStages = ['binfilling', 'binfull', 'binoverflow', 'binfloor'];
             if (this.binStage < allStages.length) {
@@ -99,6 +97,7 @@ class Depression extends Phaser.Scene {
             }
             else if (this.binStage >= allStages.length) {
                 this.binStage = 0;
+                this.scene.start('missing');
             }
         });
     }
