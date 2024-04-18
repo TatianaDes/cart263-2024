@@ -156,9 +156,7 @@ class Depression extends Phaser.Scene {
             // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
             Phaser.Actions.RandomRectangle(this.rain.getChildren(), { x: 0, y: 0, width: 800, height: 50 });
 
-            this.rain.children.each((rain) => {
-                this.rain.setAlpha(0.6);
-            });
+            Phaser.Actions.SetAlpha(this.rain.getChildren(), 0.6);
         }
     }
 
