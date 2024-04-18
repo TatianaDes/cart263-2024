@@ -100,6 +100,7 @@ class Bargaining extends Phaser.Scene {
 
     // Creates the function that calls the canvas boarder to work on the sheep.
     sheepBoarder() {
+
         this.sheep.setMass(5);
         // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and others that can.
         const smallBounds = new Phaser.Geom.Rectangle(0, 0, this.game.canvas.width, this.game.canvas.height + 100);
