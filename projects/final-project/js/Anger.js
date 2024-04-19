@@ -39,8 +39,9 @@ class Anger extends Phaser.Scene {
 
         // Creates the owl sprite in the Anger scene.
         this.owl = this.physics.add.sprite(700, 250, 'owl');
-        // Sets the opacity of the image to 0.6.
-        this.owl.setAlpha(0.6);
+        this.owl.anims.play('owlclose', true);
+
+        this.owlAnimation();
 
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -71,12 +72,20 @@ class Anger extends Phaser.Scene {
         this.sheep.setCollideWorldBounds(true);
     }
 
+    owlAnimation() {
+        // Sets the opacity of the image to 0.6.
+        this.owl.setAlpha(0.6);
+
+
+    }
+
     sheepShoot() {
         if (this.input.keyboard.checkDown(this.cursors.space, 300)) {
             // Creates the butterfly sprite in the Anger scene.
             const butterfly = this.physics.add.sprite(this.sheep.x, this.sheep.y, 'butterfly');
             // Adding velocity to the butterfly movement and making it random each time the scene starts.
             butterfly.setVelocity(Phaser.Math.Between(-500, 500), 500);
+            this.owl.anims.play('owlopen', true);
         }
     }
 

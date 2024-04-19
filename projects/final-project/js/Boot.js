@@ -36,8 +36,12 @@ class Boot extends Phaser.Scene {
         // Creating objects for the Anger scene.
         this.load.image('jar', 'assets/images/jar.png');
         this.load.image('scale', 'assets/images/scale.png');
-        this.load.image('owl', 'assets/images/owl.png');
         this.load.image('butterfly', 'assets/images/butterfly.png');
+        this.load.spritesheet('owl', 'assets/images/owl.png', {
+            frameWidth: 58,
+            frameHeight: 66,
+            endFrame: 1,
+        });
 
         // Creating objects for the Bargaining scene.
         this.load.image('beer', 'assets/images/beer.png');
@@ -100,22 +104,30 @@ class Boot extends Phaser.Scene {
             { name: 'sheep', action: 'left', start: 0, end: 3, repeat: -1 },
             { name: 'sheep', action: 'idle-right', start: 4, end: 4, repeat: 0 },
             { name: 'sheep', action: 'right', start: 4, end: 7, repeat: -1 },
+
             { name: 'coyosheep', action: 'idle-left', start: 0, end: 0, repeat: 0 },
             { name: 'coyosheep', action: 'left', start: 0, end: 3, repeat: -1 },
             { name: 'coyosheep', action: 'idle-right', start: 4, end: 4, repeat: 0 },
             { name: 'coyosheep', action: 'right', start: 4, end: 7, repeat: -1 },
+
             { name: 'coyote', action: 'left', start: 0, end: 3, repeat: -1 },
             { name: 'coyote', action: 'right', start: 4, end: 7, repeat: -1 },
+
+            { name: 'owl', action: 'close', start: 1, end: 1, repeat: 0 },
+            { name: 'owl', action: 'open', start: 0, end: 0, repeat: 0 },
+
             { name: 'mirror', action: 'full', start: 0, end: 0, repeat: 0 },
             { name: 'mirror', action: 'cracked', start: 1, end: 1, repeat: 0 },
             { name: 'mirror', action: 'breaking', start: 2, end: 2, repeat: 0 },
             { name: 'mirror', action: 'falling', start: 3, end: 3, repeat: 0 },
             { name: 'mirror', action: 'broken', start: 4, end: 4, repeat: 0 },
+
             { name: 'bin', action: 'empty', start: 0, end: 0, repeat: 0 },
             { name: 'bin', action: 'filling', start: 1, end: 1, repeat: 0 },
             { name: 'bin', action: 'full', start: 2, end: 2, repeat: 0 },
             { name: 'bin', action: 'overflow', start: 3, end: 3, repeat: 0 },
             { name: 'bin', action: 'floor', start: 4, end: 4, repeat: 0 },
+
             { name: 'friends', action: 'idle-left', start: 0, end: 0, repeat: 0 },
             { name: 'friends', action: 'left', start: 0, end: 3, repeat: -1 },
             { name: 'friends', action: 'idle-right', start: 4, end: 4, repeat: 0 },
