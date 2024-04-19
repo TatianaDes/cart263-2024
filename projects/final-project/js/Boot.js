@@ -115,7 +115,9 @@ class Boot extends Phaser.Scene {
             { name: 'coyosheep', action: 'idle-right', start: 4, end: 4, repeat: 0 },
             { name: 'coyosheep', action: 'right', start: 4, end: 7, repeat: -1 },
 
+            { name: 'coyote', action: 'idle-left', start: 0, end: 0, repeat: 0 },
             { name: 'coyote', action: 'left', start: 0, end: 3, repeat: -1 },
+            { name: 'coyote', action: 'idle-right', start: 4, end: 4, repeat: 0 },
             { name: 'coyote', action: 'right', start: 4, end: 7, repeat: -1 },
 
             { name: 'flower', action: 'seed', start: 0, end: 0, repeat: 0 },

@@ -7,6 +7,7 @@ class Acceptance extends Phaser.Scene {
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
         this.coyosheepOrientation = 'right';
+        this.coyoteOrientation = 'right';
     }
 
     // Creates the concrete data that stores all the previous knowledge of the positions.
@@ -130,20 +131,19 @@ class Acceptance extends Phaser.Scene {
 
     // Creates all the animation code and movement of the coyosheep.
     coyosheepMovement() {
-        // Allows for the coyosheep to run away to the right when the sheep gets near.
-        let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
-        if (d < 70) {
-            this.coyosheep.isPacing = false;
-            this.coyosheep.setVelocity(300, 0);
-        }
+        // Adding a collider between the sheep and the butterfly.
+        this.physics.add.collider(this.sheep, this.coyosheep, () => {
+            this.coyosheep.destroy();
+            this.coyote = this.physics.add.sprite(440, 100, 'coyote');
+        });
 
-        // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
-        if (this.coyosheep.body.velocity.x === 0) {
-            this.coyosheep.anims.play('coyosheepidle-' + this.coyosheepOrientation, true);
-        }
-        else if (this.coyosheep.body.velocity.x > 0) {
-            this.coyosheep.anims.play('coyosheepright', true);
-        }
+        // // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
+        // if (this.coyote.body.velocity.x === 0) {
+        //     this.coyote.anims.play('coyoteidle-' + this.coyoteOrientation, true);
+        // }
+        // else if (this.coyote.body.velocity.x > 0) {
+        //     this.coyote.anims.play('coyoteright', true);
+        // }
     }
 
     // Creates the ending for CannotBeGone.
