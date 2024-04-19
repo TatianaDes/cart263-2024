@@ -32,6 +32,8 @@ class Acceptance extends Phaser.Scene {
         // Calls the friendCrowd() function.
         this.friendCrowd();
 
+        this.friendCollision();
+
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
     }
@@ -53,6 +55,10 @@ class Acceptance extends Phaser.Scene {
     sheepBoarder() {
 
         this.sheep.setMass(5);
+
+        this.physics.add.collider(this.sheep, this.coyosheep);
+        this.physics.add.collider(this.sheep, this.coyote);
+
         // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and others that can.
         const smallBounds = new Phaser.Geom.Rectangle(-100, 0, this.game.canvas.width + 100, this.game.canvas.height);
 
@@ -68,18 +74,25 @@ class Acceptance extends Phaser.Scene {
             // Key term being used.
             key: 'friends',
             // How many are being created.
-            quantity: 10,
+            quantity: 50,
 
             collideWorldBounds: true,
 
             immovable: true
         });
         // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
-        Phaser.Actions.RandomRectangle(this.friends.getChildren(), { x: 0, y: 400, width: 770, height: 570 });
+        Phaser.Actions.RandomRectangle(this.friends.getChildren(), { x: 0, y: 400, width: 770, height: 400 });
 
         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
         this.physics.add.collider(this.sheep, this.friends);
         this.physics.add.collider(this.friends, this.friends);
+    }
+
+    friendCollision() {
+        // Adding a collider between the sheep and the butterfly.
+        this.physics.add.collider(this.sheep, this.friends, () => {
+            this.scene.start('beOkay');
+        });
     }
 
     // Creates the movement of the sheep and its animations.
