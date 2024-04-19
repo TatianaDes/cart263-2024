@@ -184,7 +184,7 @@ class Denial extends Phaser.Scene {
         // Making the mirror immovable.
         this.flower.setImmovable(true);
         // Puts the flower in random positions each time.
-        Phaser.Actions.RandomRectangle([this.flower], this.physics.world.bounds);
+        Phaser.Actions.RandomRectangle([this.flower], { x: 0, y: 0, width: 770, height: 570 });
     }
 
     // Creates the next scene for when the sheep falls off the bottom of the screen.
