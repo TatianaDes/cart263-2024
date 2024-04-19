@@ -6,6 +6,7 @@ class Denial extends Phaser.Scene {
         })
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
+        this.flowerStage = 0;
 
         // Creates the variable lastTrees and makes it record the amount of live time it has taken for them to be created.
         this.lastTrees = new Date().getTime();
@@ -168,14 +169,22 @@ class Denial extends Phaser.Scene {
 
     // Creates the movement of the flower when the sheep collides with it.
     flowerCollide() {
-        // Sets the bounce of the flower.
-        this.flower.setBounce(0.5, 0.5);
-        // Sets how far the flower will drag.
-        this.flower.setDrag(50, 50);
+        // Adding a collider between the sheep and the butterfly.
+        this.physics.add.collider(this.sheep, this.flower, () => {
+            let allStages = ['flowerstem', 'flowerbudding', 'flowerblooming', 'flowerbloomed'];
+            if (this.flowerStage < allStages.length) {
+                this.flower.anims.play(allStages[this.flowerStage]);
+                this.flowerStage++;
+            }
+            else if (this.flowerStage >= allStages.length) {
+                this.flowerStage = 0;
+                this.scene.start('cannotBeGone');
+            }
+        });
+        // Making the mirror immovable.
+        this.flower.setImmovable(true);
         // Puts the flower in random positions each time.
         Phaser.Actions.RandomRectangle([this.flower], this.physics.world.bounds);
-        // Allows the sheep to collide with the flower.
-        this.physics.add.collider(this.sheep, this.flower);
     }
 
     // Creates the next scene for when the sheep falls off the bottom of the screen.
@@ -223,11 +232,6 @@ class Denial extends Phaser.Scene {
                     y: this.sheep.y
                 }
             });
-        }
-
-        // Creates the ending for when the flower goes off the canvas.
-        if (this.flower.x < 0 || this.flower.x > this.game.canvas.width || this.flower.y < 0 || this.flower.y > this.game.canvas.height) {
-            this.scene.start('cannotBeGone');
         }
     }
 }

@@ -31,7 +31,12 @@ class Boot extends Phaser.Scene {
         });
 
         // Loads the flower in the Denial scene.
-        this.load.image('flower', 'assets/images/flower.png');
+        this.load.spritesheet('flower', 'assets/images/flower.png', {
+            frameWidth: 19,
+            frameHeight: 30,
+            endFrame: 4,
+        });
+
 
         // Creating objects for the Anger scene.
         this.load.image('jar', 'assets/images/jar.png');
@@ -112,6 +117,12 @@ class Boot extends Phaser.Scene {
 
             { name: 'coyote', action: 'left', start: 0, end: 3, repeat: -1 },
             { name: 'coyote', action: 'right', start: 4, end: 7, repeat: -1 },
+
+            { name: 'flower', action: 'seed', start: 0, end: 0, repeat: 0 },
+            { name: 'flower', action: 'stem', start: 1, end: 1, repeat: 0 },
+            { name: 'flower', action: 'budding', start: 2, end: 2, repeat: 0 },
+            { name: 'flower', action: 'blooming', start: 3, end: 3, repeat: 0 },
+            { name: 'flower', action: 'bloomed', start: 4, end: 4, repeat: 0 },
 
             { name: 'owl', action: 'close', start: 1, end: 1, repeat: 0 },
             { name: 'owl', action: 'open', start: 0, end: 0, repeat: 0 },
