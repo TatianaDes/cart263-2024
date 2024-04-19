@@ -31,6 +31,7 @@ class Depression extends Phaser.Scene {
 
         // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
         this.sheep = this.physics.add.sprite(750, this.data.sheep.y, 'sheep');
+        this.sheepOrientation = this.data.sheepOrientation;
         // Calls the sheepBoarder() function.
         this.sheepBoarder();
 
@@ -95,11 +96,12 @@ class Depression extends Phaser.Scene {
     // Creates the function that allows all the interactions and movements of the butterfly.
     tissueActivity() {
         // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.tissue, this.bin, () => {
+        this.physics.add.collider(this.tissue, this.bin, (bin, tissue) => {
             let allStages = ['binfilling', 'binfull', 'binoverflow', 'binfloor'];
             if (this.binStage < allStages.length) {
-                this.bin.anims.play(`${allStages[this.binStage]}`);
+                this.bin.anims.play(allStages[this.binStage]);
                 this.binStage++;
+                tissue.destroy();
             }
             else if (this.binStage >= allStages.length) {
                 this.binStage = 0;
@@ -138,17 +140,17 @@ class Depression extends Phaser.Scene {
 
         // Create all the velocities for the left, right, up, and down keys being pressed.
         if (left.isDown) {
-            velocityX = -50;
+            velocityX = -100;
         }
         else if (right.isDown) {
-            velocityX = 50;
+            velocityX = 100;
         }
 
         if (up.isDown) {
-            velocityY = -50;
+            velocityY = -100;
         }
         else if (down.isDown) {
-            velocityY = 50;
+            velocityY = 100;
         }
 
         // Makes it so that if all the velocities on the x-axis are less than zero the left animation plays.
@@ -190,11 +192,14 @@ class Depression extends Phaser.Scene {
                 quantity: 8,
                 // How quickly the gravity will make the object fall.
                 gravityY: 100,
+
+                velocityX: -100,
+
                 // How heavy the object will be when falling and colliding with objects.
                 mass: 20
             });
             // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
-            Phaser.Actions.RandomRectangle(this.rain.getChildren(), { x: 0, y: 0, width: 800, height: 50 });
+            Phaser.Actions.RandomRectangle(this.rain.getChildren(), { x: 0, y: 0, width: 1200, height: 50 });
 
             Phaser.Actions.SetAlpha(this.rain.getChildren(), 0.6);
         }
@@ -224,6 +229,7 @@ class Depression extends Phaser.Scene {
         if (this.sheep.x > this.game.canvas.width) {
             // Calls the previous scene but also sets the position of the sheep to where it left off in this scene.
             this.scene.start('denial', {
+                sheepOrientation: this.sheepOrientation,
                 sheep: {
                     x: 50,
                     y: this.sheep.y

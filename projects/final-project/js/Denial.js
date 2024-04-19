@@ -25,6 +25,7 @@ class Denial extends Phaser.Scene {
         if (this.data && this.data.sheep) {
             // Calls the sheep's x position from the last scene and places the sheep at the bottom of the scene.
             this.sheep = this.physics.add.sprite(this.data.sheep.x, this.data.sheep.y, 'sheep');
+            this.sheepOrientation = this.data.sheepOrientation;
         } else {
             // Creates the initial position of the sheep when the program first starts.
             this.sheep = this.physics.add.sprite(80, 450, 'sheep');
@@ -183,6 +184,7 @@ class Denial extends Phaser.Scene {
         if (this.sheep.y > this.game.canvas.height) {
             this.scene.start('anger', {
                 // Sets the position of the sheep to wherever it was leaving this scene to the next and vice versa.
+                sheepOrientation: this.sheepOrientation,
                 sheep: {
                     x: this.sheep.x,
                     y: 50
@@ -193,6 +195,7 @@ class Denial extends Phaser.Scene {
         // Goes to the next level when the sheep goes off the top of the canvas.
         if (this.sheep.y < 0) {
             this.scene.start('bargaining', {
+                sheepOrientation: this.sheepOrientation,
                 sheep: {
                     x: this.sheep.x,
                     y: 550
@@ -203,6 +206,7 @@ class Denial extends Phaser.Scene {
         // Goes to the next level when the sheep goes off the left of the canvas.
         if (this.sheep.x < 0) {
             this.scene.start('depression', {
+                sheepOrientation: this.sheepOrientation,
                 sheep: {
                     x: 50,
                     y: this.sheep.y
@@ -213,6 +217,7 @@ class Denial extends Phaser.Scene {
         // Goes to the next level when the sheep goes off the right of the canvas.
         if (this.sheep.x > this.game.canvas.width) {
             this.scene.start('acceptance', {
+                sheepOrientation: this.sheepOrientation,
                 sheep: {
                     x: this.sheep.x,
                     y: this.sheep.y

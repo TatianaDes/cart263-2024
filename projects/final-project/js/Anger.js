@@ -20,6 +20,7 @@ class Anger extends Phaser.Scene {
 
         // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
         this.sheep = this.physics.add.sprite(this.data.sheep.x, this.data.sheep.y, 'sheep');
+        this.sheepOrientation = this.data.sheepOrientation;
         // Calls the sheepBoarder() function.
         this.sheepBoarder();
 
@@ -148,6 +149,7 @@ class Anger extends Phaser.Scene {
         if (this.sheep.y < 0) {
             // Calls the previous scene but also sets the position of the sheep to where it left off in this scene.
             this.scene.start('denial', {
+                sheepOrientation: this.sheepOrientation,
                 sheep: {
                     x: this.sheep.x,
                     y: 550

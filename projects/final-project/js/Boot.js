@@ -54,7 +54,7 @@ class Boot extends Phaser.Scene {
         this.load.image('tissue', 'assets/images/tissue.png');
         this.load.spritesheet('bin', 'assets/images/bin.png', {
             frameWidth: 70,
-            frameHeight: 81,
+            frameHeight: 80,
             endFrame: 4,
         });
 

@@ -15,7 +15,7 @@ let config = {
     physics: {
         default: 'arcade'
     },
-    scene: [Boot, Title, Denial, CannotBeGone, Anger, ForNothing, Bargaining, MaybeIf, Depression, Acceptance]
+    scene: [Boot, Title, Denial, CannotBeGone, Anger, ForNothing, Bargaining, MaybeIf, Depression, Missing, Acceptance]
 };
 
 // Creates the new Phaser 3 game with the Phaser 3 library.
