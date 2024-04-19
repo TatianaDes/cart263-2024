@@ -9,13 +9,13 @@ class Missing extends Phaser.Scene {
     // Creates the background colour and all the assets I would like to display on this scene.
     create() {
         // Creates background colour.
-        this.cameras.main.setBackgroundColor('#f3f3f3');
+        this.cameras.main.setBackgroundColor('#000000');
 
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'continueG');
+        const bg = this.add.image(0, 0, 'continueB');
 
         // Creates text with all their different sizes and colours.
-        this.add.text(250, 250, 'The Acceptance Level', { fontFamily: 'Lora', fontSize: 35, color: '#959595' });
+        this.add.text(160, 150, 'I miss you,\nIt feels like there is this void that\nformed after you left.\nThere is a part of me I left with you,\nand while I miss you,\nI miss that person that was so full of love\nand just happy to exist with you.\nI am the one I am missing.\n', { fontFamily: 'Lora', fontSize: 30, color: '#959595' });
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);
@@ -23,7 +23,7 @@ class Missing extends Phaser.Scene {
         container.setInteractive();
 
         container.on('pointerover', () => {
-            bg.setTint(0xdbdbdb);
+            bg.setTint(0x9c9c9c);
         });
 
         container.on('pointerout', () => {
@@ -32,7 +32,7 @@ class Missing extends Phaser.Scene {
 
         // Changes the scene from Acceptance to Denial by clicking on the button.
         container.on('pointerdown', () => {
-            this.scene.start('denial');
+            this.scene.start('depression');
         });
     }
 

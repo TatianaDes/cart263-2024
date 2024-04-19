@@ -73,7 +73,7 @@ class Depression extends Phaser.Scene {
             // Key term being used.
             key: 'tissue',
             // How many are being created.
-            quantity: 8,
+            quantity: 5,
             // How heavy the object will be when falling and colliding with objects.
             mass: 1,
 
@@ -86,7 +86,7 @@ class Depression extends Phaser.Scene {
             collideWorldBounds: true
         });
         // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
-        Phaser.Actions.RandomRectangle(this.tissue.getChildren(), { x: 50, y: 50, width: 800, height: 200 });
+        Phaser.Actions.RandomRectangle(this.tissue.getChildren(), { x: 0, y: 0, width: 770, height: 570 });
 
         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
         this.physics.add.collider(this.sheep, this.tissue);
@@ -140,17 +140,17 @@ class Depression extends Phaser.Scene {
 
         // Create all the velocities for the left, right, up, and down keys being pressed.
         if (left.isDown) {
-            velocityX = -100;
+            velocityX = -50;
         }
         else if (right.isDown) {
-            velocityX = 100;
+            velocityX = 50;
         }
 
         if (up.isDown) {
-            velocityY = -100;
+            velocityY = -50;
         }
         else if (down.isDown) {
-            velocityY = 100;
+            velocityY = 50;
         }
 
         // Makes it so that if all the velocities on the x-axis are less than zero the left animation plays.
@@ -209,7 +209,7 @@ class Depression extends Phaser.Scene {
     coyosheepMovement() {
         // Allows for the coyosheep to run away to the right when the sheep gets near.
         let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
-        if (d < 70) {
+        if (d < 50) {
             this.coyosheep.isPacing = false;
             this.coyosheep.setVelocity(300, 0);
         }

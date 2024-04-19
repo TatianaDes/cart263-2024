@@ -27,7 +27,7 @@ class Bargaining extends Phaser.Scene {
         this.sheepBoarder();
 
         // Creating the coyosheep sprite and its initial position.
-        this.coyosheep = this.physics.add.sprite(20, 100, 'coyosheep');
+        this.coyosheep = this.physics.add.sprite(440, 100, 'coyosheep');
 
         // Creates the beer sprite in the Bargaining scene.
         this.beer = this.physics.add.sprite(200, 400, 'beer');
@@ -83,7 +83,7 @@ class Bargaining extends Phaser.Scene {
         // Adding a bounce to the butterfly.
         object1.setBounce(1);
 
-        object1.setMass(1);
+        object1.setMass(5);
         // Creates the wall boundary for the butterfly.
         object1.setCollideWorldBounds(true);
         // Adding velocity to the butterfly movement and making it random each time the scene starts.

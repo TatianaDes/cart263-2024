@@ -219,7 +219,7 @@ class Denial extends Phaser.Scene {
             this.scene.start('acceptance', {
                 sheepOrientation: this.sheepOrientation,
                 sheep: {
-                    x: this.sheep.x,
+                    x: 50,
                     y: this.sheep.y
                 }
             });
