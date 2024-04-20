@@ -2,7 +2,7 @@ class BeOkay extends Phaser.Scene {
     // Creates the key term that will be used to call this class.
     constructor() {
         super({
-            key: 'BeOkay'
+            key: 'beOkay'
         });
     }
 
@@ -14,8 +14,12 @@ class BeOkay extends Phaser.Scene {
         // Creates the button sprite .
         const bg = this.add.image(0, 0, 'continueB');
 
+
+        // Creates the button sprite .
+        const bg2 = this.add.image(0, 0, 'start-overG');
+
         // Creates text with all their different sizes and colours.
-        this.add.text(160, 150, 'I miss you,\nIt feels like there is this void that\nformed after you left.\nThere is a part of me I left with you,\nand while I miss you,\nI miss that person that was so full of love\nand just happy to exist with you.\nI am the one I am missing.\n', { fontFamily: 'Lora', fontSize: 30, color: '#959595' });
+        this.add.text(160, 150, 'Be Okay', { fontFamily: 'Lora', fontSize: 25, color: '#959595' });
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);
@@ -32,6 +36,24 @@ class BeOkay extends Phaser.Scene {
 
         // Changes the scene from Acceptance to Denial by clicking on the button.
         container.on('pointerdown', () => {
+            this.scene.start('acceptance');
+        });
+
+        // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
+        const container2 = this.add.container(200, 530, [bg2]);
+        container2.setSize(bg2.width, bg2.height);
+        container2.setInteractive();
+
+        container2.on('pointerover', () => {
+            bg2.setTint(0x9c9c9c);
+        });
+
+        container2.on('pointerout', () => {
+            bg2.clearTint();
+        });
+
+        // Changes the scene from Acceptance to Denial by clicking on the button.
+        container2.on('pointerdown', () => {
             this.scene.start('depression');
         });
     }

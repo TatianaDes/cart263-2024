@@ -6,6 +6,7 @@ class Anger extends Phaser.Scene {
         });
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
+        this.owlTimer = undefined;
     }
 
     // Creates the concrete data that stores all the previous knowledge of the positions.
@@ -75,8 +76,6 @@ class Anger extends Phaser.Scene {
     owlAnimation() {
         // Sets the opacity of the image to 0.6.
         this.owl.setAlpha(0.6);
-
-
     }
 
     sheepShoot() {
@@ -86,6 +85,13 @@ class Anger extends Phaser.Scene {
             // Adding velocity to the butterfly movement and making it random each time the scene starts.
             butterfly.setVelocity(Phaser.Math.Between(-500, 500), 500);
             this.owl.anims.play('owlopen', true);
+            if (this.owlTimer) {
+                clearTimeout(this.owlTimer);
+            }
+            this.owlTimer = setTimeout(() => {
+                this.owl.anims.play('owlclose', true);
+                this.owlTimer = undefined;
+            }, 3000);
         }
     }
 

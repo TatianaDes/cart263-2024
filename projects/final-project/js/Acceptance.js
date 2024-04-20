@@ -28,11 +28,15 @@ class Acceptance extends Phaser.Scene {
 
         // Creating the coyosheep sprite and its initial position.
         this.coyosheep = this.physics.add.sprite(440, 100, 'coyosheep');
+        // Making the bin immovable.
+        this.coyosheep.setImmovable(true);
+        this.physics.add.collider(this.sheep, this.coyosheep, () => {
+            // Calls the coyosheepMovement() function.
+            this.coyosheepMovement();
+        });
 
         // Calls the friendCrowd() function.
         this.friendCrowd();
-
-        this.friendCollision();
 
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -43,9 +47,6 @@ class Acceptance extends Phaser.Scene {
 
         // Calls the sheepMovement() function.
         this.sheepMovement();
-
-        // Calls the coyosheepMovement() function.
-        this.coyosheepMovement();
 
         // Calls the checkEnding() function.
         this.checkEnding();
@@ -84,12 +85,6 @@ class Acceptance extends Phaser.Scene {
         Phaser.Actions.RandomRectangle(this.friends.getChildren(), { x: 0, y: 400, width: 770, height: 400 });
 
         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
-        this.physics.add.collider(this.sheep, this.friends);
-        this.physics.add.collider(this.friends, this.friends);
-    }
-
-    friendCollision() {
-        // Adding a collider between the sheep and the butterfly.
         this.physics.add.collider(this.sheep, this.friends, () => {
             this.scene.start('beOkay');
         });
@@ -144,19 +139,19 @@ class Acceptance extends Phaser.Scene {
 
     // Creates all the animation code and movement of the coyosheep.
     coyosheepMovement() {
-        // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.sheep, this.coyosheep, () => {
-            this.coyosheep.destroy();
-            this.coyote = this.physics.add.sprite(440, 100, 'coyote');
-        });
-
-        // // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
-        // if (this.coyote.body.velocity.x === 0) {
-        //     this.coyote.anims.play('coyoteidle-' + this.coyoteOrientation, true);
-        // }
-        // else if (this.coyote.body.velocity.x > 0) {
-        //     this.coyote.anims.play('coyoteright', true);
-        // }
+        this.coyosheep.destroy();
+        this.coyote = this.physics.add.sprite(440, 100, 'coyote');
+        // Making the bin immovable.
+        this.coyote.setImmovable(true);
+        this.physics.add.collider(this.sheep, this.coyote);
+        this.sheep.body.y += 20;
+        setTimeout(() => {
+            this.coyote.setVelocity(300, 0);
+            this.coyote.anims.play('coyoteright', true);
+        }, 3000);
+        setTimeout(() => {
+            this.scene.start('neverMeantToBe');
+        }, 5000);
     }
 
     // Creates the ending for CannotBeGone.

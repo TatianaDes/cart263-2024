@@ -19,6 +19,9 @@ class Denial extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
+        // Allows for cursor keys to be called and work.
+        this.cursors = this.input.keyboard.createCursorKeys();
+
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#3a3a3a');
 
@@ -42,11 +45,10 @@ class Denial extends Phaser.Scene {
 
         // Creates the flower sprite in the Denial scene.
         this.flower = this.physics.add.sprite(0, 0, 'flower');
-        // Calls the flowerCollide() function.
-        this.flowerCollide();
-
-        // Allows for cursor keys to be called and work.
-        this.cursors = this.input.keyboard.createCursorKeys();
+        // Making the mirror immovable.
+        this.flower.setImmovable(true);
+        // Puts the flower in random positions each time.
+        Phaser.Actions.RandomRectangle([this.flower], { x: 0, y: 0, width: 770, height: 570 });
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
@@ -59,6 +61,9 @@ class Denial extends Phaser.Scene {
 
         // Calls the sheepMovement() function.
         this.sheepMovement();
+
+        // Calls the flowerCollide() function.
+        this.flowerCollide();
 
         // Calls the checkEnding() function.
         this.checkEnding();
@@ -169,9 +174,10 @@ class Denial extends Phaser.Scene {
 
     // Creates the movement of the flower when the sheep collides with it.
     flowerCollide() {
-        // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.sheep, this.flower, () => {
-            let allStages = ['flowerstem', 'flowerbudding', 'flowerblooming', 'flowerbloomed'];
+        // Allows for the coyosheep to run away to the right when the sheep gets near.
+        const d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.flower.x, this.flower.y);
+        if (d < 50 && this.input.keyboard.checkDown(this.cursors.space, 300)) {
+            const allStages = ['flowerstem', 'flowerbudding', 'flowerblooming', 'flowerbloomed'];
             if (this.flowerStage < allStages.length) {
                 this.flower.anims.play(allStages[this.flowerStage]);
                 this.flowerStage++;
@@ -180,11 +186,7 @@ class Denial extends Phaser.Scene {
                 this.flowerStage = 0;
                 this.scene.start('cannotBeGone');
             }
-        });
-        // Making the mirror immovable.
-        this.flower.setImmovable(true);
-        // Puts the flower in random positions each time.
-        Phaser.Actions.RandomRectangle([this.flower], { x: 0, y: 0, width: 770, height: 570 });
+        }
     }
 
     // Creates the next scene for when the sheep falls off the bottom of the screen.
