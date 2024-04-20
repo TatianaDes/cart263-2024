@@ -91,7 +91,7 @@ class Anger extends Phaser.Scene {
             this.owlTimer = setTimeout(() => {
                 this.owl.anims.play('owlclose', true);
                 this.owlTimer = undefined;
-            }, 3000);
+            }, 2000);
         }
     }
 

@@ -144,7 +144,7 @@ class Acceptance extends Phaser.Scene {
         // Making the bin immovable.
         this.coyote.setImmovable(true);
         this.physics.add.collider(this.sheep, this.coyote);
-        this.sheep.body.y += 20;
+        this.sheep.body.y += 50;
         setTimeout(() => {
             this.coyote.setVelocity(300, 0);
             this.coyote.anims.play('coyoteright', true);

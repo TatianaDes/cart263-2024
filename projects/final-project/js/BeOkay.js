@@ -19,7 +19,7 @@ class BeOkay extends Phaser.Scene {
         const bg2 = this.add.image(0, 0, 'start-overG');
 
         // Creates text with all their different sizes and colours.
-        this.add.text(160, 150, 'Be Okay', { fontFamily: 'Lora', fontSize: 25, color: '#959595' });
+        this.add.text(160, 150, 'I feel like life is just a learning experience, you fall down, you get back up, and you learn how to not fall the same way again. I feel like each time I fall, it gets easier and easier to get back up. I look at my friends as they smile back at me and I realize that, no matter what happens to me, I am going to be okay.', { fontFamily: 'Lora', fontSize: 25, color: '#959595' });
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);
