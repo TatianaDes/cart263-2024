@@ -86,7 +86,7 @@ class Depression extends Phaser.Scene {
             collideWorldBounds: true
         });
         // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
-        Phaser.Actions.RandomRectangle(this.tissue.getChildren(), { x: 0, y: 0, width: 770, height: 570 });
+        Phaser.Actions.RandomRectangle(this.tissue.getChildren(), { x: 50, y: 50, width: 650, height: 450 });
 
         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
         this.physics.add.collider(this.sheep, this.tissue);

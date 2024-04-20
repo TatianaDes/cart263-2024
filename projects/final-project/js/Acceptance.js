@@ -17,12 +17,20 @@ class Acceptance extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
+        // Creates background colour.
+        this.cameras.main.setBackgroundColor('#d4d4d4');
+
         this.coyoteGrowl = this.sound.add("coyoteGrowl", { loop: false });
 
         this.sheepHerd = this.sound.add("sheepHerd", { loop: false });
 
-        // Creates background colour.
-        this.cameras.main.setBackgroundColor('#dedede');
+        this.treePlacement();
+
+        // Creates the beer sprite in the Bargaining scene.
+        this.beer = this.physics.add.sprite(200, 100, 'beer');
+
+        // Creates the beer sprite in the Bargaining scene.
+        this.chips = this.physics.add.sprite(600, 50, 'chips');
 
         // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
         this.sheep = this.physics.add.sprite(50, this.data.sheep.y, 'sheep');
@@ -31,7 +39,7 @@ class Acceptance extends Phaser.Scene {
         this.sheepBoarder();
 
         // Creating the coyosheep sprite and its initial position.
-        this.coyosheep = this.physics.add.sprite(440, 100, 'coyosheep');
+        this.coyosheep = this.physics.add.sprite(400, 100, 'coyosheep');
         // Making the bin immovable.
         this.coyosheep.setImmovable(true);
         this.physics.add.collider(this.sheep, this.coyosheep, () => {
@@ -73,6 +81,21 @@ class Acceptance extends Phaser.Scene {
         this.sheep.setCollideWorldBounds(true);
     }
 
+    // Creates the trees that fall as the time update and changes and collides with the sheep.
+    treePlacement() {
+        // Create the tree image and make it a group.
+        this.tree = this.physics.add.group({
+            // Key term being used.
+            key: 'tree',
+            // How many are being created.
+            quantity: 20,
+        });
+        // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
+        Phaser.Actions.RandomRectangle(this.tree.getChildren(), { x: 0, y: 0, width: 800, height: 600 });
+
+        this.physics.add.collider(this.tree, this.tree);
+    }
+
     friendCrowd() {
         // Create the tree image and make it a group.
         this.friends = this.physics.add.group({
@@ -86,12 +109,14 @@ class Acceptance extends Phaser.Scene {
             immovable: true
         });
         // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
-        Phaser.Actions.RandomRectangle(this.friends.getChildren(), { x: 300, y: 400, width: 300, height: 400 });
+        Phaser.Actions.RandomRectangle(this.friends.getChildren(), { x: 200, y: 400, width: 400, height: 400 });
 
         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
         this.physics.add.collider(this.sheep, this.friends, () => {
             this.sheepHerd.play();
-            this.scene.start('beOkay');
+            setTimeout(() => {
+                this.scene.start('beOkay');
+            }, 3000);
         });
     }
 
@@ -145,7 +170,7 @@ class Acceptance extends Phaser.Scene {
     // Creates all the animation code and movement of the coyosheep.
     coyosheepMovement() {
         this.coyosheep.destroy();
-        this.coyote = this.physics.add.sprite(440, 100, 'coyote');
+        this.coyote = this.physics.add.sprite(400, 100, 'coyote');
         // Making the bin immovable.
         this.coyote.setImmovable(true);
         this.physics.add.collider(this.sheep, this.coyote);
