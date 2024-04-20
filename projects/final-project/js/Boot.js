@@ -8,6 +8,10 @@ class Boot extends Phaser.Scene {
 
     // Loads all the images I would like to use.
     preload() {
+
+        this.load.audio("coyoteGrowl", ['assets/sounds/coyotegrowl.mp3']);
+        this.load.audio("sheepHerd", ['assets/sounds/sheepherd.mp3']);
+
         // Loads the tree in the Denial scene.
         this.load.image('tree', 'assets/images/tree.png');
 

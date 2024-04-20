@@ -17,6 +17,10 @@ class Acceptance extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
+        this.coyoteGrowl = this.sound.add("coyoteGrowl", { loop: false });
+
+        this.sheepHerd = this.sound.add("sheepHerd", { loop: false });
+
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#dedede');
 
@@ -86,6 +90,7 @@ class Acceptance extends Phaser.Scene {
 
         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
         this.physics.add.collider(this.sheep, this.friends, () => {
+            this.sheepHerd.play();
             this.scene.start('beOkay');
         });
     }
@@ -144,6 +149,7 @@ class Acceptance extends Phaser.Scene {
         // Making the bin immovable.
         this.coyote.setImmovable(true);
         this.physics.add.collider(this.sheep, this.coyote);
+        this.coyoteGrowl.play();
         this.sheep.body.y += 50;
         setTimeout(() => {
             this.coyote.setVelocity(300, 0);
