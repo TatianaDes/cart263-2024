@@ -75,14 +75,14 @@ class Acceptance extends Phaser.Scene {
             // Key term being used.
             key: 'friends',
             // How many are being created.
-            quantity: 50,
+            quantity: 10,
 
             collideWorldBounds: true,
 
             immovable: true
         });
         // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
-        Phaser.Actions.RandomRectangle(this.friends.getChildren(), { x: 0, y: 400, width: 770, height: 400 });
+        Phaser.Actions.RandomRectangle(this.friends.getChildren(), { x: 300, y: 400, width: 300, height: 400 });
 
         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
         this.physics.add.collider(this.sheep, this.friends, () => {

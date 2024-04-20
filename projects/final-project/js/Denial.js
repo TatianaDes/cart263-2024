@@ -47,6 +47,7 @@ class Denial extends Phaser.Scene {
         this.flower = this.physics.add.sprite(0, 0, 'flower');
         // Making the mirror immovable.
         this.flower.setImmovable(true);
+        this.physics.add.collider(this.sheep, this.flower);
         // Puts the flower in random positions each time.
         Phaser.Actions.RandomRectangle([this.flower], { x: 0, y: 0, width: 770, height: 570 });
     }

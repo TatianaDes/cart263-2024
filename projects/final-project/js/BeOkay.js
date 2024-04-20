@@ -9,17 +9,13 @@ class BeOkay extends Phaser.Scene {
     // Creates the background colour and all the assets I would like to display on this scene.
     create() {
         // Creates background colour.
-        this.cameras.main.setBackgroundColor('#000000');
+        this.cameras.main.setBackgroundColor('#7aae9a');
 
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'continueB');
-
-
-        // Creates the button sprite .
-        const bg2 = this.add.image(0, 0, 'start-overG');
+        const bg = this.add.image(0, 0, 'start-overG');
 
         // Creates text with all their different sizes and colours.
-        this.add.text(160, 150, 'I feel like life is just a learning experience, you fall down, you get back up, and you learn how to not fall the same way again. I feel like each time I fall, it gets easier and easier to get back up. I look at my friends as they smile back at me and I realize that, no matter what happens to me, I am going to be okay.', { fontFamily: 'Lora', fontSize: 25, color: '#959595' });
+        this.add.text(160, 100, 'I feel like life is just a learning experience,\nyou fall down,\nyou get back up,\nand you learn how to not fall the same way again.\nI feel like each time I fall,\nit gets easier and easier to get back up.\nI look at my friends as they smile back\nat me and I realize that,\nno matter what happens to me,\nI am going to be okay.\n', { fontFamily: 'Lora', fontSize: 27, color: '#2f5b50' });
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);
@@ -27,7 +23,7 @@ class BeOkay extends Phaser.Scene {
         container.setInteractive();
 
         container.on('pointerover', () => {
-            bg.setTint(0x9c9c9c);
+            bg.setTint(0xcfe8e2);
         });
 
         container.on('pointerout', () => {
@@ -36,25 +32,7 @@ class BeOkay extends Phaser.Scene {
 
         // Changes the scene from Acceptance to Denial by clicking on the button.
         container.on('pointerdown', () => {
-            this.scene.start('acceptance');
-        });
-
-        // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
-        const container2 = this.add.container(200, 530, [bg2]);
-        container2.setSize(bg2.width, bg2.height);
-        container2.setInteractive();
-
-        container2.on('pointerover', () => {
-            bg2.setTint(0x9c9c9c);
-        });
-
-        container2.on('pointerout', () => {
-            bg2.clearTint();
-        });
-
-        // Changes the scene from Acceptance to Denial by clicking on the button.
-        container2.on('pointerdown', () => {
-            this.scene.start('depression');
+            this.scene.start('title');
         });
     }
 
