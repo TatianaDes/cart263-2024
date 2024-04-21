@@ -33,19 +33,19 @@ class BeOkay extends Phaser.Scene {
 
     createStartOverButton() {
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'start-overG');
+        const startOverButton = this.add.image(0, 0, 'start-overG');
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
-        const container = this.add.container(400, 530, [bg]);
-        container.setSize(bg.width, bg.height);
+        const container = this.add.container(400, 530, [startOverButton]);
+        container.setSize(startOverButton.width, startOverButton.height);
         container.setInteractive();
 
         container.on('pointerover', () => {
-            bg.setTint(0xcfe8e2);
+            startOverButton.setTint(0xcfe8e2);
         });
 
         container.on('pointerout', () => {
-            bg.clearTint();
+            startOverButton.clearTint();
         });
 
         // Changes the scene from Acceptance to Denial by clicking on the button.

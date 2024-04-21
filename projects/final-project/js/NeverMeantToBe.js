@@ -35,46 +35,46 @@ class NeverMeantToBe extends Phaser.Scene {
 
     createContinueButton() {
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'continueG');
+        const continueButton = this.add.image(0, 0, 'continueG');
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
-        const container = this.add.container(300, 530, [bg]);
-        container.setSize(bg.width, bg.height);
-        container.setInteractive();
+        const containerContinue = this.add.container(300, 530, [continueButton]);
+        containerContinue.setSize(continueButton.width, continueButton.height);
+        containerContinue.setInteractive();
 
-        container.on('pointerover', () => {
-            bg.setTint(0xd4d4d4);
+        containerContinue.on('pointerover', () => {
+            continueButton.setTint(0xd4d4d4);
         });
 
-        container.on('pointerout', () => {
-            bg.clearTint();
+        containerContinue.on('pointerout', () => {
+            continueButton.clearTint();
         });
 
         // Changes the scene from Acceptance to Denial by clicking on the button.
-        container.on('pointerdown', () => {
+        containerContinue.on('pointerdown', () => {
             this.scene.start('acceptance');
         });
     }
 
     createStartOverButton() {
         // Creates the button sprite .
-        const bg2 = this.add.image(0, 0, 'start-overR');
+        const startOverButton = this.add.image(0, 0, 'start-overR');
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
-        const container2 = this.add.container(460, 530, [bg2]);
-        container2.setSize(bg2.width, bg2.height);
-        container2.setInteractive();
+        const containerStartOver = this.add.container(460, 530, [startOverButton]);
+        containerStartOver.setSize(startOverButton.width, startOverButton.height);
+        containerStartOver.setInteractive();
 
-        container2.on('pointerover', () => {
-            bg2.setTint(0xe6c3c3);
+        containerStartOver.on('pointerover', () => {
+            startOverButton.setTint(0xe6c3c3);
         });
 
-        container2.on('pointerout', () => {
-            bg2.clearTint();
+        containerStartOver.on('pointerout', () => {
+            startOverButton.clearTint();
         });
 
         // Changes the scene from Acceptance to Denial by clicking on the button.
-        container2.on('pointerdown', () => {
+        containerStartOver.on('pointerdown', () => {
             this.scene.start('title');
         });
     }

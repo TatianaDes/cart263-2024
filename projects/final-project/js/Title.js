@@ -34,19 +34,19 @@ class Title extends Phaser.Scene {
 
     createStartButton() {
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'start');
+        const startButton = this.add.image(0, 0, 'start');
 
         // Makes a conatiner around the button sprite that allows for it to change colour when the cursor hovers over it.
-        const container = this.add.container(400, 360, [bg]);
-        container.setSize(bg.width, bg.height);
+        const container = this.add.container(400, 360, [startButton]);
+        container.setSize(startButton.width, startButton.height);
         container.setInteractive();
 
         container.on('pointerover', () => {
-            bg.setTint(0xd99797);
+            startButton.setTint(0xd99797);
         });
 
         container.on('pointerout', () => {
-            bg.clearTint();
+            startButton.clearTint();
         });
 
         // Changes the scene from the Title to Denial by clicking on the button.

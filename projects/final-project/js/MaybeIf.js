@@ -33,19 +33,19 @@ class MaybeIf extends Phaser.Scene {
 
     createContinueButton() {
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'continueB');
+        const continueButton = this.add.image(0, 0, 'continueB');
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
-        const container = this.add.container(400, 530, [bg]);
-        container.setSize(bg.width, bg.height);
+        const container = this.add.container(400, 530, [continueButton]);
+        container.setSize(continueButton.width, continueButton.height);
         container.setInteractive();
 
         container.on('pointerover', () => {
-            bg.setTint(0xfce2c5);
+            continueButton.setTint(0xfce2c5);
         });
 
         container.on('pointerout', () => {
-            bg.clearTint();
+            continueButton.clearTint();
         });
 
         // Changes the scene from ForNothing to Anger by clicking on the button.
