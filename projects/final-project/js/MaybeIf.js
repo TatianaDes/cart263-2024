@@ -8,14 +8,32 @@ class MaybeIf extends Phaser.Scene {
 
     // Creates the background colour and all the assets I would like to display on this scene.
     create() {
+
+        this.createBackgroundColor();
+
+        this.createText();
+
+        this.createContinueButton();
+    }
+
+    // Creates changes for individual frames so that each frame could have its own event.
+    update() {
+
+    }
+
+    createBackgroundColor() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#ad6513');
+    }
 
-        // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'continueB');
-
+    createText() {
         // Creates text with all their different sizes and colours.
         this.add.text(230, 150, 'Maybe if I was more accepting\nof your bad habits,\nor maybe if I closed my mouth\nand let you keep\ndoing what you were doing\nwithout interfeering\neven when it did really hurt me,\nmaybe things would not have\nended the way they did or at all.\n', { fontFamily: 'Lora', fontSize: 25, color: '#502a00' });
+    }
+
+    createContinueButton() {
+        // Creates the button sprite .
+        const bg = this.add.image(0, 0, 'continueB');
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);
@@ -34,10 +52,5 @@ class MaybeIf extends Phaser.Scene {
         container.on('pointerdown', () => {
             this.scene.start('bargaining');
         });
-    }
-
-    // Creates changes for individual frames so that each frame could have its own event.
-    update() {
-
     }
 }

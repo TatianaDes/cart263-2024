@@ -17,41 +17,22 @@ class Bargaining extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
-        // Creates background colour.
-        this.cameras.main.setBackgroundColor('#033d0c');
 
-        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
-        this.sheep = this.physics.add.sprite(this.data.sheep.x, 550, 'sheep');
-        this.sheepOrientation = this.data.sheepOrientation;
-        // Calls the sheepBoarder() function.
-        this.sheepBoarder();
+        this.createBackgroundColor();
 
-        // Creating the coyosheep sprite and its initial position.
-        this.coyosheep = this.physics.add.sprite(440, 100, 'coyosheep');
+        this.createCursorKey();
 
-        // Creates the beer sprite in the Bargaining scene.
-        this.beer = this.physics.add.sprite(200, 400, 'beer');
+        this.createSheep();
 
-        // Creates the beer sprite in the Bargaining scene.
-        this.chips = this.physics.add.sprite(600, 500, 'chips');
+        this.createCoyosheep();
 
-        // Creating the mirror sprite and its initial position.
-        this.mirror = this.physics.add.sprite(400, 100, 'mirror');
+        this.createMirror();
 
-        // Calls the objectActivity() function.
-        this.objectActivity(this.beer, this.chips);
-        this.objectActivity(this.chips, this.beer);
-
-        // Calls the beerActivity() function.
-        this.mirrorAnimation();
-
-        // Allows for cursor keys to be called and work.
-        this.cursors = this.input.keyboard.createCursorKeys();
+        this.createBeerChips();
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-
         // Calls the sheepMovement() function.
         this.sheepMovement();
 
@@ -60,6 +41,57 @@ class Bargaining extends Phaser.Scene {
 
         // Calls the checkEnding() function.
         this.checkEnding();
+    }
+
+    createBackgroundColor() {
+        // Creates background colour.
+        this.cameras.main.setBackgroundColor('#033d0c');
+    }
+
+    createCursorKey() {
+        // Allows for cursor keys to be called and work.
+        this.cursors = this.input.keyboard.createCursorKeys();
+    }
+
+    createSheep() {
+        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
+        this.sheep = this.physics.add.sprite(this.data.sheep.x, 550, 'sheep');
+        this.sheepOrientation = this.data.sheepOrientation;
+
+        this.sheep.setMass(5);
+        // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and others that can.
+        const smallBounds = new Phaser.Geom.Rectangle(0, 0, this.game.canvas.width, this.game.canvas.height + 100);
+
+        // Calls the smallBounds constant to work on the sheep.
+        this.sheep.body.customBoundsRectangle = smallBounds;
+        // Creates the setCollideWorldBounds function from Phaser 3.
+        this.sheep.setCollideWorldBounds(true);
+    }
+
+    createCoyosheep() {
+        // Creating the coyosheep sprite and its initial position.
+        this.coyosheep = this.physics.add.sprite(440, 100, 'coyosheep');
+    }
+
+    createMirror() {
+        // Creating the mirror sprite and its initial position.
+        this.mirror = this.physics.add.sprite(400, 100, 'mirror');
+        // Making the mirror immovable.
+        this.mirror.setImmovable(true);
+        // Adding a collider between the sheep and the butterfly.
+        this.physics.add.collider(this.sheep, this.mirror);
+    }
+
+    createBeerChips() {
+        // Creates the beer sprite in the Bargaining scene.
+        this.beer = this.physics.add.sprite(200, 400, 'beer');
+
+        // Creates the beer sprite in the Bargaining scene.
+        this.chips = this.physics.add.sprite(600, 500, 'chips');
+
+        // Calls the objectActivity() function.
+        this.objectActivity(this.beer, this.chips);
+        this.objectActivity(this.chips, this.beer);
     }
 
     // Creates the function that allows all the interactions and movements of the butterfly.
@@ -90,26 +122,6 @@ class Bargaining extends Phaser.Scene {
         object1.setVelocity(Phaser.Math.Between(5, 300), Phaser.Math.Between(5, 300));
         // Puts the flower in random positions each time.
         Phaser.Actions.RandomRectangle([object1], this.physics.world.bounds);
-    }
-
-    mirrorAnimation() {
-        // Making the mirror immovable.
-        this.mirror.setImmovable(true);
-        // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.sheep, this.mirror);
-    }
-
-    // Creates the function that calls the canvas boarder to work on the sheep.
-    sheepBoarder() {
-
-        this.sheep.setMass(5);
-        // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and others that can.
-        const smallBounds = new Phaser.Geom.Rectangle(0, 0, this.game.canvas.width, this.game.canvas.height + 100);
-
-        // Calls the smallBounds constant to work on the sheep.
-        this.sheep.body.customBoundsRectangle = smallBounds;
-        // Creates the setCollideWorldBounds function from Phaser 3.
-        this.sheep.setCollideWorldBounds(true);
     }
 
     // Creates the movement of the sheep and its animations.

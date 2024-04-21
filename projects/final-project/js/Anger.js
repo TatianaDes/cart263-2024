@@ -16,36 +16,20 @@ class Anger extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
-        // Creates background colour.
-        this.cameras.main.setBackgroundColor('#581b1b');
 
-        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
-        this.sheep = this.physics.add.sprite(this.data.sheep.x, this.data.sheep.y, 'sheep');
-        this.sheepOrientation = this.data.sheepOrientation;
-        // Calls the sheepBoarder() function.
-        this.sheepBoarder();
+        this.createBackgroundColor();
 
-        // Creating the coyosheep sprite and its initial position.
-        this.coyosheep = this.physics.add.sprite(785, 585, 'coyosheep');
+        this.createCursorKey();
 
-        // Creates the jar sprite in the Anger scene.
-        this.jar = this.physics.add.sprite(400, 500, 'jar');
-        // Sets the opacity of the image to 0.6.
-        this.jar.setAlpha(0.6);
+        this.createSheep();
 
-        // Creates the scale sprite in the Anger scene.
-        this.scale = this.physics.add.sprite(100, 350, 'scale');
-        // Sets the opacity of the image to 0.6.
-        this.scale.setAlpha(0.6);
+        this.createCoyosheep();
 
-        // Creates the owl sprite in the Anger scene.
-        this.owl = this.physics.add.sprite(700, 250, 'owl');
-        this.owl.anims.play('owlclose', true);
+        this.createJar();
 
-        this.owlAnimation();
+        this.createScale();
 
-        // Allows for cursor keys to be called and work.
-        this.cursors = this.input.keyboard.createCursorKeys();
+        this.createOwl();
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
@@ -62,8 +46,21 @@ class Anger extends Phaser.Scene {
         this.checkEnding();
     }
 
-    // Creates the function that calls the canvas boarder to work on the sheep.
-    sheepBoarder() {
+    createBackgroundColor() {
+        // Creates background colour.
+        this.cameras.main.setBackgroundColor('#581b1b');
+    }
+
+    createCursorKey() {
+        // Allows for cursor keys to be called and work.
+        this.cursors = this.input.keyboard.createCursorKeys();
+    }
+
+    createSheep() {
+        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
+        this.sheep = this.physics.add.sprite(this.data.sheep.x, this.data.sheep.y, 'sheep');
+        this.sheepOrientation = this.data.sheepOrientation;
+
         // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and others that can.
         const smallBounds = new Phaser.Geom.Rectangle(0, -100, this.game.canvas.width, this.game.canvas.height + 100);
 
@@ -73,7 +70,29 @@ class Anger extends Phaser.Scene {
         this.sheep.setCollideWorldBounds(true);
     }
 
-    owlAnimation() {
+    createCoyosheep() {
+        // Creating the coyosheep sprite and its initial position.
+        this.coyosheep = this.physics.add.sprite(785, 585, 'coyosheep');
+    }
+
+    createJar() {
+        // Creates the jar sprite in the Anger scene.
+        this.jar = this.physics.add.sprite(400, 500, 'jar');
+        // Sets the opacity of the image to 0.6.
+        this.jar.setAlpha(0.6);
+    }
+
+    createScale() {
+        // Creates the scale sprite in the Anger scene.
+        this.scale = this.physics.add.sprite(100, 350, 'scale');
+        // Sets the opacity of the image to 0.6.
+        this.scale.setAlpha(0.6);
+    }
+
+    createOwl() {
+        // Creates the owl sprite in the Anger scene.
+        this.owl = this.physics.add.sprite(700, 250, 'owl');
+        this.owl.anims.play('owlclose', true);
         // Sets the opacity of the image to 0.6.
         this.owl.setAlpha(0.6);
     }

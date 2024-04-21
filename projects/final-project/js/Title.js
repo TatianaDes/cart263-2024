@@ -8,9 +8,31 @@ class Title extends Phaser.Scene {
 
     // Creates the background colour and all the assets I would like to display on this scene.
     create() {
+
+        this.createBackgroundColor();
+
+        this.createText();
+
+        this.createStartButton();
+    }
+
+    // Creates changes for individual frames so that each frame could have its own event.
+    update() {
+
+    }
+
+    createBackgroundColor() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#7a3131');
+    }
 
+    createText() {
+        // Creates text with all their different sizes and colours.
+        this.add.text(150, 250, 'Hard to Move On', { fontFamily: 'Lora', fontSize: 64, color: '#ff7171' });
+        this.add.text(355, 550, 'Move with the arrow keys, and sometimes the spacebar is applicable.\nTurn audio up, and try to keep moving onward.', { fontFamily: 'Lora', fontSize: 15, color: '#9e7c7c' });
+    }
+
+    createStartButton() {
         // Creates the button sprite .
         const bg = this.add.image(0, 0, 'start');
 
@@ -27,18 +49,9 @@ class Title extends Phaser.Scene {
             bg.clearTint();
         });
 
-        // Creates text with all their different sizes and colours.
-        this.add.text(150, 250, 'Hard to Move On', { fontFamily: 'Lora', fontSize: 64, color: '#ff7171' });
-        this.add.text(355, 550, 'Move with the arrow keys, and sometimes the spacebar is applicable.\nTurn audio up, and try to keep moving onward.', { fontFamily: 'Lora', fontSize: 15, color: '#9e7c7c' });
-
         // Changes the scene from the Title to Denial by clicking on the button.
         container.on('pointerdown', () => {
             this.scene.start('denial');
         });
-    }
-
-    // Creates changes for individual frames so that each frame could have its own event.
-    update() {
-
     }
 }

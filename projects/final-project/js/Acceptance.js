@@ -17,46 +17,26 @@ class Acceptance extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
-        // Creates background colour.
-        this.cameras.main.setBackgroundColor('#d4d4d4');
 
-        this.coyoteGrowl = this.sound.add("coyoteGrowl", { loop: false });
+        this.createBackgroundColor();
 
-        this.sheepHerd = this.sound.add("sheepHerd", { loop: false });
+        this.createCursorKey();
 
-        this.treePlacement();
+        this.createSound();
 
-        // Creates the beer sprite in the Bargaining scene.
-        this.beer = this.physics.add.sprite(200, 100, 'beer');
+        this.createTrees();
 
-        // Creates the beer sprite in the Bargaining scene.
-        this.chips = this.physics.add.sprite(600, 50, 'chips');
+        this.createBeerChips();
 
-        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
-        this.sheep = this.physics.add.sprite(50, this.data.sheep.y, 'sheep');
-        this.sheepOrientation = this.data.sheepOrientation;
-        // Calls the sheepBoarder() function.
-        this.sheepBoarder();
+        this.createSheep();
 
-        // Creating the coyosheep sprite and its initial position.
-        this.coyosheep = this.physics.add.sprite(400, 100, 'coyosheep');
-        // Making the bin immovable.
-        this.coyosheep.setImmovable(true);
-        this.physics.add.collider(this.sheep, this.coyosheep, () => {
-            // Calls the coyosheepMovement() function.
-            this.coyosheepMovement();
-        });
+        this.createCoyosheep();
 
-        // Calls the friendCrowd() function.
-        this.friendCrowd();
-
-        // Allows for cursor keys to be called and work.
-        this.cursors = this.input.keyboard.createCursorKeys();
+        this.createFriends();
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-
         // Calls the sheepMovement() function.
         this.sheepMovement();
 
@@ -64,8 +44,49 @@ class Acceptance extends Phaser.Scene {
         this.checkEnding();
     }
 
-    // Creates the function that calls the canvas boarder to work on the sheep.
-    sheepBoarder() {
+    createBackgroundColor() {
+        // Creates background colour.
+        this.cameras.main.setBackgroundColor('#d4d4d4');
+    }
+
+    createCursorKey() {
+        // Allows for cursor keys to be called and work.
+        this.cursors = this.input.keyboard.createCursorKeys();
+    }
+
+    createSound() {
+        this.coyoteGrowl = this.sound.add("coyoteGrowl", { loop: false });
+
+        this.sheepHerd = this.sound.add("sheepHerd", { loop: false });
+    }
+
+    // Creates the trees that fall as the time update and changes and collides with the sheep.
+    createTrees() {
+        // Create the tree image and make it a group.
+        this.tree = this.physics.add.group({
+            // Key term being used.
+            key: 'tree',
+            // How many are being created.
+            quantity: 20,
+        });
+        // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
+        Phaser.Actions.RandomRectangle(this.tree.getChildren(), { x: 0, y: 0, width: 800, height: 600 });
+
+        this.physics.add.collider(this.tree, this.tree);
+    }
+
+    createBeerChips() {
+        // Creates the beer sprite in the Bargaining scene.
+        this.beer = this.physics.add.sprite(200, 100, 'beer');
+
+        // Creates the beer sprite in the Bargaining scene.
+        this.chips = this.physics.add.sprite(600, 50, 'chips');
+    }
+
+    createSheep() {
+        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
+        this.sheep = this.physics.add.sprite(50, this.data.sheep.y, 'sheep');
+        this.sheepOrientation = this.data.sheepOrientation;
 
         this.sheep.setMass(5);
 
@@ -81,22 +102,18 @@ class Acceptance extends Phaser.Scene {
         this.sheep.setCollideWorldBounds(true);
     }
 
-    // Creates the trees that fall as the time update and changes and collides with the sheep.
-    treePlacement() {
-        // Create the tree image and make it a group.
-        this.tree = this.physics.add.group({
-            // Key term being used.
-            key: 'tree',
-            // How many are being created.
-            quantity: 20,
+    createCoyosheep() {
+        // Creating the coyosheep sprite and its initial position.
+        this.coyosheep = this.physics.add.sprite(400, 100, 'coyosheep');
+        // Making the bin immovable.
+        this.coyosheep.setImmovable(true);
+        this.physics.add.collider(this.sheep, this.coyosheep, () => {
+            // Calls the coyosheepMovement() function.
+            this.coyosheepMovement();
         });
-        // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
-        Phaser.Actions.RandomRectangle(this.tree.getChildren(), { x: 0, y: 0, width: 800, height: 600 });
-
-        this.physics.add.collider(this.tree, this.tree);
     }
 
-    friendCrowd() {
+    createFriends() {
         // Create the tree image and make it a group.
         this.friends = this.physics.add.group({
             // Key term being used.

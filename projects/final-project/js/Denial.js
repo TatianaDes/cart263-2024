@@ -19,12 +19,48 @@ class Denial extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
-        // Allows for cursor keys to be called and work.
-        this.cursors = this.input.keyboard.createCursorKeys();
 
+        this.createBackgroundColor();
+
+        this.createCursorKey();
+
+        this.createSheep();
+
+        this.createCoyosheep();
+
+        this.createFlower();
+    }
+
+    // Creates changes for individual frames so that each frame could have its own event.
+    update() {
+
+        // Calls the treesFalling() function.
+        this.treesFalling();
+
+        // Calls the flowerCollide() function.
+        this.flowerCollide();
+
+        // Calls the sheepMovement() function.
+        this.sheepMovement();
+
+        // Calls the coyosheepMovement() function.
+        this.coyosheepMovement();
+
+        // Calls the checkEnding() function.
+        this.checkEnding();
+    }
+
+    createBackgroundColor() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#3a3a3a');
+    }
 
+    createCursorKey() {
+        // Allows for cursor keys to be called and work.
+        this.cursors = this.input.keyboard.createCursorKeys();
+    }
+
+    createSheep() {
         // Creates an if statement that if the position of the sheep is already there, then the scene will remember it and save it, but if there is no previous position information it will start at 80 on the x-axis and 450 on the y-axis. 
         if (this.data && this.data.sheep) {
             // Calls the sheep's x position from the last scene and places the sheep at the bottom of the scene.
@@ -34,7 +70,9 @@ class Denial extends Phaser.Scene {
             // Creates the initial position of the sheep when the program first starts.
             this.sheep = this.physics.add.sprite(80, 450, 'sheep');
         }
+    }
 
+    createCoyosheep() {
         // Creating the coyosheep sprite and its initial position.
         // All coyosheep actions and sprites are new to the program.
         this.coyosheep = this.physics.add.sprite(650, 70, 'coyosheep');
@@ -42,7 +80,9 @@ class Denial extends Phaser.Scene {
         this.coyosheep.isPacing = true;
         // Setting the velocity for the coyosheep.
         this.coyosheep.setVelocity(-50, 0);
+    }
 
+    createFlower() {
         // Creates the flower sprite in the Denial scene.
         this.flower = this.physics.add.sprite(0, 0, 'flower');
         // Making the mirror immovable.
@@ -50,52 +90,6 @@ class Denial extends Phaser.Scene {
         this.physics.add.collider(this.sheep, this.flower);
         // Puts the flower in random positions each time.
         Phaser.Actions.RandomRectangle([this.flower], { x: 0, y: 0, width: 770, height: 570 });
-    }
-
-    // Creates changes for individual frames so that each frame could have its own event.
-    update() {
-        // Calls the coyosheepMovement() function.
-        this.coyosheepMovement();
-
-        // Calls the treesFalling() function.
-        this.treesFalling();
-
-        // Calls the sheepMovement() function.
-        this.sheepMovement();
-
-        // Calls the flowerCollide() function.
-        this.flowerCollide();
-
-        // Calls the checkEnding() function.
-        this.checkEnding();
-    }
-
-    // Creates all the animation code and movement of the coyosheep.
-    coyosheepMovement() {
-        // Creates the pacing to the left and its speed as well as when it turns back to the right and its speed.
-        if (this.coyosheep.isPacing) {
-            if (this.coyosheep.x < 150) {
-                this.coyosheep.setVelocity(50, 0);
-            }
-            else if (this.coyosheep.x > 650) {
-                this.coyosheep.setVelocity(-50, 0)
-            }
-        }
-
-        // Allows for the coyosheep to run away to the right when the sheep gets near.
-        let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
-        if (d < 100) {
-            this.coyosheep.isPacing = false;
-            this.coyosheep.setVelocity(300, 0);
-        }
-
-        // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
-        if (this.coyosheep.body.velocity.x < 0) {
-            this.coyosheep.anims.play('coyosheepleft', true);
-        }
-        else {
-            this.coyosheep.anims.play('coyosheepright', true);
-        }
     }
 
     // Creates the trees that fall as the time update and changes and collides with the sheep.
@@ -125,6 +119,24 @@ class Denial extends Phaser.Scene {
             this.physics.add.collider(this.tree, this.tree);
         }
     }
+
+    // Creates the movement of the flower when the sheep collides with it.
+    flowerCollide() {
+        // Allows for the coyosheep to run away to the right when the sheep gets near.
+        const d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.flower.x, this.flower.y);
+        if (d < 50 && this.input.keyboard.checkDown(this.cursors.space, 300)) {
+            const allStages = ['flowerstem', 'flowerbudding', 'flowerblooming', 'flowerbloomed'];
+            if (this.flowerStage < allStages.length) {
+                this.flower.anims.play(allStages[this.flowerStage]);
+                this.flowerStage++;
+            }
+            else if (this.flowerStage >= allStages.length) {
+                this.flowerStage = 0;
+                this.scene.start('cannotBeGone');
+            }
+        }
+    }
+
 
     // Creates the movement of the sheep and its animations.
     sheepMovement() {
@@ -173,20 +185,31 @@ class Denial extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
-    // Creates the movement of the flower when the sheep collides with it.
-    flowerCollide() {
+    // Creates all the animation code and movement of the coyosheep.
+    coyosheepMovement() {
+        // Creates the pacing to the left and its speed as well as when it turns back to the right and its speed.
+        if (this.coyosheep.isPacing) {
+            if (this.coyosheep.x < 150) {
+                this.coyosheep.setVelocity(50, 0);
+            }
+            else if (this.coyosheep.x > 650) {
+                this.coyosheep.setVelocity(-50, 0)
+            }
+        }
+
         // Allows for the coyosheep to run away to the right when the sheep gets near.
-        const d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.flower.x, this.flower.y);
-        if (d < 50 && this.input.keyboard.checkDown(this.cursors.space, 300)) {
-            const allStages = ['flowerstem', 'flowerbudding', 'flowerblooming', 'flowerbloomed'];
-            if (this.flowerStage < allStages.length) {
-                this.flower.anims.play(allStages[this.flowerStage]);
-                this.flowerStage++;
-            }
-            else if (this.flowerStage >= allStages.length) {
-                this.flowerStage = 0;
-                this.scene.start('cannotBeGone');
-            }
+        let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
+        if (d < 100) {
+            this.coyosheep.isPacing = false;
+            this.coyosheep.setVelocity(300, 0);
+        }
+
+        // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
+        if (this.coyosheep.body.velocity.x < 0) {
+            this.coyosheep.anims.play('coyosheepleft', true);
+        }
+        else {
+            this.coyosheep.anims.play('coyosheepright', true);
         }
     }
 

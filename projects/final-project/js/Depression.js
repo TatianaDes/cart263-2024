@@ -20,35 +20,20 @@ class Depression extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
-        // Creates background colour.
-        this.cameras.main.setBackgroundColor('#1e5f78');
 
-        // Creating the coyosheep sprite and its initial position.
-        this.coyosheep = this.physics.add.sprite(80, 180, 'coyosheep');
+        this.createBackgroundColor();
 
-        // Creates the bed sprite in the Depression scene.
-        this.bed = this.physics.add.sprite(110, 200, 'bed');
+        this.createCursorKey();
 
-        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
-        this.sheep = this.physics.add.sprite(750, this.data.sheep.y, 'sheep');
-        this.sheepOrientation = this.data.sheepOrientation;
-        // Calls the sheepBoarder() function.
-        this.sheepBoarder();
+        this.createCoyosheep();
 
-        // Creating the bin sprite and its initial position.
-        this.bin = this.physics.add.sprite(50, 250, 'bin');
+        this.createBed();
 
-        // Calls the tissueLaying() function.
-        this.tissueLaying();
+        this.createSheep();
 
-        // Calls the tissueActivity() function.
-        this.tissueActivity();
+        this.createBin();
 
-        // Calls the binAnimation() function.
-        this.binAnimation();
-
-        // Allows for cursor keys to be called and work.
-        this.cursors = this.input.keyboard.createCursorKeys();
+        this.createTissues();
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
@@ -66,8 +51,48 @@ class Depression extends Phaser.Scene {
         this.checkEnding();
     }
 
+    createBackgroundColor() {
+        // Creates background colour.
+        this.cameras.main.setBackgroundColor('#1e5f78');
+    }
+
+    createCursorKey() {
+        // Allows for cursor keys to be called and work.
+        this.cursors = this.input.keyboard.createCursorKeys();
+    }
+
+    createCoyosheep() {
+        // Creating the coyosheep sprite and its initial position.
+        this.coyosheep = this.physics.add.sprite(80, 180, 'coyosheep');
+    }
+
+    createBed() {
+        // Creates the bed sprite in the Depression scene.
+        this.bed = this.physics.add.sprite(110, 200, 'bed');
+    }
+
+    createSheep() {
+        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
+        this.sheep = this.physics.add.sprite(750, this.data.sheep.y, 'sheep');
+        this.sheepOrientation = this.data.sheepOrientation;
+
+        this.sheep.setMass(5);
+        // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and others that can.
+        const smallBounds = new Phaser.Geom.Rectangle(0, 0, this.game.canvas.width + 100, this.game.canvas.height);
+
+        // Calls the smallBounds constant to work on the sheep.
+        this.sheep.body.customBoundsRectangle = smallBounds;
+        // Creates the setCollideWorldBounds function from Phaser 3.
+        this.sheep.setCollideWorldBounds(true);
+    }
+
+    createBin() {
+        // Creating the bin sprite and its initial position.
+        this.bin = this.physics.add.sprite(50, 250, 'bin');
+    }
+
     // Creates the trees that fall as the time update and changes and collides with the sheep.
-    tissueLaying() {
+    createTissues() {
         // Create the tree image and make it a group.
         this.tissue = this.physics.add.group({
             // Key term being used.
@@ -91,6 +116,12 @@ class Depression extends Phaser.Scene {
         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
         this.physics.add.collider(this.sheep, this.tissue);
         this.physics.add.collider(this.tissue, this.tissue);
+
+        // Calls the tissueActivity() function.
+        this.tissueActivity();
+
+        // Calls the binAnimation() function.
+        this.binAnimation();
     }
 
     // Creates the function that allows all the interactions and movements of the butterfly.
@@ -115,18 +146,6 @@ class Depression extends Phaser.Scene {
         this.bin.setImmovable(true);
         // Adding a collider between the sheep and the butterfly.
         this.physics.add.collider(this.sheep, this.bin);
-    }
-
-    // Creates the function that calls the canvas boarder to work on the sheep.
-    sheepBoarder() {
-        this.sheep.setMass(5);
-        // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and others that can.
-        const smallBounds = new Phaser.Geom.Rectangle(0, 0, this.game.canvas.width + 100, this.game.canvas.height);
-
-        // Calls the smallBounds constant to work on the sheep.
-        this.sheep.body.customBoundsRectangle = smallBounds;
-        // Creates the setCollideWorldBounds function from Phaser 3.
-        this.sheep.setCollideWorldBounds(true);
     }
 
     // Creates the movement of the sheep and its animations.
