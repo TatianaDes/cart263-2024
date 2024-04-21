@@ -19,47 +19,49 @@ class Denial extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
-
+        // Creates the createBackgroundColor() function.
         this.createBackgroundColor();
-
+        // Creates the createCursorKey() function.
         this.createCursorKey();
-
+        // Creates the createSheep() function.
         this.createSheep();
-
+        // Creates the createCoyosheep() function.
         this.createCoyosheep();
-
+        // Creates the createFlower() function.
         this.createFlower();
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-
-        // Calls the treesFalling() function.
+        // Updates the treesFalling() function.
         this.treesFalling();
 
-        // Calls the flowerCollide() function.
+        // Updates the flowerCollide() function.
         this.flowerCollide();
 
-        // Calls the sheepMovement() function.
+        // Updates the sheepMovement() function.
         this.sheepMovement();
 
-        // Calls the coyosheepMovement() function.
+        // Updates the coyosheepMovement() function.
         this.coyosheepMovement();
 
-        // Calls the checkEnding() function.
+        // Updates the checkEnding() function.
         this.checkEnding();
     }
 
+    // Calls the createBackgroundColor() function from create to create the background color.
     createBackgroundColor() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#3a3a3a');
     }
 
+    // Calls the createCursorKey() function from create to alllow the cursor keys to work.
     createCursorKey() {
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
+    // Calls the createSheep() function from create to create the sheep sprite and its position.
     createSheep() {
         // Creates an if statement that if the position of the sheep is already there, then the scene will remember it and save it, but if there is no previous position information it will start at 80 on the x-axis and 450 on the y-axis. 
         if (this.data && this.data.sheep) {
@@ -72,9 +74,9 @@ class Denial extends Phaser.Scene {
         }
     }
 
+    // Calls the createCoyosheep() function from create to create the coyosheep sprite and its position.
     createCoyosheep() {
         // Creating the coyosheep sprite and its initial position.
-        // All coyosheep actions and sprites are new to the program.
         this.coyosheep = this.physics.add.sprite(650, 70, 'coyosheep');
         // Creating the initial state of the coyosheep to be pacing.
         this.coyosheep.isPacing = true;
@@ -82,25 +84,27 @@ class Denial extends Phaser.Scene {
         this.coyosheep.setVelocity(-50, 0);
     }
 
+    // Calls the createFlower() function from create to create the flower sprite and its position.
     createFlower() {
         // Creates the flower sprite in the Denial scene.
         this.flower = this.physics.add.sprite(0, 0, 'flower');
-        // Making the mirror immovable.
+        // Making the flower immovable.
         this.flower.setImmovable(true);
+        // Making the flower not able to collide with the sheep.
         this.physics.add.collider(this.sheep, this.flower);
         // Puts the flower in random positions each time.
         Phaser.Actions.RandomRectangle([this.flower], { x: 0, y: 0, width: 770, height: 570 });
     }
 
-    // Creates the trees that fall as the time update and changes and collides with the sheep.
+    // Calls the treesFalling() function from update to create the tree group and its attributes.
     treesFalling() {
         // Creates a constant for the function new Date().getTime() which is a function already understood by JavaScript to get the current live time.
         const currentTime = new Date().getTime();
-        // Creates an if statement that measure if the current live time minus the last set of trees that fell are less than 1 second in between each other, then new trees will fall.
+        // Creates an if statement that measures if the current live time minus the last set of trees that fell are less than 1 second in between each other, then new trees will fall.
         if (currentTime - this.lastTrees > 1000) {
             // Calls the this.lastTrees information from the constructor.
             this.lastTrees = new Date().getTime();
-            // Create the tree image and make it a group.
+            // Creates the tree image and makes it a group.
             this.tree = this.physics.add.group({
                 // Key term being used.
                 key: 'tree',
@@ -120,9 +124,9 @@ class Denial extends Phaser.Scene {
         }
     }
 
-    // Creates the movement of the flower when the sheep collides with it.
+    // Calls the flowerCollide() function from update to create the flower animation when the spacebar is pressed.
     flowerCollide() {
-        // Allows for the coyosheep to run away to the right when the sheep gets near.
+        // Measures the distance between the sheep and the flower and then allows the spacebar to be pressed for the animation to start.
         const d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.flower.x, this.flower.y);
         if (d < 50 && this.input.keyboard.checkDown(this.cursors.space, 300)) {
             const allStages = ['flowerstem', 'flowerbudding', 'flowerblooming', 'flowerbloomed'];
@@ -130,6 +134,7 @@ class Denial extends Phaser.Scene {
                 this.flower.anims.play(allStages[this.flowerStage]);
                 this.flowerStage++;
             }
+            // Once the animation is on the last frame, then it starts the CannotBeGone scene.
             else if (this.flowerStage >= allStages.length) {
                 this.flowerStage = 0;
                 this.scene.start('cannotBeGone');
@@ -137,8 +142,7 @@ class Denial extends Phaser.Scene {
         }
     }
 
-
-    // Creates the movement of the sheep and its animations.
+    // Calls the sheepMovement() function from update to create the movement of the sheep with the arrow keys.
     sheepMovement() {
         // Creating a constant for all cursor left, right, up, and down calls from Phaser 3.
         const { left, right, up, down } = this.cursors;
@@ -162,12 +166,12 @@ class Denial extends Phaser.Scene {
             velocityY = 100;
         }
 
-        // Makes it so that if all the velocities on the x-axis are less than zero the left animation playss.
+        // Makes it so that if all the velocities on the x-axis are less than zero the left animation plays.
         if (velocityX < 0) {
             this.sheepOrientation = 'left';
             this.sheep.anims.play('sheepleft', true);
         }
-        // Makes it so that if all the velocities on the x-axis are more than zero the right animation playss.
+        // Makes it so that if all the velocities on the x-axis are more than zero the right animation plays.
         else if (velocityX > 0) {
             this.sheepOrientation = 'right';
             this.sheep.anims.play('sheepright', true);
@@ -185,7 +189,7 @@ class Denial extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
-    // Creates all the animation code and movement of the coyosheep.
+    // Calls the coyosheepMovement() function from update to create the movement of the coyosheep from pacing to running away.
     coyosheepMovement() {
         // Creates the pacing to the left and its speed as well as when it turns back to the right and its speed.
         if (this.coyosheep.isPacing) {
@@ -213,7 +217,7 @@ class Denial extends Phaser.Scene {
         }
     }
 
-    // Creates the next scene for when the sheep falls off the bottom of the screen.
+    // Calls the checkEnding() function from update to create the next scene depending on what direction the sheep goes.
     checkEnding() {
         // Goes to the next level when the sheep goes off the bottom of the canvas.
         if (this.sheep.y > this.game.canvas.height) {
@@ -230,6 +234,7 @@ class Denial extends Phaser.Scene {
         // Goes to the next level when the sheep goes off the top of the canvas.
         if (this.sheep.y < 0) {
             this.scene.start('bargaining', {
+                // Sets the position of the sheep to wherever it was leaving this scene to the next and vice versa.
                 sheepOrientation: this.sheepOrientation,
                 sheep: {
                     x: this.sheep.x,
@@ -241,6 +246,7 @@ class Denial extends Phaser.Scene {
         // Goes to the next level when the sheep goes off the left of the canvas.
         if (this.sheep.x < 0) {
             this.scene.start('depression', {
+                // Sets the position of the sheep to wherever it was leaving this scene to the next and vice versa.
                 sheepOrientation: this.sheepOrientation,
                 sheep: {
                     x: 50,
@@ -252,6 +258,7 @@ class Denial extends Phaser.Scene {
         // Goes to the next level when the sheep goes off the right of the canvas.
         if (this.sheep.x > this.game.canvas.width) {
             this.scene.start('acceptance', {
+                // Sets the position of the sheep to wherever it was leaving this scene to the next and vice versa.
                 sheepOrientation: this.sheepOrientation,
                 sheep: {
                     x: 50,

@@ -9,10 +9,13 @@ class Title extends Phaser.Scene {
     // Creates the background colour and all the assets I would like to display on this scene.
     create() {
 
+        // Creates the createBackgroundColor() function.
         this.createBackgroundColor();
 
+        // Creates the createText() function.
         this.createText();
 
+        // Creates the createStartButton() function.
         this.createStartButton();
     }
 
@@ -21,17 +24,20 @@ class Title extends Phaser.Scene {
 
     }
 
+    // Calls the createBackgroundColor() function from create to create the background color.
     createBackgroundColor() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#7a3131');
     }
 
+    // Calls the createText() function from create to create the text.
     createText() {
         // Creates text with all their different sizes and colours.
         this.add.text(150, 250, 'Hard to Move On', { fontFamily: 'Lora', fontSize: 64, color: '#ff7171' });
         this.add.text(355, 550, 'Move with the arrow keys, and sometimes the spacebar is applicable.\nTurn audio up, and try to keep moving onward.', { fontFamily: 'Lora', fontSize: 15, color: '#9e7c7c' });
     }
 
+    // Calls the createStartButton() function from create to create the button.
     createStartButton() {
         // Creates the button sprite .
         const startButton = this.add.image(0, 0, 'start');
