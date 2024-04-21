@@ -8,13 +8,10 @@ class Title extends Phaser.Scene {
 
     // Creates the background colour and all the assets I would like to display on this scene.
     create() {
-
         // Creates the createBackgroundColor() function.
         this.createBackgroundColor();
-
         // Creates the createText() function.
         this.createText();
-
         // Creates the createStartButton() function.
         this.createStartButton();
     }
@@ -58,6 +55,7 @@ class Title extends Phaser.Scene {
         // Changes the scene from the Title to Denial by clicking on the button.
         container.on('pointerdown', () => {
             this.scene.start('denial', {
+                // Sets the position of the sheep to wherever the sheep should start.
                 sheepOrientation: 'right',
                 sheep: {
                     x: 80,

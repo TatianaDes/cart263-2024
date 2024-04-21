@@ -16,46 +16,47 @@ class Anger extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
-
+        // Creates the createBackgroundColor() function.
         this.createBackgroundColor();
-
+        // Creates the createCursorKey() function.
         this.createCursorKey();
-
+        // Creates the createSheep() function.
         this.createSheep();
-
+        // Creates the createCoyosheep() function.
         this.createCoyosheep();
-
+        // Creates the createJar() function.
         this.createJar();
-
+        // Creates the createScale() function.
         this.createScale();
-
+        // Creates the createOwl() function.
         this.createOwl();
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
+        // Updates the sheepShoot() function.
         this.sheepShoot();
-
-        // Calls the sheepMovement() function.
+        // Updates the sheepMovement() function.
         this.sheepMovement();
-
-        // Calls the coyosheepMovement() function.
+        // Updates the coyosheepMovement() function.
         this.coyosheepMovement();
-
-        // Calls the checkEnding() function.
+        // Updates the checkEnding() function.
         this.checkEnding();
     }
 
+    // Calls the createBackgroundColor() function from create to create the background color.
     createBackgroundColor() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#581b1b');
     }
 
+    // Calls the createCursorKey() function from create to alllow the cursor keys to work.
     createCursorKey() {
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
+    // Calls the createSheep() function from create to create the sheep sprite and its position.
     createSheep() {
         // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
         this.sheep = this.physics.add.sprite(this.data.sheep.x, this.data.sheep.y, 'sheep');
@@ -70,11 +71,13 @@ class Anger extends Phaser.Scene {
         this.sheep.setCollideWorldBounds(true);
     }
 
+    // Calls the createCoyosheep() function from create to create the coyosheep sprite and its position.
     createCoyosheep() {
         // Creating the coyosheep sprite and its initial position.
         this.coyosheep = this.physics.add.sprite(785, 585, 'coyosheep');
     }
 
+    // Calls the createJar() function from create to create the jar and its opacity.
     createJar() {
         // Creates the jar sprite in the Anger scene.
         this.jar = this.physics.add.sprite(400, 500, 'jar');
@@ -82,6 +85,7 @@ class Anger extends Phaser.Scene {
         this.jar.setAlpha(0.6);
     }
 
+    // Calls the createScale() function from create to create the scale and its opacity.
     createScale() {
         // Creates the scale sprite in the Anger scene.
         this.scale = this.physics.add.sprite(100, 350, 'scale');
@@ -89,6 +93,7 @@ class Anger extends Phaser.Scene {
         this.scale.setAlpha(0.6);
     }
 
+    // Calls the createOwl() function from create to create the owl and its opacity.
     createOwl() {
         // Creates the owl sprite in the Anger scene.
         this.owl = this.physics.add.sprite(700, 250, 'owl');
@@ -97,6 +102,7 @@ class Anger extends Phaser.Scene {
         this.owl.setAlpha(0.6);
     }
 
+    // Calls the sheepShoot() function from update to create the sheep being able to shoot butterflies when the spacebar is pressed.
     sheepShoot() {
         if (this.input.keyboard.checkDown(this.cursors.space, 300)) {
             // Creates the butterfly sprite in the Anger scene.
@@ -114,7 +120,7 @@ class Anger extends Phaser.Scene {
         }
     }
 
-    // Creates the movement of the sheep and its animations.
+    // Calls the sheepMovement() function from update to create the movement of the sheep with the arrow keys.
     sheepMovement() {
         // Creating a constant for all cursor left, right, up, and down calls from Phaser 3.
         const { left, right, up, down } = this.cursors;
@@ -161,7 +167,7 @@ class Anger extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
-    // Creates all the animation code and movement of the coyosheep.
+    // Calls the coyosheepMovement() function from update to create the movement of the coyosheep from pacing to running away.
     coyosheepMovement() {
         // Allows for the coyosheep to run away to the right when the sheep gets near.
         let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
@@ -177,7 +183,7 @@ class Anger extends Phaser.Scene {
         }
     }
 
-    // Creates the ending for CannotBeGone.
+    // Calls the checkEnding() function from update to go back to the Denial scene if the sheep going back up.
     checkEnding() {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.y < 0) {

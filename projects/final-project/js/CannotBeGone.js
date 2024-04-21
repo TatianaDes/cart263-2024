@@ -8,11 +8,11 @@ class CannotBeGone extends Phaser.Scene {
 
     // Creates the background colour and all the assets I would like to display on this scene.
     create() {
-
+        // Creates the createBackgroundColor() function.
         this.createBackgroundColor();
-
+        // Creates the createText() function.
         this.createText();
-
+        // Creates the createStartButton() function.
         this.createContinueButton();
     }
 
@@ -21,17 +21,19 @@ class CannotBeGone extends Phaser.Scene {
 
     }
 
+    // Calls the createBackgroundColor() function from create to create the background color.
     createBackgroundColor() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#c5a17f');
     }
 
+    // Calls the createText() function from create to create the text.
     createText() {
         // Creates text with all their different sizes and colours.
-        // Changed the wording to work with the denial stage.
         this.add.text(200, 200, 'Maybe in time we will be friends again.\nIt was not all bad,\nperhaps you will see that and\ntry to make things work again.\nYou cannot be gone from my life forever,\nthat would mean I lose everything...\n', { fontFamily: 'Lora', fontSize: 25, color: '#f0e197' });
     }
 
+    // Calls the createContinueButton() function from create to create the button.
     createContinueButton() {
         // Creates the button sprite .
         const continueButton = this.add.image(0, 0, 'continueB');
@@ -44,6 +46,7 @@ class CannotBeGone extends Phaser.Scene {
         container.on('pointerover', () => {
             continueButton.setTint(0xe4d7ba);
         });
+
         container.on('pointerout', () => {
             continueButton.clearTint();
         });

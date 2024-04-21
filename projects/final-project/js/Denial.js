@@ -35,16 +35,12 @@ class Denial extends Phaser.Scene {
     update() {
         // Updates the treesFalling() function.
         this.treesFalling();
-
         // Updates the flowerCollide() function.
         this.flowerCollide();
-
         // Updates the sheepMovement() function.
         this.sheepMovement();
-
         // Updates the coyosheepMovement() function.
         this.coyosheepMovement();
-
         // Updates the checkEnding() function.
         this.checkEnding();
     }
