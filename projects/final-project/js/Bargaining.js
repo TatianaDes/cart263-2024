@@ -83,7 +83,7 @@ class Bargaining extends Phaser.Scene {
         // Adding a bounce to the butterfly.
         object1.setBounce(1);
 
-        object1.setMass(5);
+        object1.setMass(10);
         // Creates the wall boundary for the butterfly.
         object1.setCollideWorldBounds(true);
         // Adding velocity to the butterfly movement and making it random each time the scene starts.
