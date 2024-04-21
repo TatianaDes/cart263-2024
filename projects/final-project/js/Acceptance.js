@@ -8,6 +8,7 @@ class Acceptance extends Phaser.Scene {
         this.sheepOrientation = 'right';
         this.coyosheepOrientation = 'right';
         this.coyoteOrientation = 'right';
+        this.timers = [];
     }
 
     // Creates the concrete data that stores all the previous knowledge of the positions.
@@ -34,6 +35,12 @@ class Acceptance extends Phaser.Scene {
 
         this.createFriends();
     }
+
+    clearTimers() {
+        this.timers.forEach((timer) => clearTimeout(timer));
+        this.timers = [];
+    }
+
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
@@ -131,9 +138,10 @@ class Acceptance extends Phaser.Scene {
         // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
         this.physics.add.collider(this.sheep, this.friends, () => {
             this.sheepHerd.play();
-            setTimeout(() => {
+            this.timers.push(setTimeout(() => {
+                this.clearTimers();
                 this.scene.start('beOkay');
-            }, 3000);
+            }, 3000));
         });
     }
 
@@ -193,19 +201,21 @@ class Acceptance extends Phaser.Scene {
         this.physics.add.collider(this.sheep, this.coyote);
         this.coyoteGrowl.play();
         this.sheep.body.y += 50;
-        setTimeout(() => {
+        this.timers.push(setTimeout(() => {
             this.coyote.setVelocity(300, 0);
             this.coyote.anims.play('coyoteright', true);
-        }, 3000);
-        setTimeout(() => {
+        }, 3000));
+        this.timers.push(setTimeout(() => {
+            this.clearTimers();
             this.scene.start('neverMeantToBe');
-        }, 5000);
+        }, 5000));
     }
 
     // Creates the ending for CannotBeGone.
     checkEnding() {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.x < 0) {
+            this.clearTimers();
             // Calls the previous scene but also sets the position of the sheep to where it left off in this scene.
             this.scene.start('denial', {
                 sheepOrientation: this.sheepOrientation,
