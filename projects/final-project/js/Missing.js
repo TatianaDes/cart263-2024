@@ -15,7 +15,7 @@ class Missing extends Phaser.Scene {
         const bg = this.add.image(0, 0, 'continueB');
 
         // Creates text with all their different sizes and colours.
-        this.add.text(160, 150, 'I miss you,\nIt feels like there is this void that\nformed after you left.\nThere is a part of me I left with you,\nand while I miss you,\nI miss that person that was so full of love\nand just happy to exist with you.\nI am the one I am missing.\n', { fontFamily: 'Lora', fontSize: 30, color: '#959595' });
+        this.add.text(200, 150, 'I miss you,\nIt feels like there is this void that\nformed after you left.\nThere is a part of me I left with you,\nand while I miss you,\nI miss that person that was so full of love\nand just happy to exist with you.\nI am the one I am missing.\n', { fontFamily: 'Lora', fontSize: 25, color: '#959595' });
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);

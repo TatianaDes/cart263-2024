@@ -12,13 +12,13 @@ class NeverMeantToBe extends Phaser.Scene {
         this.cameras.main.setBackgroundColor('#854444');
 
         // Creates the button sprite .
-        const bg = this.add.image(0, 0, 'continueB');
+        const bg = this.add.image(0, 0, 'continueG');
 
         // Creates the button sprite .
         const bg2 = this.add.image(0, 0, 'start-overR');
 
         // Creates text with all their different sizes and colours.
-        this.add.text(180, 80, 'That\'s right, I remember now...\nI remember all those things you said,\nand they way you treated me in the end.\nHow is it that all this time I kept trying\nto convince myself that you were a great person\nand that I should not have left,\nwhen in reality we were never\nmeant to be like I thought we were.\nBecause if we were,\nyou would have looked into my eyes\non that last day and said\n"I am ready to listen."\n', { fontFamily: 'Lora', fontSize: 27, color: '#b2b2b2' });
+        this.add.text(180, 80, 'That\'s right, I remember now...\nI remember all those things you said,\nand they way you treated me in the end.\nHow is it that all this time I kept trying\nto convince myself that you were a great person\nand that I should not have left,\nwhen in reality we were never\nmeant to be like I thought we were.\nBecause if we were,\nyou would have looked into my eyes\non that last day and said\n"I am ready to listen."\n', { fontFamily: 'Lora', fontSize: 25, color: '#b2b2b2' });
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(300, 530, [bg]);

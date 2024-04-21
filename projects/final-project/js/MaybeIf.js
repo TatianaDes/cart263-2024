@@ -15,7 +15,7 @@ class MaybeIf extends Phaser.Scene {
         const bg = this.add.image(0, 0, 'continueB');
 
         // Creates text with all their different sizes and colours.
-        this.add.text(150, 200, 'Maybe if I was more accepting of your bad habits,\nor maybe if I closed my mouth and let you keep\ndoing what you were doing without interfeering\neven when it did really hurt me,\nmaybe things would not have\nended the way they did or at all.\n', { fontFamily: 'Lora', fontSize: 25, color: '#502a00' });
+        this.add.text(230, 150, 'Maybe if I was more accepting\nof your bad habits,\nor maybe if I closed my mouth\nand let you keep\ndoing what you were doing\nwithout interfeering\neven when it did really hurt me,\nmaybe things would not have\nended the way they did or at all.\n', { fontFamily: 'Lora', fontSize: 25, color: '#502a00' });
 
         // Makes a conatiner around it that allows for it to change colour when the cursor hovers over it.
         const container = this.add.container(400, 530, [bg]);
