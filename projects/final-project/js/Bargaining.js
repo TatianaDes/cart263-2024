@@ -17,17 +17,17 @@ class Bargaining extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
-
+        // Creates the createBackgroundColor() function.
         this.createBackgroundColor();
-
+        // Creates the createCursorKey() function.
         this.createCursorKey();
-
+        // Creates the createSheep() function.
         this.createSheep();
-
+        // Creates the createCoyosheep() function.
         this.createCoyosheep();
-
+        // Creates the createMirror() function.
         this.createMirror();
-
+        // Creates the createBeerChips() function.
         this.createBeerChips();
     }
 
@@ -35,24 +35,25 @@ class Bargaining extends Phaser.Scene {
     update() {
         // Calls the sheepMovement() function.
         this.sheepMovement();
-
         // Calls the coyosheepMovement() function.
         this.coyosheepMovement();
-
         // Calls the checkEnding() function.
         this.checkEnding();
     }
 
+    // Calls the createBackgroundColor() function from create to create the background color.
     createBackgroundColor() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#033d0c');
     }
 
+    // Calls the createCursorKey() function from create to alllow the cursor keys to work.
     createCursorKey() {
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
+    // Calls the createSheep() function from create to create the sheep sprite and its position.
     createSheep() {
         // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
         this.sheep = this.physics.add.sprite(this.data.sheep.x, 550, 'sheep');
@@ -68,11 +69,13 @@ class Bargaining extends Phaser.Scene {
         this.sheep.setCollideWorldBounds(true);
     }
 
+    // Calls the createCoyosheep() function from create to create the coyosheep sprite and its position.
     createCoyosheep() {
         // Creating the coyosheep sprite and its initial position.
         this.coyosheep = this.physics.add.sprite(440, 100, 'coyosheep');
     }
 
+    // Calls the createMirror() function from create to create the mirror sprite and its position.
     createMirror() {
         // Creating the mirror sprite and its initial position.
         this.mirror = this.physics.add.sprite(400, 100, 'mirror');
@@ -82,6 +85,7 @@ class Bargaining extends Phaser.Scene {
         this.physics.add.collider(this.sheep, this.mirror);
     }
 
+    // Calls the createBeerChips() function from create to create the beer and chips sprites and its position.
     createBeerChips() {
         // Creates the beer sprite in the Bargaining scene.
         this.beer = this.physics.add.sprite(200, 400, 'beer');
@@ -94,7 +98,7 @@ class Bargaining extends Phaser.Scene {
         this.objectActivity(this.chips, this.beer);
     }
 
-    // Creates the function that allows all the interactions and movements of the butterfly.
+    // Calls the objectActivity() function from the createBeerChips function to create the mirror animation when the beer or the chips sprite collide with the mirror.
     objectActivity(object1, object2) {
         // Adding a collider between the sheep and the butterfly.
         this.physics.add.collider(this.sheep, object1);
@@ -124,7 +128,7 @@ class Bargaining extends Phaser.Scene {
         Phaser.Actions.RandomRectangle([object1], this.physics.world.bounds);
     }
 
-    // Creates the movement of the sheep and its animations.
+    // Calls the sheepMovement() function from update to create the movement of the sheep with the arrow keys.
     sheepMovement() {
         // Creating a constant for all cursor left, right, up, and down calls from Phaser 3.
         const { left, right, up, down } = this.cursors;
@@ -171,7 +175,7 @@ class Bargaining extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
-    // Creates all the animation code and movement of the coyosheep.
+    // Calls the coyosheepMovement() function from update to create the movement of the coyosheep from pacing to running away.
     coyosheepMovement() {
         // Allows for the coyosheep to run away to the right when the sheep gets near.
         let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
@@ -189,7 +193,7 @@ class Bargaining extends Phaser.Scene {
         }
     }
 
-    // Creates the ending for CannotBeGone.
+    // Calls the checkEnding() function from update to go back to the Denial scene if the sheep goes down.
     checkEnding() {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.y > this.game.canvas.height) {

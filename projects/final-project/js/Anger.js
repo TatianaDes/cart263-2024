@@ -183,7 +183,7 @@ class Anger extends Phaser.Scene {
         }
     }
 
-    // Calls the checkEnding() function from update to go back to the Denial scene if the sheep going back up.
+    // Calls the checkEnding() function from update to go back to the Denial scene if the sheep goes up.
     checkEnding() {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.y < 0) {
