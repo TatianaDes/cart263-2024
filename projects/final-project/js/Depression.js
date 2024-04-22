@@ -20,57 +20,59 @@ class Depression extends Phaser.Scene {
 
     // Creates a function that allows all code that wants to be done immediately on the program.
     create() {
-
+        // Creates the createBackgroundColor() function.
         this.createBackgroundColor();
-
+        // Creates the createCursorKey() function.
         this.createCursorKey();
-
+        // Creates the createCoyosheep() function.
         this.createCoyosheep();
-
+        // Creates the createBed() function.
         this.createBed();
-
+        // Creates the createSheep() function.
         this.createSheep();
-
+        // Creates the createBin() function.
         this.createBin();
-
+        // Creates the createTissues() function.
         this.createTissues();
     }
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-        // Calls the sheepMovement() function.
+        // Updates the sheepMovement() function.
         this.sheepMovement();
-
-        // Calls the treesFalling() function.
+        // Updates the treesFalling() function.
         this.rainFalling();
-
-        // Calls the coyosheepMovement() function.
+        // Updates the coyosheepMovement() function.
         this.coyosheepMovement();
-
-        // Calls the checkEnding() function.
+        // Updates the checkEnding() function.
         this.checkEnding();
     }
 
+    // Calls the createBackgroundColor() function from create to create the background color.
     createBackgroundColor() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#1e5f78');
     }
 
+    // Calls the createCursorKey() function from create to alllow the cursor keys to work.
     createCursorKey() {
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
+    // Calls the createCoyosheep() function from create to create the coyosheep sprite and its position.
     createCoyosheep() {
         // Creating the coyosheep sprite and its initial position.
         this.coyosheep = this.physics.add.sprite(80, 180, 'coyosheep');
     }
 
+    // Calls the createBed() function from create to create the bed sprite and its position.
     createBed() {
         // Creates the bed sprite in the Depression scene.
         this.bed = this.physics.add.sprite(110, 200, 'bed');
     }
 
+    // Calls the createSheep() function from create to create the sheep sprite and its position.
     createSheep() {
         // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
         this.sheep = this.physics.add.sprite(750, this.data.sheep.y, 'sheep');
@@ -86,12 +88,18 @@ class Depression extends Phaser.Scene {
         this.sheep.setCollideWorldBounds(true);
     }
 
+    // Calls the createBin() function from create to create the bin sprite and its position.
     createBin() {
         // Creating the bin sprite and its initial position.
         this.bin = this.physics.add.sprite(50, 250, 'bin');
+
+        // Making the bin immovable.
+        this.bin.setImmovable(true);
+        // Adding a collider between the sheep and the butterfly.
+        this.physics.add.collider(this.sheep, this.bin);
     }
 
-    // Creates the trees that fall as the time update and changes and collides with the sheep.
+    // Calls the createTissues() function from create to create the tissue group and its attributes.
     createTissues() {
         // Create the tree image and make it a group.
         this.tissue = this.physics.add.group({
@@ -117,14 +125,11 @@ class Depression extends Phaser.Scene {
         this.physics.add.collider(this.sheep, this.tissue);
         this.physics.add.collider(this.tissue, this.tissue);
 
-        // Calls the tissueActivity() function.
+        // Creates the tissueActivity() function.
         this.tissueActivity();
-
-        // Calls the binAnimation() function.
-        this.binAnimation();
     }
 
-    // Creates the function that allows all the interactions and movements of the butterfly.
+    // Calls the tissueActivity() function from createTissues() to create the animation of the bin filling up when a tissue collides with it.
     tissueActivity() {
         // Adding a collider between the sheep and the butterfly.
         this.physics.add.collider(this.tissue, this.bin, (bin, tissue) => {
@@ -141,14 +146,7 @@ class Depression extends Phaser.Scene {
         });
     }
 
-    binAnimation() {
-        // Making the bin immovable.
-        this.bin.setImmovable(true);
-        // Adding a collider between the sheep and the butterfly.
-        this.physics.add.collider(this.sheep, this.bin);
-    }
-
-    // Creates the movement of the sheep and its animations.
+    // Calls the sheepMovement() function from update to create the movement of the sheep with the arrow keys.
     sheepMovement() {
         // Creating a constant for all cursor left, right, up, and down calls from Phaser 3.
         const { left, right, up, down } = this.cursors;
@@ -195,7 +193,7 @@ class Depression extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
-    // Creates the trees that fall as the time update and changes and collides with the sheep.
+    // Calls the rainFalling() function from update to create the movement of the rain falling.
     rainFalling() {
         // Creates a constant for the function new Date().getTime() which is a function already understood by JavaScript to get the current live time.
         const currentTime = new Date().getTime();
@@ -224,7 +222,7 @@ class Depression extends Phaser.Scene {
         }
     }
 
-    // Creates all the animation code and movement of the coyosheep.
+    // Calls the coyosheepMovement() function from update to create the movement of the coyosheep from pacing to running away.
     coyosheepMovement() {
         // Allows for the coyosheep to run away to the right when the sheep gets near.
         let d = Phaser.Math.Distance.Between(this.sheep.x, this.sheep.y, this.coyosheep.x, this.coyosheep.y);
@@ -242,7 +240,7 @@ class Depression extends Phaser.Scene {
         }
     }
 
-    // Creates the ending for CannotBeGone.
+    // Calls the checkEnding() function from update to go back to the Denial scene if the sheep goes right.
     checkEnding() {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.x > this.game.canvas.width) {

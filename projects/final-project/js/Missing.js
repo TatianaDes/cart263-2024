@@ -8,11 +8,11 @@ class Missing extends Phaser.Scene {
 
     // Creates the background colour and all the assets I would like to display on this scene.
     create() {
-
+        // Creates the createBackgroundColor() function.
         this.createBackgroundColor();
-
+        // Creates the createText() function.
         this.createText();
-
+        // Creates the createStartButton() function.
         this.createContinueButton();
     }
 
@@ -21,16 +21,19 @@ class Missing extends Phaser.Scene {
 
     }
 
+    // Calls the createBackgroundColor() function from create to create the background color.
     createBackgroundColor() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#000000');
     }
 
+    // Calls the createText() function from create to create the text.
     createText() {
         // Creates text with all their different sizes and colours.
         this.add.text(200, 150, 'I miss you,\nIt feels like there is this void that\nformed after you left.\nThere is a part of me I left with you,\nand while I miss you,\nI miss that person that was so full of love\nand just happy to exist with you.\nI am the one I am missing.\n', { fontFamily: 'Lora', fontSize: 25, color: '#959595' });
     }
 
+    // Calls the createContinueButton() function from create to create the button.
     createContinueButton() {
         // Creates the button sprite .
         const continueButton = this.add.image(0, 0, 'continueB');

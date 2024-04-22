@@ -33,11 +33,11 @@ class Bargaining extends Phaser.Scene {
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-        // Calls the sheepMovement() function.
+        // Updates the sheepMovement() function.
         this.sheepMovement();
-        // Calls the coyosheepMovement() function.
+        // Updates the coyosheepMovement() function.
         this.coyosheepMovement();
-        // Calls the checkEnding() function.
+        // Updates the checkEnding() function.
         this.checkEnding();
     }
 
