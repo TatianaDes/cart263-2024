@@ -1,17 +1,22 @@
+//Credit to my Professor, Pippin Barr, and TA, Mathilde Davan, for helping me with all the code that I have written step by step as I was struggling.
 class Denial extends Phaser.Scene {
     // Creates the key name that will be used to call this class.
     constructor() {
         super({
             key: 'denial'
         })
+        // Credit to George Laza, my cousin, for showing me how to use sheepOrentation to start out the sheep in a position.
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
+        // Credit to Mathilde Davan for showing me how to start out my flower stage.
         // The initial stage of the flower starts at the first frame.
         this.flowerStage = 0;
+        // Credit to George Laza, my cousin, for showing me how to use new Date().getTime().
         // Creates the variable lastTrees and makes it record the amount of live time it has taken for them to be created.
         this.lastTrees = new Date().getTime();
     }
 
+    // Credit to Pippin Bar for showing me how to use init(data).
     // Creates the concrete data that stores all the previous knowledge of the positions.
     init(data) {
         this.data = data;
@@ -59,6 +64,7 @@ class Denial extends Phaser.Scene {
 
     // Calls the createSheep() function from create to create the sheep sprite and its position.
     createSheep() {
+        // Credit to Pippin Barr for showing me how to add data to the sheep position.
         // Creates an if statement that if the position of the sheep is already there, then the scene will remember it and save it, but if there is no previous position information it will start at 80 on the x-axis and 450 on the y-axis. 
         if (this.data && this.data.sheep) {
             // Calls the sheep's x position from the last scene and places the sheep at the bottom of the scene.
@@ -92,6 +98,7 @@ class Denial extends Phaser.Scene {
         Phaser.Actions.RandomRectangle([this.flower], { x: 0, y: 0, width: 770, height: 570 });
     }
 
+    // Credit to George Laza, my cousin, for showing me how to use new Date().getTime() to make new trees as time continues.
     // Calls the treesFalling() function from update to create the tree group and its attributes.
     treesFalling() {
         // Creates a constant for the function new Date().getTime() which is a function already understood by JavaScript to get the current live time.
@@ -120,6 +127,7 @@ class Denial extends Phaser.Scene {
         }
     }
 
+    // Credit to Mathilde Davan for showing me how to make my animations continue rach time an action occurs.
     // Calls the flowerCollide() function from update to create the flower animation when the spacebar is pressed.
     flowerCollide() {
         // Measures the distance between the sheep and the flower and then allows the spacebar to be pressed for the animation to start.
@@ -185,6 +193,7 @@ class Denial extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
+    // Credit to Pippin Barr for showing me how to make the coyote pace and run away.
     // Calls the coyosheepMovement() function from update to create the movement of the coyosheep from pacing to running away.
     coyosheepMovement() {
         // Creates the pacing to the left and its speed as well as when it turns back to the right and its speed.
@@ -213,6 +222,7 @@ class Denial extends Phaser.Scene {
         }
     }
 
+    // Credit to Pippin Barr for showing me how to make each new scene start the position of the sheep over.
     // Calls the checkEnding() function from update to create the next scene depending on what direction the sheep goes.
     checkEnding() {
         // Goes to the next level when the sheep goes off the bottom of the canvas.

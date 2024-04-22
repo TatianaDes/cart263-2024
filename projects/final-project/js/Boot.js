@@ -1,3 +1,4 @@
+//Credit to my Professor, Pippin Barr, and TA, Mathilde Davan, for helping me with all the code that I have written step by step as I was struggling.
 class Boot extends Phaser.Scene {
     // Creates the keyname that will be used to call this class.
     constructor() {
@@ -39,6 +40,7 @@ class Boot extends Phaser.Scene {
 
     }
 
+    // Credit to the YouTube channel stephendeibler for the "DOTV Coyote Growl HDV 108-43.wmv" sound and BerlinAtmospheres for the "Herd of Sheep SOUND EFFECT - Flocksheep Schafherde Bleating SOUNDS" sound.
     // Calls the soundPreload() function from preload to load the audio files I want in my program.
     soundPreload() {
         // Loads the coyotegrowl.mp3 from the sounds folder.
@@ -160,6 +162,7 @@ class Boot extends Phaser.Scene {
         });
     }
 
+    // Credit to George Laza, my cousin, for showing me how to make the parameters for each name, action, start, end, and repeat to keep it concise.
     // Calls the createAnimations() function from create to create the animations for what frames are used of the sprite when that keyname is called.
     createAnimations() {
         // Creates an array that has all the different parameters needed to call the actions and for what sprite and which frames to use.

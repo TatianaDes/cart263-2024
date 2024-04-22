@@ -1,3 +1,4 @@
+//Credit to my Professor, Pippin Barr, and TA, Mathilde Davan, for helping me with all the code that I have written step by step as I was struggling.
 class Missing extends Phaser.Scene {
     // Creates the key name that will be used to call this class.
     constructor() {
@@ -33,6 +34,7 @@ class Missing extends Phaser.Scene {
         this.add.text(200, 150, 'I miss you,\nIt feels like there is this void that\nformed after you left.\nThere is a part of me I left with you,\nand while I miss you,\nI miss that person that was so full of love\nand just happy to exist with you.\nI am the one I am missing.\n', { fontFamily: 'Lora', fontSize: 25, color: '#959595' });
     }
 
+    // Credit to Phaser 3 examples for showing me how to make this button be able to change tint as the cursor hovers over it.
     // Calls the createContinueButton() function from create to create the button.
     createContinueButton() {
         // Creates the button sprite .

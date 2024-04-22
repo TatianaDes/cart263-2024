@@ -1,3 +1,4 @@
+//Credit to my Professor, Pippin Barr, and TA, Mathilde Davan, for helping me with all the code that I have written step by step as I was struggling.
 class Title extends Phaser.Scene {
     // Creates the key name that will be used to call this class.
     constructor() {
@@ -34,6 +35,7 @@ class Title extends Phaser.Scene {
         this.add.text(355, 550, 'Move with the arrow keys, and sometimes the spacebar is applicable.\nTurn audio up, and try to keep moving onward.', { fontFamily: 'Lora', fontSize: 15, color: '#9e7c7c' });
     }
 
+    // Credit to Phaser 3 examples for showing me how to make this button be able to change tint as the cursor hovers over it.
     // Calls the createStartButton() function from create to create the button.
     createStartButton() {
         // Creates the button sprite .

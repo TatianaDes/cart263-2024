@@ -1,3 +1,4 @@
+//Credit to my Professor, Pippin Barr, and TA, Mathilde Davan, for helping me with all the code that I have written step by step as I was struggling.
 class Bargaining extends Phaser.Scene {
     // Creates the key name that will be used to call this class.
     constructor() {
@@ -8,10 +9,12 @@ class Bargaining extends Phaser.Scene {
         this.sheepOrientation = 'right';
         // The initial position of the coyosheep is.
         this.coyosheepOrientation = 'right';
+        // Credit to Mathilde Davan for showing me how to start out my mirror stage.
         // The initial stage of the mirror starts at the first frame.
         this.mirrorStage = 0;
     }
 
+    // Credit to Pippin Bar for showing me how to use init(data).
     // Creates the concrete data that stores all the previous knowledge of the positions.
     init(data) {
         this.data = data;
@@ -55,6 +58,7 @@ class Bargaining extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
+    // Credit to Pippin Barr for showing me how to add data to the sheep position.
     // Calls the createSheep() function from create to create the sheep sprite and its position.
     createSheep() {
         // Creates the sheep sprite in Bargaining that now has the same position as the last postion it was in.
@@ -96,6 +100,7 @@ class Bargaining extends Phaser.Scene {
         // Creates the chips sprite in the Bargaining scene.
         this.chips = this.physics.add.sprite(600, 500, 'chips');
 
+        // Credit to Mathilde Davan for showing me how to make the object functions to both be called in the objectActivity function.
         // Calls the objectActivity() function.
         // When the objectActivity() function is called object 1 is the beer and object 2 are the chips.
         this.objectActivity(this.beer, this.chips);
@@ -103,6 +108,7 @@ class Bargaining extends Phaser.Scene {
         this.objectActivity(this.chips, this.beer);
     }
 
+    // Credit to Mathilde Davan for showing me how to make the mirror animations change as the beer or the chips collide with the mirror.
     // Calls the objectActivity() function from the createBeerChips function to create the mirror animation when the beer or the chips sprite collide with the mirror.
     objectActivity(object1, object2) {
         // Adding a collider between the sheep and the first object.
@@ -180,6 +186,7 @@ class Bargaining extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
+    // Credit to Pippin Barr for showing me how to make the coyote run away.
     // Calls the coyosheepMovement() function from update to create the movement of the coyosheep from pacing to running away.
     coyosheepMovement() {
         // Allows for the coyosheep to run away to the right when the sheep gets near.

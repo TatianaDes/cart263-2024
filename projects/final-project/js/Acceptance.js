@@ -1,3 +1,4 @@
+//Credit to my Professor, Pippin Barr, and TA, Mathilde Davan, for helping me with all the code that I have written step by step as I was struggling.
 class Acceptance extends Phaser.Scene {
     // Creates the key name that will be used to call this class.
     constructor() {
@@ -6,16 +7,19 @@ class Acceptance extends Phaser.Scene {
         });
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
+        // Credit to George Laza, my cousin, for showing me how to make an empty array for the timers.
         // Creates an empty array for the timers.
         this.timers = [];
     }
 
+    // Credit to Pippin Bar for showing me how to use init(data).
     // Creates the concrete data that stores all the previous knowledge of the positions.
     init(data) {
         this.data = data;
     }
 
-    // Creates the  function to clear timers when it is called and puts the timer back into an empty array.
+    // Credit to George Laza, my cousin, for showing me how to clear the timers.
+    // Creates the function to clear timers when it is called and puts the timer back into an empty array.
     clearTimers() {
         this.timers.forEach((timer) => clearTimeout(timer));
         this.timers = [];
@@ -61,6 +65,7 @@ class Acceptance extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
+    // Credit to the YouTube channel stephendeibler for the "DOTV Coyote Growl HDV 108-43.wmv" sound and BerlinAtmospheres for the "Herd of Sheep SOUND EFFECT - Flocksheep Schafherde Bleating SOUNDS" sound.
     // Calls the createSound() function from create to alllow the cursor keys to work.
     createSound() {
         // Creates the coyoteGrowl sound from the preloaded sound in Boot.
@@ -92,6 +97,7 @@ class Acceptance extends Phaser.Scene {
         this.chips = this.physics.add.sprite(600, 50, 'chips');
     }
 
+    // Credit to Pippin Barr for showing me how to add data to the sheep position.
     // Calls the createSheep() function from create to create the sheep sprite and its position.
     createSheep() {
         // Creates the sheep sprite in Acceptance that now has the same position as the last postion it was in.
@@ -143,6 +149,7 @@ class Acceptance extends Phaser.Scene {
         // Calls the friends into an array called getChildren and makes them stay between the canvas bounds.
         Phaser.Actions.RandomRectangle(this.friends.getChildren(), { x: 200, y: 400, width: 400, height: 400 });
 
+        // Credit to George Laza, my cousin, for showing me how to make a timer to start an ending.
         // Allows for there to be collision between the sheep and the friends to lead to an ending.
         this.physics.add.collider(this.sheep, this.friends, () => {
             // Plays the sheepHerd sound.
@@ -217,11 +224,13 @@ class Acceptance extends Phaser.Scene {
         this.coyoteGrowl.play();
         // Move the sheep 50 pixels down when the interaction occurs.
         this.sheep.body.y += 50;
+        // Credit to George Laza, my cousin, for showing me how to create a timer for when the action of the coyote should occur.
         // Sets a timer for three seconds of waiting before the coyote turns and runs right.
         this.timers.push(setTimeout(() => {
             this.coyote.setVelocity(300, 0);
             this.coyote.anims.play('coyoteright', true);
         }, 3000));
+        // Credit to George Laza, my cousin, for showing me how to create an ending after a timer is finished.
         // After five seconds the ending scene NeverMeantToBe plays.
         this.timers.push(setTimeout(() => {
             // The timer is cleared.

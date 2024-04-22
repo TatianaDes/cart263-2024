@@ -1,3 +1,4 @@
+//Credit to my Professor, Pippin Barr, and TA, Mathilde Davan, for helping me with all the code that I have written step by step as I was struggling.
 class Anger extends Phaser.Scene {
     // Creates the key name that will be used to call this class.
     constructor() {
@@ -6,10 +7,12 @@ class Anger extends Phaser.Scene {
         });
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
+        // Credit to George Laza, my cousin, for showing me how to make timers.
         // Creates the owlTimer to start out as unknown and have no value.
         this.owlTimer = undefined;
     }
 
+    // Credit to Pippin Bar for showing me how to use init(data).
     // Creates the concrete data that stores all the previous knowledge of the positions.
     init(data) {
         this.data = data;
@@ -57,6 +60,7 @@ class Anger extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
+    // Credit to Pippin Barr for showing me how to add data to the sheep position.
     // Calls the createSheep() function from create to create the sheep sprite and its position.
     createSheep() {
         // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
@@ -104,6 +108,7 @@ class Anger extends Phaser.Scene {
         this.owl.setAlpha(0.6);
     }
 
+    // Credit to Pippin Barr for showing me the code to help the sheep shoot out the butterflies.
     // Calls the sheepShoot() function from update to create the sheep being able to shoot butterflies when the spacebar is pressed.
     sheepShoot() {
         // Creates the spacebar to be pressed down and shoot out the butterflies
@@ -112,10 +117,14 @@ class Anger extends Phaser.Scene {
             const butterfly = this.physics.add.sprite(this.sheep.x, this.sheep.y, 'butterfly');
             // Adding velocity to the butterfly movement and making it random each time the scene starts.
             butterfly.setVelocity(Phaser.Math.Between(-500, 500), 500);
+            // Credit to George Laza, my cousin, for showing me how to make the animation follow the timers.
+            // Makes the owls eyes open when the sheep shoots a butterfly.
             this.owl.anims.play('owlopen', true);
+            // Clears the timer.
             if (this.owlTimer) {
                 clearTimeout(this.owlTimer);
             }
+            // When the timer runs out the owl closes its eyes.
             this.owlTimer = setTimeout(() => {
                 this.owl.anims.play('owlclose', true);
                 this.owlTimer = undefined;
@@ -170,6 +179,7 @@ class Anger extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
+    // Credit to Pippin Barr for showing me how to make the coyote run away.
     // Calls the coyosheepMovement() function from update to create the movement of the coyosheep from pacing to running away.
     coyosheepMovement() {
         // Allows for the coyosheep to run away to the right when the sheep gets near.

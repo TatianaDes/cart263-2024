@@ -1,3 +1,4 @@
+//Credit to my Professor, Pippin Barr, and TA, Mathilde Davan, for helping me with all the code that I have written step by step as I was struggling.
 class BeOkay extends Phaser.Scene {
     // Creates the key name that will be used to call this class.
     constructor() {
@@ -33,6 +34,7 @@ class BeOkay extends Phaser.Scene {
         this.add.text(160, 120, 'I feel like life is just a learning experience,\nyou fall down,\nyou get back up,\nand you learn how to not fall the same way again.\nI feel like each time I fall,\nit gets easier and easier to get back up.\nI look at my friends as they smile back at me\nand I realize that,\nno matter what happens to me,\nI am going to be okay.\n', { fontFamily: 'Lora', fontSize: 25, color: '#2f5b50' });
     }
 
+    // Credit to Phaser 3 examples for showing me how to make this button be able to change tint as the cursor hovers over it.
     // Calls the createStartOverButton() function from create to create the button.
     createStartOverButton() {
         // Creates the button sprite .

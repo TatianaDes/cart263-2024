@@ -1,3 +1,4 @@
+//Credit to my Professor, Pippin Barr, and TA, Mathilde Davan, for helping me with all the code that I have written step by step as I was struggling.
 class NeverMeantToBe extends Phaser.Scene {
     // Creates the key name that will be used to call this class.
     constructor() {
@@ -35,6 +36,7 @@ class NeverMeantToBe extends Phaser.Scene {
         this.add.text(180, 80, 'That\'s right, I remember now...\nI remember all those things you said,\nand they way you treated me in the end.\nHow is it that all this time I kept trying\nto convince myself that you were a great person\nand that I should not have left,\nwhen in reality we were never\nmeant to be like I thought we were.\nBecause if we were,\nyou would have looked into my eyes\non that last day and said\n"I am ready to listen."\n', { fontFamily: 'Lora', fontSize: 25, color: '#b2b2b2' });
     }
 
+    // Credit to Phaser 3 examples for showing me how to make this button be able to change tint as the cursor hovers over it.
     // Calls the createContinueButton() function from create to create the button.
     createContinueButton() {
         // Creates the button sprite .

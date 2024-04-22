@@ -1,3 +1,4 @@
+//Credit to my Professor, Pippin Barr, and TA, Mathilde Davan, for helping me with all the code that I have written step by step as I was struggling.
 class Depression extends Phaser.Scene {
     // Creates the key name that will be used to call this class.
     constructor() {
@@ -8,12 +9,15 @@ class Depression extends Phaser.Scene {
         this.sheepOrientation = 'right';
         // The initial position of the coyosheep is.
         this.coyosheepOrientation = 'right';
+        // Credit to Mathilde Davan for showing me how to start out my bin stage.
         // The initial stage of the bin starts at the first frame.
         this.binStage = 0;
+        // Credit to George Laza, my cousin, for showing me how to use new Date().getTime().
         // Creates the variable lastRain and makes it record the amount of live time it has taken for them to be created.
         this.lastRain = new Date().getTime();
     }
 
+    // Credit to Pippin Bar for showing me how to use init(data).
     // Creates the concrete data that stores all the previous knowledge of the positions.
     init(data) {
         this.data = data;
@@ -73,6 +77,7 @@ class Depression extends Phaser.Scene {
         this.bed = this.physics.add.sprite(110, 200, 'bed');
     }
 
+    // Credit to Pippin Barr for showing me how to add data to the sheep position.
     // Calls the createSheep() function from create to create the sheep sprite and its position.
     createSheep() {
         // Creates the sheep sprite in Depression that now has the same position as the last postion it was in.
@@ -130,6 +135,7 @@ class Depression extends Phaser.Scene {
         this.tissueActivity();
     }
 
+    // Credit to Mathilde Davan for showing me how to make the bin animations change as the tissues collide into it.
     // Calls the tissueActivity() function from createTissues() to create the animation of the bin filling up when a tissue collides with it.
     tissueActivity() {
         // Adding a collider between the tissue and the bin.
@@ -195,6 +201,7 @@ class Depression extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
+    // Credit to George Laza, my cousin, for showing me how to use new Date().getTime() to make new rain as time continues.
     // Calls the rainFalling() function from update to create the movement of the rain falling.
     rainFalling() {
         // Creates a constant for the function new Date().getTime() which is a function already understood by JavaScript to get the current live time.
@@ -223,6 +230,7 @@ class Depression extends Phaser.Scene {
         }
     }
 
+    // Credit to Pippin Barr for showing me how to make the coyote run away.
     // Calls the coyosheepMovement() function from update to create the movement of the coyosheep from pacing to running away.
     coyosheepMovement() {
         // Allows for the coyosheep to run away to the right when the sheep gets near.

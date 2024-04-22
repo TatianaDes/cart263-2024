@@ -1,3 +1,4 @@
+//Credit to my Professor, Pippin Barr, and TA, Mathilde Davan, for helping me with all the code that I have written step by step as I was struggling.
 class MaybeIf extends Phaser.Scene {
     // Creates the key name that will be used to call this class.
     constructor() {
@@ -33,6 +34,7 @@ class MaybeIf extends Phaser.Scene {
         this.add.text(230, 150, 'Maybe if I was more accepting\nof your bad habits,\nor maybe if I closed my mouth\nand let you keep\ndoing what you were doing\nwithout interfeering\neven when it did really hurt me,\nmaybe things would not have\nended the way they did or at all.\n', { fontFamily: 'Lora', fontSize: 25, color: '#502a00' });
     }
 
+    // Credit to Phaser 3 examples for showing me how to make this button be able to change tint as the cursor hovers over it.
     // Calls the createContinueButton() function from create to create the button.
     createContinueButton() {
         // Creates the button sprite .
