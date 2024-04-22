@@ -6,8 +6,6 @@ class Acceptance extends Phaser.Scene {
         });
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
-        this.coyosheepOrientation = 'right';
-        this.coyoteOrientation = 'right';
         this.timers = [];
     }
 
@@ -16,58 +14,60 @@ class Acceptance extends Phaser.Scene {
         this.data = data;
     }
 
-    // Creates a function that allows all code that wants to be done immediately on the program.
-    create() {
-
-        this.createBackgroundColor();
-
-        this.createCursorKey();
-
-        this.createSound();
-
-        this.createTrees();
-
-        this.createBeerChips();
-
-        this.createSheep();
-
-        this.createCoyosheep();
-
-        this.createFriends();
-    }
-
+    // Creates the  function to clear timers when it is called and puts the timer back into an empty array t.
     clearTimers() {
         this.timers.forEach((timer) => clearTimeout(timer));
         this.timers = [];
     }
 
+    // Creates a function that allows all code that wants to be done immediately on the program.
+    create() {
+        // Creates the createBackgroundColor() function.
+        this.createBackgroundColor();
+        // Creates the createCursorKey() function.
+        this.createCursorKey();
+        // Creates the createSound() function.
+        this.createSound();
+        // Creates the createTrees() function.
+        this.createTrees();
+        // Creates the createBeerChips() function.
+        this.createBeerChips();
+        // Creates the createSheep() function.
+        this.createSheep();
+        // Creates the createCoyosheep() function.
+        this.createCoyosheep();
+        // Creates the createFriends() function.
+        this.createFriends();
+    }
 
     // Creates changes for individual frames so that each frame could have its own event.
     update() {
-        // Calls the sheepMovement() function.
+        // Updates the sheepMovement() function.
         this.sheepMovement();
-
-        // Calls the checkEnding() function.
+        // Updates the checkEnding() function.
         this.checkEnding();
     }
 
+    // Calls the createBackgroundColor() function from create to create the background color.
     createBackgroundColor() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#d4d4d4');
     }
 
+    // Calls the createCursorKey() function from create to alllow the cursor keys to work.
     createCursorKey() {
         // Allows for cursor keys to be called and work.
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
+    // Calls the createSound() function from create to alllow the cursor keys to work.
     createSound() {
         this.coyoteGrowl = this.sound.add("coyoteGrowl", { loop: false });
 
         this.sheepHerd = this.sound.add("sheepHerd", { loop: false });
     }
 
-    // Creates the trees that fall as the time update and changes and collides with the sheep.
+    // Calls the createTrees() function from create to create the tree group and its attributes.
     createTrees() {
         // Create the tree image and make it a group.
         this.tree = this.physics.add.group({
@@ -82,6 +82,7 @@ class Acceptance extends Phaser.Scene {
         this.physics.add.collider(this.tree, this.tree);
     }
 
+    // Calls the createBeerChips() function from create to create the beer and chips sprites and its position.
     createBeerChips() {
         // Creates the beer sprite in the Bargaining scene.
         this.beer = this.physics.add.sprite(200, 100, 'beer');
@@ -90,6 +91,7 @@ class Acceptance extends Phaser.Scene {
         this.chips = this.physics.add.sprite(600, 50, 'chips');
     }
 
+    // Calls the createSheep() function from create to create the sheep sprite and its position.
     createSheep() {
         // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
         this.sheep = this.physics.add.sprite(50, this.data.sheep.y, 'sheep');
@@ -109,6 +111,7 @@ class Acceptance extends Phaser.Scene {
         this.sheep.setCollideWorldBounds(true);
     }
 
+    // Calls the createCoyosheep() function from create to create the coyosheep sprite and its position.
     createCoyosheep() {
         // Creating the coyosheep sprite and its initial position.
         this.coyosheep = this.physics.add.sprite(400, 100, 'coyosheep');
@@ -116,10 +119,11 @@ class Acceptance extends Phaser.Scene {
         this.coyosheep.setImmovable(true);
         this.physics.add.collider(this.sheep, this.coyosheep, () => {
             // Calls the coyosheepMovement() function.
-            this.coyosheepMovement();
+            this.coyoteMovement();
         });
     }
 
+    // Calls the createFriends() function from create to create the friends group and its attributes.
     createFriends() {
         // Create the tree image and make it a group.
         this.friends = this.physics.add.group({
@@ -145,7 +149,7 @@ class Acceptance extends Phaser.Scene {
         });
     }
 
-    // Creates the movement of the sheep and its animations.
+    // Calls the sheepMovement() function from update to create the movement of the sheep with the arrow keys.
     sheepMovement() {
         // Creating a constant for all cursor left, right, up, and down calls from Phaser 3.
         const { left, right, up, down } = this.cursors;
@@ -192,8 +196,8 @@ class Acceptance extends Phaser.Scene {
         this.sheep.setVelocity(velocityX, velocityY);
     }
 
-    // Creates all the animation code and movement of the coyosheep.
-    coyosheepMovement() {
+    // Calls the coyosheepMovement() function from update to create the movement of the coyote from standing still to running away.
+    coyoteMovement() {
         this.coyosheep.destroy();
         this.coyote = this.physics.add.sprite(400, 100, 'coyote');
         // Making the bin immovable.
@@ -211,7 +215,7 @@ class Acceptance extends Phaser.Scene {
         }, 5000));
     }
 
-    // Creates the ending for CannotBeGone.
+    // Calls the checkEnding() function from update to go back to the Denial scene if the sheep goes left.
     checkEnding() {
         // Creates the ending for when the sheep goes off the canvas.
         if (this.sheep.x < 0) {

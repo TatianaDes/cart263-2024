@@ -8,13 +8,13 @@ class NeverMeantToBe extends Phaser.Scene {
 
     // Creates the background colour and all the assets I would like to display on this scene.
     create() {
-
+        // Creates the createBackgroundColor() function.
         this.createBackgroundColor();
-
+        // Creates the createText() function.
         this.createText();
-
+        // Creates the createContinueButton() function.
         this.createContinueButton();
-
+        // Creates the createStartOverButton() function.
         this.createStartOverButton();
     }
 
@@ -23,16 +23,19 @@ class NeverMeantToBe extends Phaser.Scene {
 
     }
 
+    // Calls the createBackgroundColor() function from create to create the background color.
     createBackgroundColor() {
         // Creates background colour.
         this.cameras.main.setBackgroundColor('#854444');
     }
 
+    // Calls the createText() function from create to create the text.
     createText() {
         // Creates text with all their different sizes and colours.
         this.add.text(180, 80, 'That\'s right, I remember now...\nI remember all those things you said,\nand they way you treated me in the end.\nHow is it that all this time I kept trying\nto convince myself that you were a great person\nand that I should not have left,\nwhen in reality we were never\nmeant to be like I thought we were.\nBecause if we were,\nyou would have looked into my eyes\non that last day and said\n"I am ready to listen."\n', { fontFamily: 'Lora', fontSize: 25, color: '#b2b2b2' });
     }
 
+    // Calls the createContinueButton() function from create to create the button.
     createContinueButton() {
         // Creates the button sprite .
         const continueButton = this.add.image(0, 0, 'continueG');
@@ -56,6 +59,7 @@ class NeverMeantToBe extends Phaser.Scene {
         });
     }
 
+    // Calls the createStartOverButton() function from create to create the button.
     createStartOverButton() {
         // Creates the button sprite .
         const startOverButton = this.add.image(0, 0, 'start-overR');
