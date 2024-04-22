@@ -1,11 +1,12 @@
 class Anger extends Phaser.Scene {
-    // Creates the key term that will be used to call this class.
+    // Creates the key name that will be used to call this class.
     constructor() {
         super({
             key: 'anger'
         });
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
+        // Creates the owlTimer to start out as unknown and have no value.
         this.owlTimer = undefined;
     }
 
@@ -97,6 +98,7 @@ class Anger extends Phaser.Scene {
     createOwl() {
         // Creates the owl sprite in the Anger scene.
         this.owl = this.physics.add.sprite(700, 250, 'owl');
+        // Starts out the owl's eyes to be the closed animation.
         this.owl.anims.play('owlclose', true);
         // Sets the opacity of the image to 0.6.
         this.owl.setAlpha(0.6);
@@ -104,6 +106,7 @@ class Anger extends Phaser.Scene {
 
     // Calls the sheepShoot() function from update to create the sheep being able to shoot butterflies when the spacebar is pressed.
     sheepShoot() {
+        // Creates the spacebar to be pressed down and shoot out the butterflies
         if (this.input.keyboard.checkDown(this.cursors.space, 300)) {
             // Creates the butterfly sprite in the Anger scene.
             const butterfly = this.physics.add.sprite(this.sheep.x, this.sheep.y, 'butterfly');
@@ -174,10 +177,11 @@ class Anger extends Phaser.Scene {
         if (d < 90) {
             this.coyosheep.isPacing = false;
             this.coyosheep.setVelocity(300, 0);
+            // Starts the forNothing scene when the coyosheep is off the screen.
             this.scene.start('forNothing');
         }
 
-        // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
+        // Creates the coyosheep animation right when the coyosheep moves completely to the right.
         if (this.coyosheep.body.velocity.x > 0) {
             this.coyosheep.anims.play('coyosheepright', true);
         }

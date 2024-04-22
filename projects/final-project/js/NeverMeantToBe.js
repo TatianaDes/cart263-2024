@@ -1,5 +1,5 @@
 class NeverMeantToBe extends Phaser.Scene {
-    // Creates the key term that will be used to call this class.
+    // Creates the key name that will be used to call this class.
     constructor() {
         super({
             key: 'neverMeantToBe'
@@ -53,7 +53,7 @@ class NeverMeantToBe extends Phaser.Scene {
             continueButton.clearTint();
         });
 
-        // Changes the scene from Acceptance to Denial by clicking on the button.
+        // Changes the scene from NeverMeantToBe to Acceptance by clicking on the button.
         containerContinue.on('pointerdown', () => {
             this.scene.start('acceptance');
         });
@@ -77,7 +77,7 @@ class NeverMeantToBe extends Phaser.Scene {
             startOverButton.clearTint();
         });
 
-        // Changes the scene from Acceptance to Denial by clicking on the button.
+        // Changes the scene from NeverMeantToBe to Title by clicking on the button.
         containerStartOver.on('pointerdown', () => {
             this.scene.start('title');
         });

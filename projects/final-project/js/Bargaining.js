@@ -1,12 +1,14 @@
 class Bargaining extends Phaser.Scene {
-    // Creates the key term that will be used to call this class.
+    // Creates the key name that will be used to call this class.
     constructor() {
         super({
             key: 'bargaining'
         });
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
+        // The initial position of the coyosheep is.
         this.coyosheepOrientation = 'right';
+        // The initial stage of the mirror starts at the first frame.
         this.mirrorStage = 0;
     }
 
@@ -55,11 +57,10 @@ class Bargaining extends Phaser.Scene {
 
     // Calls the createSheep() function from create to create the sheep sprite and its position.
     createSheep() {
-        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
+        // Creates the sheep sprite in Bargaining that now has the same position as the last postion it was in.
         this.sheep = this.physics.add.sprite(this.data.sheep.x, 550, 'sheep');
         this.sheepOrientation = this.data.sheepOrientation;
 
-        this.sheep.setMass(5);
         // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and others that can.
         const smallBounds = new Phaser.Geom.Rectangle(0, 0, this.game.canvas.width, this.game.canvas.height + 100);
 
@@ -67,6 +68,8 @@ class Bargaining extends Phaser.Scene {
         this.sheep.body.customBoundsRectangle = smallBounds;
         // Creates the setCollideWorldBounds function from Phaser 3.
         this.sheep.setCollideWorldBounds(true);
+        // Creates the mass of the sheep.
+        this.sheep.setMass(5);
     }
 
     // Calls the createCoyosheep() function from create to create the coyosheep sprite and its position.
@@ -81,7 +84,7 @@ class Bargaining extends Phaser.Scene {
         this.mirror = this.physics.add.sprite(400, 100, 'mirror');
         // Making the mirror immovable.
         this.mirror.setImmovable(true);
-        // Adding a collider between the sheep and the butterfly.
+        // Adding a collider between the sheep and the mirror.
         this.physics.add.collider(this.sheep, this.mirror);
     }
 
@@ -90,21 +93,23 @@ class Bargaining extends Phaser.Scene {
         // Creates the beer sprite in the Bargaining scene.
         this.beer = this.physics.add.sprite(200, 400, 'beer');
 
-        // Creates the beer sprite in the Bargaining scene.
+        // Creates the chips sprite in the Bargaining scene.
         this.chips = this.physics.add.sprite(600, 500, 'chips');
 
         // Calls the objectActivity() function.
+        // When the objectActivity() function is called object 1 is the beer and object 2 are the chips.
         this.objectActivity(this.beer, this.chips);
+        // When the objectActivity() function is called object 1 are the chips and object 2 is the beer.
         this.objectActivity(this.chips, this.beer);
     }
 
     // Calls the objectActivity() function from the createBeerChips function to create the mirror animation when the beer or the chips sprite collide with the mirror.
     objectActivity(object1, object2) {
-        // Adding a collider between the sheep and the butterfly.
+        // Adding a collider between the sheep and the first object.
         this.physics.add.collider(this.sheep, object1);
-        // Adding a collider between the sheep and the butterfly.
+        // Adding a collider between the first object and the second object.
         this.physics.add.collider(object1, object2);
-        // Adding a collider between the sheep and the butterfly.
+        // Adding a collider between the first object and the mirror.
         this.physics.add.collider(object1, this.mirror, (theObject, mirror) => {
             let allStages = ['mirrorcracked', 'mirrorbreaking', 'mirrorfalling', 'mirrorbroken'];
             if (this.mirrorStage < allStages.length) {
@@ -116,15 +121,15 @@ class Bargaining extends Phaser.Scene {
                 this.scene.start('maybeIf');
             }
         });
-        // Adding a bounce to the butterfly.
+        // Adding a bounce to the first object.
         object1.setBounce(1);
-
+        // Adding mass to the first object.
         object1.setMass(10);
-        // Creates the wall boundary for the butterfly.
+        // Creates the wall boundary for the first object.
         object1.setCollideWorldBounds(true);
-        // Adding velocity to the butterfly movement and making it random each time the scene starts.
+        // Adding velocity to the first object movement and making it random each time the scene starts.
         object1.setVelocity(Phaser.Math.Between(5, 300), Phaser.Math.Between(5, 300));
-        // Puts the flower in random positions each time.
+        // Puts the first object in random positions each time.
         Phaser.Actions.RandomRectangle([object1], this.physics.world.bounds);
     }
 
@@ -184,7 +189,7 @@ class Bargaining extends Phaser.Scene {
             this.coyosheep.setVelocity(300, 0);
         }
 
-        // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
+        // Creates the coyosheep animation right and idle when the coyosheep moves completely to the right or is idle.
         if (this.coyosheep.body.velocity.x === 0) {
             this.coyosheep.anims.play('coyosheepidle-' + this.coyosheepOrientation, true);
         }

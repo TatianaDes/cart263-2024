@@ -1,5 +1,5 @@
 class BeOkay extends Phaser.Scene {
-    // Creates the key term that will be used to call this class.
+    // Creates the key name that will be used to call this class.
     constructor() {
         super({
             key: 'beOkay'
@@ -51,7 +51,7 @@ class BeOkay extends Phaser.Scene {
             startOverButton.clearTint();
         });
 
-        // Changes the scene from Acceptance to Denial by clicking on the button.
+        // Changes the scene from BeOkay to Title by clicking on the button.
         container.on('pointerdown', () => {
             this.scene.start('title');
         });

@@ -1,15 +1,16 @@
 class Depression extends Phaser.Scene {
-    // Creates the key term that will be used to call this class.
+    // Creates the key name that will be used to call this class.
     constructor() {
         super({
             key: 'depression'
         });
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
+        // The initial position of the coyosheep is.
         this.coyosheepOrientation = 'right';
+        // The initial stage of the bin starts at the first frame.
         this.binStage = 0;
-
-        // Creates the variable lastTrees and makes it record the amount of live time it has taken for them to be created.
+        // Creates the variable lastRain and makes it record the amount of live time it has taken for them to be created.
         this.lastRain = new Date().getTime();
     }
 
@@ -40,7 +41,7 @@ class Depression extends Phaser.Scene {
     update() {
         // Updates the sheepMovement() function.
         this.sheepMovement();
-        // Updates the treesFalling() function.
+        // Updates the rainFalling() function.
         this.rainFalling();
         // Updates the coyosheepMovement() function.
         this.coyosheepMovement();
@@ -74,11 +75,10 @@ class Depression extends Phaser.Scene {
 
     // Calls the createSheep() function from create to create the sheep sprite and its position.
     createSheep() {
-        // Creates the sheep sprite in Anger that now has the same position as the last postion it was in.
+        // Creates the sheep sprite in Depression that now has the same position as the last postion it was in.
         this.sheep = this.physics.add.sprite(750, this.data.sheep.y, 'sheep');
         this.sheepOrientation = this.data.sheepOrientation;
 
-        this.sheep.setMass(5);
         // Creates a bounding boarder that cannot be passed on top of the canvas to give it the ability to have some sides that cannot be passed and others that can.
         const smallBounds = new Phaser.Geom.Rectangle(0, 0, this.game.canvas.width + 100, this.game.canvas.height);
 
@@ -86,42 +86,43 @@ class Depression extends Phaser.Scene {
         this.sheep.body.customBoundsRectangle = smallBounds;
         // Creates the setCollideWorldBounds function from Phaser 3.
         this.sheep.setCollideWorldBounds(true);
+        // Creates the mass of the sheep.
+        this.sheep.setMass(5);
     }
 
     // Calls the createBin() function from create to create the bin sprite and its position.
     createBin() {
         // Creating the bin sprite and its initial position.
         this.bin = this.physics.add.sprite(50, 250, 'bin');
-
         // Making the bin immovable.
         this.bin.setImmovable(true);
-        // Adding a collider between the sheep and the butterfly.
+        // Adding a collider between the sheep and the bin.
         this.physics.add.collider(this.sheep, this.bin);
     }
 
     // Calls the createTissues() function from create to create the tissue group and its attributes.
     createTissues() {
-        // Create the tree image and make it a group.
+        // Creates the tissue image and make it a group.
         this.tissue = this.physics.add.group({
-            // Key term being used.
+            // Key name being used.
             key: 'tissue',
             // How many are being created.
             quantity: 5,
             // How heavy the object will be when falling and colliding with objects.
             mass: 1,
-
+            // How much drag the object will have.
             drag: 100,
-
+            // How much bounce on the x value of the tissue will it have.
             bounceX: 0.5,
-
+            // How much bounce on the y value of the tissue will it have.
             bounceY: 0.5,
-
+            // Have it not be able to collide with the walls.
             collideWorldBounds: true
         });
-        // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
+        // Calls the tissues into an array called getChildren and makes them stay between the canvas bounds.
         Phaser.Actions.RandomRectangle(this.tissue.getChildren(), { x: 50, y: 50, width: 650, height: 450 });
 
-        // Allows for there to be collision between the trees and the sheep as well as the trees with one another.
+        // Allows for there to be collision between the tissues and the sheep as well as the tissues with one another.
         this.physics.add.collider(this.sheep, this.tissue);
         this.physics.add.collider(this.tissue, this.tissue);
 
@@ -131,7 +132,7 @@ class Depression extends Phaser.Scene {
 
     // Calls the tissueActivity() function from createTissues() to create the animation of the bin filling up when a tissue collides with it.
     tissueActivity() {
-        // Adding a collider between the sheep and the butterfly.
+        // Adding a collider between the tissue and the bin.
         this.physics.add.collider(this.tissue, this.bin, (bin, tissue) => {
             let allStages = ['binfilling', 'binfull', 'binoverflow', 'binfloor'];
             if (this.binStage < allStages.length) {
@@ -141,6 +142,7 @@ class Depression extends Phaser.Scene {
             }
             else if (this.binStage >= allStages.length) {
                 this.binStage = 0;
+                // Starts the scene Missing after the final stage.
                 this.scene.start('missing');
             }
         });
@@ -197,27 +199,26 @@ class Depression extends Phaser.Scene {
     rainFalling() {
         // Creates a constant for the function new Date().getTime() which is a function already understood by JavaScript to get the current live time.
         const currentTime = new Date().getTime();
-        // Creates an if statement that measure if the current live time minus the last set of trees that fell are less than 1 second in between each other, then new trees will fall.
+        // Creates an if statement that measure if the current live time minus the last set of rain that fell are less than 1 second in between each other, then new rain will fall.
         if (currentTime - this.lastRain > 1000) {
             // Calls the this.lastRain information from the constructor.
             this.lastRain = new Date().getTime();
-            // Create the tree image and make it a group.
+            // Create the rain image and make it a group.
             this.rain = this.physics.add.group({
-                // Key term being used.
+                // Key name being used.
                 key: 'rain',
                 // How many are being created.
                 quantity: 8,
                 // How quickly the gravity will make the object fall.
                 gravityY: 100,
-
+                // How much velocity on the x value is on the object.
                 velocityX: -100,
-
                 // How heavy the object will be when falling and colliding with objects.
                 mass: 20
             });
-            // Calls the trees into an array called getChildren and makes them stay between the canvas bounds.
+            // Calls the rain into an array called getChildren and makes them stay between the canvas bounds.
             Phaser.Actions.RandomRectangle(this.rain.getChildren(), { x: 0, y: 0, width: 1200, height: 50 });
-
+            // Allows the rain to have an opacity of 0.6.
             Phaser.Actions.SetAlpha(this.rain.getChildren(), 0.6);
         }
     }
@@ -231,7 +232,7 @@ class Depression extends Phaser.Scene {
             this.coyosheep.setVelocity(300, 0);
         }
 
-        // Creates the coyosheep animation right and left when the coyosheep moves completely to the left and then completely to the right.
+        // Creates the coyosheep animation right and idle when the coyosheep moves completely to the right or is idle.
         if (this.coyosheep.body.velocity.x === 0) {
             this.coyosheep.anims.play('coyosheepidle-' + this.coyosheepOrientation, true);
         }

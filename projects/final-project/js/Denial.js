@@ -1,13 +1,13 @@
 class Denial extends Phaser.Scene {
-    // Creates the key term that will be used to call this class.
+    // Creates the key name that will be used to call this class.
     constructor() {
         super({
             key: 'denial'
         })
         // The initial position of the sheep is.
         this.sheepOrientation = 'right';
+        // The initial stage of the flower starts at the first frame.
         this.flowerStage = 0;
-
         // Creates the variable lastTrees and makes it record the amount of live time it has taken for them to be created.
         this.lastTrees = new Date().getTime();
     }
@@ -102,7 +102,7 @@ class Denial extends Phaser.Scene {
             this.lastTrees = new Date().getTime();
             // Creates the tree image and makes it a group.
             this.tree = this.physics.add.group({
-                // Key term being used.
+                // Key name being used.
                 key: 'tree',
                 // How many are being created.
                 quantity: 8,

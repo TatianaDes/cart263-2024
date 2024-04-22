@@ -1,5 +1,5 @@
 class MaybeIf extends Phaser.Scene {
-    // Creates the key term that will be used to call this class.
+    // Creates the key name that will be used to call this class.
     constructor() {
         super({
             key: 'maybeIf'
@@ -12,7 +12,7 @@ class MaybeIf extends Phaser.Scene {
         this.createBackgroundColor();
         // Creates the createText() function.
         this.createText();
-        // Creates the createStartButton() function.
+        // Creates the createContinueButton() function.
         this.createContinueButton();
     }
 
@@ -51,7 +51,7 @@ class MaybeIf extends Phaser.Scene {
             continueButton.clearTint();
         });
 
-        // Changes the scene from ForNothing to Anger by clicking on the button.
+        // Changes the scene from MaybeIf to Bargaining by clicking on the button.
         container.on('pointerdown', () => {
             this.scene.start('bargaining');
         });

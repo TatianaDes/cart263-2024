@@ -1,5 +1,5 @@
 class Missing extends Phaser.Scene {
-    // Creates the key term that will be used to call this class.
+    // Creates the key name that will be used to call this class.
     constructor() {
         super({
             key: 'missing'
@@ -12,7 +12,7 @@ class Missing extends Phaser.Scene {
         this.createBackgroundColor();
         // Creates the createText() function.
         this.createText();
-        // Creates the createStartButton() function.
+        // Creates the createContinueButton() function.
         this.createContinueButton();
     }
 
@@ -51,7 +51,7 @@ class Missing extends Phaser.Scene {
             continueButton.clearTint();
         });
 
-        // Changes the scene from Acceptance to Denial by clicking on the button.
+        // Changes the scene from Missing to Depression by clicking on the button.
         container.on('pointerdown', () => {
             this.scene.start('depression');
         });
