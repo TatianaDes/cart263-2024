@@ -1,0 +1,39 @@
+h1 {
+    font-size: 3rem;
+}
+
+h1:hover {
+    color: red;
+    font-size: 3.25rem;
+}
+
+h2 {
+    font-family: Helvetica, sans-serif;
+    color: #ff8888;
+}
+
+p {
+    color: #666666;
+}
+
+strong,
+em {
+    color: #4488aa;
+}
+
+#first-section {
+    background-color: rgb(200, 200, 200);
+}
+
+#second-section {
+    background-color: rgb(100, 200, 100);
+}
+
+.second-section-paragraph {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+}
+
+.paragraph-of-text {
+    font-size: 0.5rem;
+}
